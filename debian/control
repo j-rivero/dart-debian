@@ -34,7 +34,7 @@ Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido (= ${binary:Version}),
+         libkido0.1 (= ${binary:Version}),
          libeigen3-dev,
          libassimp-dev (>= 3),
          libfcl-dev,
@@ -64,7 +64,7 @@ Description: Kinematics Dynamics and Optimization Library - development files
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido
+Package: libkido0.1
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
@@ -94,13 +94,43 @@ Description: Kinematics Dynamics and Optimization Library - main library
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
+Package: libkido0.1-dbg
+Section: libs
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Kinematics Dynamics and Optimization Library - debug symbols
+ KIDO is a collaborative, cross-platform, open source library created by the
+ Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
+ structures and algorithms for kinematic and dynamic applications in robotics
+ and computer animation.
+ KIDO is distinguished by it's accuracy and stability due to its use of
+ generalized coordinates to represent articulated rigid body systems and
+ computation of Lagrange's equations derived from D.Alembert's principle to
+ describe the dynamics of motion.
+ For developers, in contrast to many popular physics engines which view the
+ simulator as a black box, KIDO gives full access to internal kinematic and
+ dynamic quantities, such as the mass matrix, Coriolis and centrifugal forces,
+ transformation matrices and their derivatives. KIDO also provides efficient
+ computation of Jacobian matrices for arbitrary body points and coordinate
+ frames. Contact and collision are handled using an implicit time-stepping,
+ velocity-based LCP (linear-complementarity problem) to guarantee
+ non-penetration, directional friction, and approximated Coulomb friction cone
+ conditions. For collision detection, KIDO uses FCL developed by Willow Garage
+ and the UNC Gamma Lab.
+ KIDO has applications in robotics and computer animation because it features a
+ multibody dynamic simulator and tools for control and motion planning.
+ Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
+ software created by the Georgia Tech Graphics Lab.
+
 Package: libkido-planning-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          libkido-dev,
-         libkido-planning (= ${binary:Version}),
+         libkido-planning0.1 (= ${binary:Version}),
          libflann-dev
 Description: Kinematics Dynamics and Optimization Library - planning dev files
  KIDO is a collaborative, cross-platform, open source library created by the
@@ -126,7 +156,7 @@ Description: Kinematics Dynamics and Optimization Library - planning dev files
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-planning
+Package: libkido-planning0.1
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
@@ -156,13 +186,43 @@ Description: Kinematics Dynamics and Optimization Library - planning library
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
+Package: libkido-planning0.1-dbg
+Section: libs
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Kinematics Dynamics and Optimization Library - planning lib debug
+ KIDO is a collaborative, cross-platform, open source library created by the
+ Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
+ structures and algorithms for kinematic and dynamic applications in robotics
+ and computer animation.
+ KIDO is distinguished by it's accuracy and stability due to its use of
+ generalized coordinates to represent articulated rigid body systems and
+ computation of Lagrange's equations derived from D.Alembert's principle to
+ describe the dynamics of motion.
+ For developers, in contrast to many popular physics engines which view the
+ simulator as a black box, KIDO gives full access to internal kinematic and
+ dynamic quantities, such as the mass matrix, Coriolis and centrifugal forces,
+ transformation matrices and their derivatives. KIDO also provides efficient
+ computation of Jacobian matrices for arbitrary body points and coordinate
+ frames. Contact and collision are handled using an implicit time-stepping,
+ velocity-based LCP (linear-complementarity problem) to guarantee
+ non-penetration, directional friction, and approximated Coulomb friction cone
+ conditions. For collision detection, KIDO uses FCL developed by Willow Garage
+ and the UNC Gamma Lab.
+ KIDO has applications in robotics and computer animation because it features a
+ multibody dynamic simulator and tools for control and motion planning.
+ Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
+ software created by the Georgia Tech Graphics Lab.
+
 Package: libkido-utils-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          libkido-dev,
-         libkido-utils (= ${binary:Version}),
+         libkido-utils0.1 (= ${binary:Version}),
          libtinyxml-dev,
          libtinyxml2-dev,
          liburdfdom-dev
@@ -190,7 +250,7 @@ Description: Kinematics Dynamics and Optimization Library - utils dev files
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-utils
+Package: libkido-utils0.1
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
@@ -220,6 +280,37 @@ Description: Kinematics Dynamics and Optimization Library - utils library
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
+Package: libkido-utils0.1-dbg
+Section: libs
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Kinematics Dynamics and Optimization Library - utils lib debug
+ KIDO is a collaborative, cross-platform, open source library created by the
+ Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
+ structures and algorithms for kinematic and dynamic applications in robotics
+ and computer animation.
+ KIDO is distinguished by it's accuracy and stability due to its use of
+ generalized coordinates to represent articulated rigid body systems and
+ computation of Lagrange's equations derived from D.Alembert's principle to
+ describe the dynamics of motion.
+ For developers, in contrast to many popular physics engines which view the
+ simulator as a black box, KIDO gives full access to internal kinematic and
+ dynamic quantities, such as the mass matrix, Coriolis and centrifugal forces,
+ transformation matrices and their derivatives. KIDO also provides efficient
+ computation of Jacobian matrices for arbitrary body points and coordinate
+ frames. Contact and collision are handled using an implicit time-stepping,
+ velocity-based LCP (linear-complementarity problem) to guarantee
+ non-penetration, directional friction, and approximated Coulomb friction cone
+ conditions. For collision detection, KIDO uses FCL developed by Willow Garage
+ and the UNC Gamma Lab.
+ KIDO has applications in robotics and computer animation because it features a
+ multibody dynamic simulator and tools for control and motion planning.
+ Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
+ software created by the Georgia Tech Graphics Lab.
+
+
 Package: libkido-gui-dev
 Section: libdevel
 Architecture: any
@@ -227,7 +318,7 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          libkido-dev,
          libkido-utils-dev,
-         libkido-gui (= ${binary:Version}),
+         libkido-gui0.1 (= ${binary:Version}),
          freeglut3-dev,
          libxi-dev,
          libxmu-dev
@@ -255,7 +346,7 @@ Description: Kinematics Dynamics and Optimization Library - gui dev files
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-gui
+Package: libkido-gui0.1
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
@@ -285,13 +376,43 @@ Description: Kinematics Dynamics and Optimization Library - gui library
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
+Package: libkido-gui0.1-dbg
+Section: libs
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Kinematics Dynamics and Optimization Library - gui lib debug
+ KIDO is a collaborative, cross-platform, open source library created by the
+ Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
+ structures and algorithms for kinematic and dynamic applications in robotics
+ and computer animation.
+ KIDO is distinguished by it's accuracy and stability due to its use of
+ generalized coordinates to represent articulated rigid body systems and
+ computation of Lagrange's equations derived from D.Alembert's principle to
+ describe the dynamics of motion.
+ For developers, in contrast to many popular physics engines which view the
+ simulator as a black box, KIDO gives full access to internal kinematic and
+ dynamic quantities, such as the mass matrix, Coriolis and centrifugal forces,
+ transformation matrices and their derivatives. KIDO also provides efficient
+ computation of Jacobian matrices for arbitrary body points and coordinate
+ frames. Contact and collision are handled using an implicit time-stepping,
+ velocity-based LCP (linear-complementarity problem) to guarantee
+ non-penetration, directional friction, and approximated Coulomb friction cone
+ conditions. For collision detection, KIDO uses FCL developed by Willow Garage
+ and the UNC Gamma Lab.
+ KIDO has applications in robotics and computer animation because it features a
+ multibody dynamic simulator and tools for control and motion planning.
+ Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
+ software created by the Georgia Tech Graphics Lab.
+
 Package: libkido-gui-osg-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          libkido-gui-dev,
-         libkido-gui-osg (= ${binary:Version}),
+         libkido-gui-osg0.1 (= ${binary:Version}),
          libopenthreads-dev,
          libopenscenegraph-dev
 Description: Kinematics Dynamics and Optimization Library - gui-osg dev files
@@ -318,7 +439,7 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg dev files
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-gui-osg
+Package: libkido-gui-osg0.1
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
@@ -348,13 +469,44 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg library
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
+Package: libkido-gui-osg0.1-dbg
+Section: libs
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Kinematics Dynamics and Optimization Library - gui-osg lib debug
+ KIDO is a collaborative, cross-platform, open source library created by the
+ Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
+ structures and algorithms for kinematic and dynamic applications in robotics
+ and computer animation.
+ KIDO is distinguished by it's accuracy and stability due to its use of
+ generalized coordinates to represent articulated rigid body systems and
+ computation of Lagrange's equations derived from D.Alembert's principle to
+ describe the dynamics of motion.
+ For developers, in contrast to many popular physics engines which view the
+ simulator as a black box, KIDO gives full access to internal kinematic and
+ dynamic quantities, such as the mass matrix, Coriolis and centrifugal forces,
+ transformation matrices and their derivatives. KIDO also provides efficient
+ computation of Jacobian matrices for arbitrary body points and coordinate
+ frames. Contact and collision are handled using an implicit time-stepping,
+ velocity-based LCP (linear-complementarity problem) to guarantee
+ non-penetration, directional friction, and approximated Coulomb friction cone
+ conditions. For collision detection, KIDO uses FCL developed by Willow Garage
+ and the UNC Gamma Lab.
+ KIDO has applications in robotics and computer animation because it features a
+ multibody dynamic simulator and tools for control and motion planning.
+ Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
+ software created by the Georgia Tech Graphics Lab.
+
+
 Package: libkido-optimizer-nlopt-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          libkido-dev,
-         libkido-optimizer-nlopt (= ${binary:Version}),
+         libkido-optimizer-nlopt0.1 (= ${binary:Version}),
          libnlopt-dev
 Description: Kinematics Dynamics and Optimization Library - optimizer dev files
  KIDO is a collaborative, cross-platform, open source library created by the
@@ -380,7 +532,7 @@ Description: Kinematics Dynamics and Optimization Library - optimizer dev files
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-optimizer-nlopt
+Package: libkido-optimizer-nlopt0.1
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
@@ -410,13 +562,43 @@ Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
+Package: libkido-optimizer-nlopt0.1-dbg
+Section: libs
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Kinematics Dynamics and Optimization Library - nlopt debug lib
+ KIDO is a collaborative, cross-platform, open source library created by the
+ Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
+ structures and algorithms for kinematic and dynamic applications in robotics
+ and computer animation.
+ KIDO is distinguished by it's accuracy and stability due to its use of
+ generalized coordinates to represent articulated rigid body systems and
+ computation of Lagrange's equations derived from D.Alembert's principle to
+ describe the dynamics of motion.
+ For developers, in contrast to many popular physics engines which view the
+ simulator as a black box, KIDO gives full access to internal kinematic and
+ dynamic quantities, such as the mass matrix, Coriolis and centrifugal forces,
+ transformation matrices and their derivatives. KIDO also provides efficient
+ computation of Jacobian matrices for arbitrary body points and coordinate
+ frames. Contact and collision are handled using an implicit time-stepping,
+ velocity-based LCP (linear-complementarity problem) to guarantee
+ non-penetration, directional friction, and approximated Coulomb friction cone
+ conditions. For collision detection, KIDO uses FCL developed by Willow Garage
+ and the UNC Gamma Lab.
+ KIDO has applications in robotics and computer animation because it features a
+ multibody dynamic simulator and tools for control and motion planning.
+ Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
+ software created by the Georgia Tech Graphics Lab.
+
 Package: libkido-optimizer-ipopt-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          libkido-dev,
-         libkido-optimizer-ipopt (= ${binary:Version}),
+         libkido-optimizer-ipopt0.1 (= ${binary:Version}),
          coinor-libipopt-dev
 Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
  KIDO is a collaborative, cross-platform, open source library created by the
@@ -442,13 +624,43 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-optimizer-ipopt
+Package: libkido-optimizer-ipopt0.1
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
+ KIDO is a collaborative, cross-platform, open source library created by the
+ Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
+ structures and algorithms for kinematic and dynamic applications in robotics
+ and computer animation.
+ KIDO is distinguished by it's accuracy and stability due to its use of
+ generalized coordinates to represent articulated rigid body systems and
+ computation of Lagrange's equations derived from D.Alembert's principle to
+ describe the dynamics of motion.
+ For developers, in contrast to many popular physics engines which view the
+ simulator as a black box, KIDO gives full access to internal kinematic and
+ dynamic quantities, such as the mass matrix, Coriolis and centrifugal forces,
+ transformation matrices and their derivatives. KIDO also provides efficient
+ computation of Jacobian matrices for arbitrary body points and coordinate
+ frames. Contact and collision are handled using an implicit time-stepping,
+ velocity-based LCP (linear-complementarity problem) to guarantee
+ non-penetration, directional friction, and approximated Coulomb friction cone
+ conditions. For collision detection, KIDO uses FCL developed by Willow Garage
+ and the UNC Gamma Lab.
+ KIDO has applications in robotics and computer animation because it features a
+ multibody dynamic simulator and tools for control and motion planning.
+ Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
+ software created by the Georgia Tech Graphics Lab.
+
+Package: libkido-optimizer-ipopt0.1-dbg
+Section: libs
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: Kinematics Dynamics and Optimization Library - ipopt debug
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics

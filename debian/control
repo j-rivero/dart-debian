@@ -96,6 +96,7 @@ Description: Kinematics Dynamics and Optimization Library - main library
 
 Package: libkido0.1-dbg
 Section: debug
+Priority: extra
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido0.1 (= ${binary:Version}),
@@ -188,6 +189,7 @@ Description: Kinematics Dynamics and Optimization Library - planning library
 
 Package: libkido-planning0.1-dbg
 Section: debug
+Priority: extra
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido-planning0.1 (= ${binary:Version}),
@@ -282,6 +284,7 @@ Description: Kinematics Dynamics and Optimization Library - utils library
 
 Package: libkido-utils0.1-dbg
 Section: debug
+Priority: extra
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido-utils0.1 (= ${binary:Version}),
@@ -378,6 +381,7 @@ Description: Kinematics Dynamics and Optimization Library - gui library
 
 Package: libkido-gui0.1-dbg
 Section: debug
+Priority: extra
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido-gui0.1 (= ${binary:Version}),
@@ -471,6 +475,7 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg library
 
 Package: libkido-gui-osg0.1-dbg
 Section: debug
+Priority: extra
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido-gui-osg0.1 (= ${binary:Version}),
@@ -564,6 +569,7 @@ Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
 
 Package: libkido-optimizer-nlopt0.1-dbg
 Section: debug
+Priority: extra
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido-optimizer-nlopt0.1 (= ${binary:Version}),
@@ -656,6 +662,7 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
 
 Package: libkido-optimizer-ipopt0.1-dbg
 Section: debug
+Priority: extra
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido-optimizer-ipopt0.1 (= ${binary:Version}),

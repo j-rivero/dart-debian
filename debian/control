@@ -95,7 +95,7 @@ Description: Kinematics Dynamics and Optimization Library - main library
  software created by the Georgia Tech Graphics Lab.
 
 Package: libkido0.1-dbg
-Section: libs
+Section: debug
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido0.1 (= ${binary:Version}),
@@ -187,7 +187,7 @@ Description: Kinematics Dynamics and Optimization Library - planning library
  software created by the Georgia Tech Graphics Lab.
 
 Package: libkido-planning0.1-dbg
-Section: libs
+Section: debug
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido-planning0.1 (= ${binary:Version}),
@@ -281,7 +281,7 @@ Description: Kinematics Dynamics and Optimization Library - utils library
  software created by the Georgia Tech Graphics Lab.
 
 Package: libkido-utils0.1-dbg
-Section: libs
+Section: debug
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido-utils0.1 (= ${binary:Version}),
@@ -377,7 +377,7 @@ Description: Kinematics Dynamics and Optimization Library - gui library
  software created by the Georgia Tech Graphics Lab.
 
 Package: libkido-gui0.1-dbg
-Section: libs
+Section: debug
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido-gui0.1 (= ${binary:Version}),
@@ -470,7 +470,7 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg library
  software created by the Georgia Tech Graphics Lab.
 
 Package: libkido-gui-osg0.1-dbg
-Section: libs
+Section: debug
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido-gui-osg0.1 (= ${binary:Version}),
@@ -563,7 +563,7 @@ Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
  software created by the Georgia Tech Graphics Lab.
 
 Package: libkido-optimizer-nlopt0.1-dbg
-Section: libs
+Section: debug
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido-optimizer-nlopt0.1 (= ${binary:Version}),
@@ -655,7 +655,7 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
  software created by the Georgia Tech Graphics Lab.
 
 Package: libkido-optimizer-ipopt0.1-dbg
-Section: libs
+Section: debug
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: libkido-optimizer-ipopt0.1 (= ${binary:Version}),

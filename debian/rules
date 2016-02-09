@@ -35,9 +35,9 @@ override_dh_auto_install:
 
 override_dh_strip:
 	dh_strip -plibkido-gui-osg0.1 --dbg-package=libkido-gui-osg0.1-dbg
-	dh_strip -plibkido-gui0.1 --dbg-package=libkido-gui0.1-dev
-	dh_strip -plibkido-optimizer-ipopt0.1 --dbg-package=libkido-optimizer-ipopt0.1-dev
-	dh_strip -plibkido-optimizer-nlopt0.1 --dbg-package=libkido-optimizer-nlopt0.1-dev
-	dh_strip -plibkido-planning0.1 --dbg-package=libkido-planning0.1-dev
-	dh_strip -plibkido-utils0.1 --dbg-package=libkido-utils0.1-dev
-	dh_strip -plibkido0.1 --dbg-package=libkido0.1-dev
+	dh_strip -plibkido-gui0.1 --dbg-package=libkido-gui0.1-dbg
+	dh_strip -plibkido-optimizer-ipopt0.1 --dbg-package=libkido-optimizer-ipopt0.1-dbg
+	dh_strip -plibkido-optimizer-nlopt0.1 --dbg-package=libkido-optimizer-nlopt0.1-dbg
+	dh_strip -plibkido-planning0.1 --dbg-package=libkido-planning0.1-dbg
+	dh_strip -plibkido-utils0.1 --dbg-package=libkido-utils0.1-dbg
+	dh_strip -plibkido0.1 --dbg-package=libkido0.1-dbg

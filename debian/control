@@ -1,6 +1,9 @@
 Source: kido0
-Priority: extra
-Maintainer: Jeongseok Lee <jslee02@gmail.com>
+Maintainer: Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>
+Uploaders: Jose Luis Rivero <jrivero@osrfoundation.org>
+Section: science
+Testsuite: autopkgtest
+Priority: optional
 Build-Depends: debhelper (>= 9),
                cmake,
                libeigen3-dev,
@@ -16,16 +19,15 @@ Build-Depends: debhelper (>= 9),
                libtinyxml-dev,
                libtinyxml2-dev,
                liburdfdom-dev,
-               libboost-dev (>= 1.54.0.1ubuntu1),
-               libboost-system-dev (>= 1.54.0-4ubuntu3),
-               libboost-regex-dev (>= 1.54.0-4ubuntu3),
+               libboost-dev,
+               libboost-system-dev,
+               libboost-regex-dev,
                libopenthreads-dev,
                libopenscenegraph-dev
 Standards-Version: 3.9.6
-Section: libs
+Vcs-Browser: https://anonscm.debian.org/cgit/debian-science/packages/kido.git
+Vcs-Git: git://anonscm.debian.org/debian-science/packages/kido.git
 Homepage: http://dartsim.github.io/
-Vcs-Git: git://github.com/dartsim/dart.git
-Vcs-Browser: https://github.com/dartsim/dart
 
 Package: libkido0-dev
 Section: libdevel

@@ -98,8 +98,8 @@ Package: libkido0.1-dbg
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends},
-         ${shlibs:Depends}
+Depends: libkido0.1 (= ${binary:Version}),
+         ${misc:Depends}
 Description: Kinematics Dynamics and Optimization Library - debug symbols
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -190,8 +190,8 @@ Package: libkido-planning0.1-dbg
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends},
-         ${shlibs:Depends}
+Depends: libkido-planning0.1 (= ${binary:Version}),
+         ${misc:Depends}
 Description: Kinematics Dynamics and Optimization Library - planning lib debug
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -284,8 +284,8 @@ Package: libkido-utils0.1-dbg
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends},
-         ${shlibs:Depends}
+Depends: libkido-utils0.1 (= ${binary:Version}),
+         ${misc:Depends}
 Description: Kinematics Dynamics and Optimization Library - utils lib debug
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -380,8 +380,8 @@ Package: libkido-gui0.1-dbg
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends},
-         ${shlibs:Depends}
+Depends: libkido-gui0.1 (= ${binary:Version}),
+         ${misc:Depends}
 Description: Kinematics Dynamics and Optimization Library - gui lib debug
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -473,8 +473,8 @@ Package: libkido-gui-osg0.1-dbg
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends},
-         ${shlibs:Depends}
+Depends: libkido-gui-osg0.1 (= ${binary:Version}),
+         ${misc:Depends}
 Description: Kinematics Dynamics and Optimization Library - gui-osg lib debug
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -566,8 +566,8 @@ Package: libkido-optimizer-nlopt0.1-dbg
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends},
-         ${shlibs:Depends}
+Depends: libkido-optimizer-nlopt0.1 (= ${binary:Version}),
+         ${misc:Depends}
 Description: Kinematics Dynamics and Optimization Library - nlopt debug lib
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -658,8 +658,8 @@ Package: libkido-optimizer-ipopt0.1-dbg
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends},
-         ${shlibs:Depends}
+Depends: libkido-optimizer-ipopt0.1 (= ${binary:Version}),
+         ${misc:Depends}
 Description: Kinematics Dynamics and Optimization Library - ipopt debug
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data

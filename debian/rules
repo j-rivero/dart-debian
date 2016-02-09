@@ -1,13 +1,37 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
-# Sample debian/rules that uses debhelper.
-# This file was originally written by Joey Hess and Craig Small.
-# As a special exception, when this file is copied by dh-make into a
-# dh-make output file, you may use that output file without restriction.
-# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+CFLAGS:=$(shell dpkg-buildflags --get CFLAGS) $(CPPFLAGS)
+CXXFLAGS:=$(shell dpkg-buildflags --get CXXFLAGS) $(CPPFLAGS)
+LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 
 # Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
+
+CMAKE_FLAGS = \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_C_FLAGS_RELEASE="$(CFLAGS)" \
+        -DCMAKE_CXX_FLAGS_RELEASE="$(CXXFLAGS)" \
+        -DCMAKE_SHARED_LINKER_FLAGS_RELEASE="$(LDFLAGS)" \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DCMAKE_SKIP_INSTALL_RPATH=TRUE
+
+%:
+	dh $@ --parallel --buildsystem=cmake --builddirectory=build
+
+override_dh_clean:
+	rm -rf build bin lib
+	dh_clean
+
+override_dh_auto_configure:
+	mkdir -p build
+	dh_auto_configure --builddirectory=build -- $(CMAKE_FLAGS)
+
+override_dh_auto_build:
+	cd build && $(MAKE)
+
+override_dh_auto_install:
+	dh_auto_install --builddirectory=build
 
 override_dh_strip:
 	dh_strip -plibkido-gui-osg0.1 --dbg-package=libkido-gui-osg0.1-dbg
@@ -17,6 +41,3 @@ override_dh_strip:
 	dh_strip -plibkido-planning0.1 --dbg-package=libkido-planning0.1-dev
 	dh_strip -plibkido-utils0.1 --dbg-package=libkido-utils0.1-dev
 	dh_strip -plibkido0.1 --dbg-package=libkido0.1-dev
-
-%:
-	dh $@ --parallel --buildsystem=cmake

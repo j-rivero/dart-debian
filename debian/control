@@ -29,18 +29,18 @@ Vcs-Browser: https://anonscm.debian.org/cgit/debian-science/packages/kido.git
 Vcs-Git: git://anonscm.debian.org/debian-science/packages/kido.git
 Homepage: http://dartsim.github.io/
 
-Package: libkido0-dev
+Package: libkido-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido0.1 (= ${binary:Version}),
+         libkido (= ${binary:Version}),
          libeigen3-dev,
          libassimp-dev (>= 3),
          libfcl-dev,
          libbullet-dev,
-         libboost-all-dev (>= 1.54.0.1ubuntu1)
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, development files
+         libboost-all-dev
+Description: Kinematics Dynamics and Optimization Library - development files
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -64,13 +64,13 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido0.1
+Package: libkido
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, library files
+Description: Kinematics Dynamics and Optimization Library - main library
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -94,15 +94,15 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-planning0-dev
+Package: libkido-planning-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido0-dev,
-         libkido-planning0.1 (= ${binary:Version}),
+         libkido-dev,
+         libkido-planning (= ${binary:Version}),
          libflann-dev
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, development component files
+Description: Kinematics Dynamics and Optimization Library - planning dev files
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -126,13 +126,13 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-planning0.1
+Package: libkido-planning
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, library component files
+Description: Kinematics Dynamics and Optimization Library - planning library
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -156,17 +156,17 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-utils0-dev
+Package: libkido-utils-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido0-dev,
-         libkido-utils0.1 (= ${binary:Version}),
+         libkido-dev,
+         libkido-utils (= ${binary:Version}),
          libtinyxml-dev,
          libtinyxml2-dev,
          liburdfdom-dev
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, development component files
+Description: Kinematics Dynamics and Optimization Library - utils dev files
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -190,13 +190,13 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-utils0.1
+Package: libkido-utils
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, library component files
+Description: Kinematics Dynamics and Optimization Library - utils library
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -220,18 +220,18 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-gui0-dev
+Package: libkido-gui-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido0-dev,
-         libkido-utils0-dev,
-         libkido-gui0.1 (= ${binary:Version}),
+         libkido-dev,
+         libkido-utils-dev,
+         libkido-gui (= ${binary:Version}),
          freeglut3-dev,
          libxi-dev,
          libxmu-dev
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, development component files
+Description: Kinematics Dynamics and Optimization Library - gui dev files
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -255,13 +255,13 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-gui0.1
+Package: libkido-gui
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, library component files
+Description: Kinematics Dynamics and Optimization Library - gui library
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -285,16 +285,16 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-gui-osg0-dev
+Package: libkido-gui-osg-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido-gui0-dev,
-         libkido-gui-osg0.1 (= ${binary:Version}),
+         libkido-gui-dev,
+         libkido-gui-osg (= ${binary:Version}),
          libopenthreads-dev,
          libopenscenegraph-dev
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, development component files
+Description: Kinematics Dynamics and Optimization Library - gui-osg dev files
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -318,13 +318,13 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-gui-osg0.1
+Package: libkido-gui-osg
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, library component files
+Description: Kinematics Dynamics and Optimization Library - gui-osg library
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -348,15 +348,15 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-optimizer-nlopt0-dev
+Package: libkido-optimizer-nlopt-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido0-dev,
-         libkido-optimizer-nlopt0.1 (= ${binary:Version}),
+         libkido-dev,
+         libkido-optimizer-nlopt (= ${binary:Version}),
          libnlopt-dev
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, development component files
+Description: Kinematics Dynamics and Optimization Library - optimizer dev files
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -380,13 +380,13 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-optimizer-nlopt0.1
+Package: libkido-optimizer-nlopt
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, library component files
+Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -410,15 +410,15 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-optimizer-ipopt0-dev
+Package: libkido-optimizer-ipopt-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido0-dev,
-         libkido-optimizer-ipopt0.1 (= ${binary:Version}),
+         libkido-dev,
+         libkido-optimizer-ipopt (= ${binary:Version}),
          coinor-libipopt-dev
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, development component files
+Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -442,13 +442,13 @@ Description: Kinematics Dynamics and Optimization Library for Animation and Robo
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-optimizer-ipopt0.1
+Package: libkido-optimizer-ipopt
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${shlibs:Depends}
-Description: Kinematics Dynamics and Optimization Library for Animation and Robotics, library component files
+Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics

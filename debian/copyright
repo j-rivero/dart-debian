@@ -1,6 +1,7 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: KIDO
 Source: http://github.com/dartsim/dart
+File-Excluded: .travis.yml .gitignore
 
 Files: *
 Copyright: 2008-2015 Georgia Tech Research Corporation

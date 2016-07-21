@@ -24,7 +24,7 @@ Build-Depends: debhelper (>= 9.20151219),
                libboost-regex-dev,
                libopenthreads-dev,
                libopenscenegraph-dev
-Standards-Version: 3.9.6
+Standards-Version: 3.9.8
 Vcs-Browser: https://anonscm.debian.org/cgit/debian-science/packages/kido.git
 Vcs-Git: git://anonscm.debian.org/debian-science/packages/kido.git
 Homepage: http://dartsim.github.io/

@@ -4,7 +4,7 @@ Uploaders: Jose Luis Rivero <jrivero@osrfoundation.org>
 Section: science
 Testsuite: autopkgtest
 Priority: optional
-Build-Depends: debhelper (>= 9),
+Build-Depends: debhelper (>= 9.20151219),
                cmake,
                libeigen3-dev,
                libfcl-dev (>= 0.2.7),

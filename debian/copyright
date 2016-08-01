@@ -42,7 +42,7 @@ Files: kido/gui/lodepng.hpp
 Copyright: 2005-2012 Lode Vandevenne
 License: Zlib or Libpng
 
-Files: kido/tools/cpplint.py
+Files: tools/cpplint.py
 Copyright: 2009 Google Inc. All rights reserved
 License: AS-IS
 

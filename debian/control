@@ -63,6 +63,7 @@ Description: Kinematics Dynamics and Optimization Library - development files
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains main headers and other tools for development.
 
 Package: libkido0.1
 Section: libs
@@ -93,6 +94,7 @@ Description: Kinematics Dynamics and Optimization Library - main library
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains the main library of KIDO.
 
 Package: libkido-planning-dev
 Section: libdevel
@@ -125,6 +127,7 @@ Description: Kinematics Dynamics and Optimization Library - planning dev files
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains the planning headers and other tools for development.
 
 Package: libkido-planning0.1
 Section: libs
@@ -155,6 +158,7 @@ Description: Kinematics Dynamics and Optimization Library - planning library
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains the KIDO planning library.
 
 Package: libkido-utils-dev
 Section: libdevel
@@ -189,6 +193,7 @@ Description: Kinematics Dynamics and Optimization Library - utils dev files
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains headers and other useful tools for development.
 
 Package: libkido-utils0.1
 Section: libs
@@ -219,6 +224,7 @@ Description: Kinematics Dynamics and Optimization Library - utils library
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains the KIDO utils library.
 
 Package: libkido-gui-dev
 Section: libdevel
@@ -254,6 +260,7 @@ Description: Kinematics Dynamics and Optimization Library - gui dev files
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains GUI headers and other useful tools for GUI development.
 
 Package: libkido-gui0.1
 Section: libs
@@ -317,6 +324,8 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg dev files
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains GUI OpenSceneGraph headers and other useful tools for
+ GUI OpenSceneGraph development.
 
 Package: libkido-gui-osg0.1
 Section: libs
@@ -347,6 +356,7 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg library
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains the GUI OpenSceneGraph optimizer library.
 
 Package: libkido-optimizer-nlopt-dev
 Section: libdevel
@@ -379,6 +389,8 @@ Description: Kinematics Dynamics and Optimization Library - optimizer dev files
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains NLOPT optimizer headers and other useful tools for
+ development.
 
 Package: libkido-optimizer-nlopt0.1
 Section: libs
@@ -409,6 +421,7 @@ Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains the NLOPT optimizer library.
 
 Package: libkido-optimizer-ipopt-dev
 Section: libdevel
@@ -441,6 +454,8 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains IPOPT optimizer headers and other useful tools for
+ development.
 
 Package: libkido-optimizer-ipopt0.1
 Section: libs
@@ -471,3 +486,4 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains the ipopt optimizer library.

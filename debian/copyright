@@ -46,7 +46,7 @@ Files: tools/cpplint.py
 Copyright: 2009 Google Inc. All rights reserved
 License: AS-IS
 
-Files: kido/utils/ParserSkel.cpp
+Files: kido/utils/ParserSkel.cpp_
 Copyright: 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
 License: GPL-2+
   See `/usr/share/common-licenses/GPL-2`

@@ -1,3 +1,8 @@
+Description: Respect CFLAGS and CXXFLAGS
+Author: Jose Luis Rivero <jrivero@osrfoundation.org>
+Last-Update: 2016-08-03
+Forwarded: No
+
 diff --git a/CMakeLists.txt b/CMakeLists.txt
 index 36526d3..6e6a322 100644
 --- a/CMakeLists.txt

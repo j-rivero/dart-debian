@@ -1,3 +1,6 @@
 # package.xml is not a PEAR config.
 # package.xml is a file used by the ROS framework (robot operative system)
 kido source: pear-package-without-pkg-php-tools-builddep
+
+# False postive warning. See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=829545
+kido source: unknown-field-in-dsc testsuite-triggers

@@ -1,3 +1,9 @@
+kido (0.1.0+dfsg-2) unstable; urgency=medium
+
+  * Patch to remove msse2 compiler flag
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Thu, 25 Aug 2016 19:03:55 +0000
+
 kido (0.1.0+dfsg-1) unstable; urgency=medium
 
   * Initial release. (Closes: #812126)

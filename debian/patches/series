@@ -1,1 +1,2 @@
 0001-respect-cflags.patch
+0002-do-not-use-msse2.patch

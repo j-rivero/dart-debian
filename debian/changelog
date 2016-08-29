@@ -4,6 +4,7 @@ kido (0.1.0+dfsg-2) unstable; urgency=medium
     (Closes: #835734)
   * Patch to remove msse2 compiler flag
     (Closes: #833817)
+  * Fix tinyxml new constant
 
  -- Jose Luis Rivero <jrivero@osrfoundation.org>  Mon, 29 Aug 2016 01:02:04 +0000
 

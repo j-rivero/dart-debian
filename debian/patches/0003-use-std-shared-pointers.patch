@@ -1,0 +1,39 @@
+diff --git a/kido/collision/fcl/FCLCollisionNode.cpp b/kido/collision/fcl/FCLCollisionNode.cpp
+index bf4e7e4..d07c1ba 100644
+--- a/kido/collision/fcl/FCLCollisionNode.cpp
++++ b/kido/collision/fcl/FCLCollisionNode.cpp
+@@ -351,7 +351,7 @@ FCLCollisionNode::FCLCollisionNode(dynamics::BodyNode* _bodyNode)
+   {
+     dynamics::ShapePtr shape = _bodyNode->getCollisionShape(i);
+ 
+-    boost::shared_ptr<fcl::CollisionGeometry> fclCollGeom;
++    std::shared_ptr<fcl::CollisionGeometry> fclCollGeom;
+ 
+     switch (shape->getShapeType())
+     {
+diff --git a/kido/utils/urdf/KidoLoader.cpp b/kido/utils/urdf/KidoLoader.cpp
+index a7e50c5..4477525 100644
+--- a/kido/utils/urdf/KidoLoader.cpp
++++ b/kido/utils/urdf/KidoLoader.cpp
+@@ -23,7 +23,7 @@
+ #include "kido/simulation/World.hpp"
+ #include "kido/utils/urdf/urdf_world_parser.hpp"
+ 
+-using ModelInterfacePtr = boost::shared_ptr<urdf::ModelInterface>;
++using ModelInterfacePtr = std::shared_ptr<urdf::ModelInterface>;
+ 
+ namespace kido {
+ namespace utils {
+diff --git a/kido/utils/urdf/urdf_world_parser.hpp b/kido/utils/urdf/urdf_world_parser.hpp
+index 74227bf..96a17bf 100644
+--- a/kido/utils/urdf/urdf_world_parser.hpp
++++ b/kido/utils/urdf/urdf_world_parser.hpp
+@@ -63,7 +63,7 @@ public:
+   /// Copy over a standard urdfEntity
+   Entity(const urdf::Entity& urdfEntity);
+ 
+-  boost::shared_ptr<urdf::ModelInterface> model;
++  std::shared_ptr<urdf::ModelInterface> model;
+   urdf::Pose origin;
+   urdf::Twist twist;
+ 

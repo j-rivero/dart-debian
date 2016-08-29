@@ -1,0 +1,54 @@
+Description: Use new tinyxml constant
+Author: Jose Luis Rivero <jrivero@osrfoundation.org>
+Forwarded: No
+Last-Update: 2016-08-29
+
+diff --git a/kido/utils/XmlHelpers.cpp b/kido/utils/XmlHelpers.cpp
+index 6de40bd..22b8641 100644
+--- a/kido/utils/XmlHelpers.cpp
++++ b/kido/utils/XmlHelpers.cpp
+@@ -731,7 +731,7 @@ bool getAttributeBool(const tinyxml2::XMLElement* element,
+   const int result = element->QueryBoolAttribute(attributeName.c_str(),
+                                                  &val);
+ 
+-  if (result != tinyxml2::XML_NO_ERROR)
++  if (result != tinyxml2::XML_SUCCESS)
+   {
+     dtwarn << "[getAttribute] Error in parsing bool type attribute ["
+            << attributeName << "] of an element [" << element->Name()
+@@ -749,7 +749,7 @@ int getAttributeInt(const tinyxml2::XMLElement* element,
+   int val = 0;
+   const int result = element->QueryIntAttribute(attributeName.c_str(), &val);
+ 
+-  if (result != tinyxml2::XML_NO_ERROR)
++  if (result != tinyxml2::XML_SUCCESS)
+   {
+     dtwarn << "[getAttribute] Error in parsing int type attribute ["
+            << attributeName << "] of an element [" << element->Name()
+@@ -768,7 +768,7 @@ unsigned int getAttributeUInt(const tinyxml2::XMLElement* element,
+   const int result = element->QueryUnsignedAttribute(attributeName.c_str(),
+                                                      &val);
+ 
+-  if (result != tinyxml2::XML_NO_ERROR)
++  if (result != tinyxml2::XML_SUCCESS)
+   {
+     dtwarn << "[getAttribute] Error in parsing unsiged int type attribute ["
+            << attributeName << "] of an element [" << element->Name()
+@@ -787,7 +787,7 @@ float getAttributeFloat(const tinyxml2::XMLElement* element,
+   const int result = element->QueryFloatAttribute(attributeName.c_str(),
+                                                   &val);
+ 
+-  if (result != tinyxml2::XML_NO_ERROR)
++  if (result != tinyxml2::XML_SUCCESS)
+   {
+     dtwarn << "[getAttribute] Error in parsing float type attribute ["
+            << attributeName << "] of an element [" << element->Name()
+@@ -806,7 +806,7 @@ double getAttributeDouble(const tinyxml2::XMLElement* element,
+   const int result = element->QueryDoubleAttribute(attributeName.c_str(),
+                                                    &val);
+ 
+-  if (result != tinyxml2::XML_NO_ERROR)
++  if (result != tinyxml2::XML_SUCCESS)
+   {
+     dtwarn << "[getAttribute] Error in parsing double type attribute ["
+            << attributeName << "] of an element [" << element->Name()

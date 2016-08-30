@@ -1,0 +1,20 @@
+Description: Need to add flann to link in tests
+Author: Jose Luis Rivero <jrivero@osrfoundation.org>
+Forwarded: No
+Last-Update: 2016-08-30
+
+diff --git a/unittests/CMakeLists.txt b/unittests/CMakeLists.txt
+index 4afb38a..3ab22bd 100644
+--- a/unittests/CMakeLists.txt
++++ b/unittests/CMakeLists.txt
+@@ -72,6 +72,10 @@ foreach(test ${tests})
+     target_link_libraries(${base} kido kido-utils gtest)
+   endif()
+ 
++  if (${base} STREQUAL "testNearestNeighbor")
++    target_link_libraries(${base} ${FLANN_LIBRARIES})
++  endif()
++
+   set_target_properties(${base} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/tests")
+ 
+   # Add the executable if not to be ignored

@@ -2,3 +2,4 @@
 0002-do-not-use-msse2.patch
 0003-use-std-shared-pointers.patch
 0004-fix-tinyxml-constant.patch
+0005-link_flann_in_test.patch

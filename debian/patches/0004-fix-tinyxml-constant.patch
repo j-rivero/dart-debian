@@ -1,7 +1,6 @@
 Description: Use new tinyxml constant
-Author: Jose Luis Rivero <jrivero@osrfoundation.org>
-Forwarded: No
-Last-Update: 2016-08-29
+Origin: https://github.com/dartsim/dart/pull/750
+Applied-Upstream: 2841967fc6628c9aea58c93227b28abdf5dfbcc2
 
 diff --git a/kido/utils/XmlHelpers.cpp b/kido/utils/XmlHelpers.cpp
 index 6de40bd..22b8641 100644

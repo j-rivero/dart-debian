@@ -1,5 +1,9 @@
+Description: wrap pointers to migrate from boost to std
+Origin: https://github.com/dartsim/dart/pull/750
+Applied-Upstream: 2841967fc6628c9aea58c93227b28abdf5dfbcc2
+
 diff --git a/kido/collision/fcl/FCLCollisionNode.cpp b/kido/collision/fcl/FCLCollisionNode.cpp
-index bf4e7e4..d07c1ba 100644
+index bf4e7e4..d6e5c83 100644
 --- a/kido/collision/fcl/FCLCollisionNode.cpp
 +++ b/kido/collision/fcl/FCLCollisionNode.cpp
 @@ -351,7 +351,7 @@ FCLCollisionNode::FCLCollisionNode(dynamics::BodyNode* _bodyNode)
@@ -7,12 +11,31 @@ index bf4e7e4..d07c1ba 100644
      dynamics::ShapePtr shape = _bodyNode->getCollisionShape(i);
  
 -    boost::shared_ptr<fcl::CollisionGeometry> fclCollGeom;
-+    std::shared_ptr<fcl::CollisionGeometry> fclCollGeom;
++    fcl_shared_ptr<fcl::CollisionGeometry> fclCollGeom;
  
      switch (shape->getShapeType())
      {
+diff --git a/kido/collision/fcl/FCLTypes.hpp b/kido/collision/fcl/FCLTypes.hpp
+index 3463d37..13b68f5 100644
+--- a/kido/collision/fcl/FCLTypes.hpp
++++ b/kido/collision/fcl/FCLTypes.hpp
+@@ -42,6 +42,14 @@
+ #include <fcl/math/matrix_3f.h>
+ #include <fcl/math/transform.h>
+ 
++#if FCL_VERSION_AT_LEAST(0,5,0)
++  template <class T> using fcl_shared_ptr = std::shared_ptr<T>;
++  template <class T> using fcl_weak_ptr = std::weak_ptr<T>;
++#else
++  template <class T> using fcl_shared_ptr = fcl_shared_ptr<T>;
++  template <class T> using fcl_weak_ptr = fcl_weak_ptr<T>;
++#endif
++
+ namespace kido {
+ namespace collision {
+ 
 diff --git a/kido/utils/urdf/KidoLoader.cpp b/kido/utils/urdf/KidoLoader.cpp
-index a7e50c5..4477525 100644
+index a7e50c5..ec36feb 100644
 --- a/kido/utils/urdf/KidoLoader.cpp
 +++ b/kido/utils/urdf/KidoLoader.cpp
 @@ -23,7 +23,7 @@
@@ -20,12 +43,12 @@ index a7e50c5..4477525 100644
  #include "kido/utils/urdf/urdf_world_parser.hpp"
  
 -using ModelInterfacePtr = boost::shared_ptr<urdf::ModelInterface>;
-+using ModelInterfacePtr = std::shared_ptr<urdf::ModelInterface>;
++using ModelInterfacePtr = fcl_shared_ptr<urdf::ModelInterface>;
  
  namespace kido {
  namespace utils {
 diff --git a/kido/utils/urdf/urdf_world_parser.hpp b/kido/utils/urdf/urdf_world_parser.hpp
-index 74227bf..96a17bf 100644
+index 74227bf..f49ca91 100644
 --- a/kido/utils/urdf/urdf_world_parser.hpp
 +++ b/kido/utils/urdf/urdf_world_parser.hpp
 @@ -63,7 +63,7 @@ public:
@@ -33,7 +56,7 @@ index 74227bf..96a17bf 100644
    Entity(const urdf::Entity& urdfEntity);
  
 -  boost::shared_ptr<urdf::ModelInterface> model;
-+  std::shared_ptr<urdf::ModelInterface> model;
++  fcl_shared_ptr<urdf::ModelInterface> model;
    urdf::Pose origin;
    urdf::Twist twist;
  

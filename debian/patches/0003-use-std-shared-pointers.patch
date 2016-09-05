@@ -27,8 +27,8 @@ index 3463d37..13b68f5 100644
 +  template <class T> using fcl_shared_ptr = std::shared_ptr<T>;
 +  template <class T> using fcl_weak_ptr = std::weak_ptr<T>;
 +#else
-+  template <class T> using fcl_shared_ptr = fcl_shared_ptr<T>;
-+  template <class T> using fcl_weak_ptr = fcl_weak_ptr<T>;
++  template <class T> using fcl_shared_ptr = boost::shared_ptr<T>;
++  template <class T> using fcl_weak_ptr = boost::weak_ptr<T>;
 +#endif
 +
  namespace kido {

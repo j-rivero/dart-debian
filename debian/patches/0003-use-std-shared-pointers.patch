@@ -9,20 +9,26 @@ index bf4e7e4..d6e5c83 100644
 @@ -351,7 +351,7 @@ FCLCollisionNode::FCLCollisionNode(dynamics::BodyNode* _bodyNode)
    {
      dynamics::ShapePtr shape = _bodyNode->getCollisionShape(i);
- 
+
 -    boost::shared_ptr<fcl::CollisionGeometry> fclCollGeom;
 +    fcl_shared_ptr<fcl::CollisionGeometry> fclCollGeom;
- 
+
      switch (shape->getShapeType())
      {
 diff --git a/kido/collision/fcl/FCLTypes.hpp b/kido/collision/fcl/FCLTypes.hpp
-index 3463d37..f6a3d94 100644
+index 3463d37..ba07a22 100644
 --- a/kido/collision/fcl/FCLTypes.hpp
 +++ b/kido/collision/fcl/FCLTypes.hpp
-@@ -42,6 +42,19 @@
+@@ -37,11 +37,25 @@
+ #ifndef KIDO_COLLISION_FCL_FCLTTYPES_HPP_
+ #define KIDO_COLLISION_FCL_FCLTTYPES_HPP_
+
++#include <memory>
+ #include <Eigen/Dense>
+ #include <fcl/math/vec_3f.h>
  #include <fcl/math/matrix_3f.h>
  #include <fcl/math/transform.h>
- 
+
 +#define FCL_VERSION_AT_LEAST(x,y,z) \
 +   (FCL_MAJOR_VERSION > x || (FCL_MAJOR_VERSION >= x && \
 +   (FCL_MINOR_VERSION > y || (FCL_MINOR_VERSION >= y && \
@@ -38,7 +44,7 @@ index 3463d37..f6a3d94 100644
 +
  namespace kido {
  namespace collision {
- 
+
 diff --git a/kido/utils/urdf/KidoLoader.cpp b/kido/utils/urdf/KidoLoader.cpp
 index a7e50c5..ec36feb 100644
 --- a/kido/utils/urdf/KidoLoader.cpp
@@ -46,22 +52,30 @@ index a7e50c5..ec36feb 100644
 @@ -23,7 +23,7 @@
  #include "kido/simulation/World.hpp"
  #include "kido/utils/urdf/urdf_world_parser.hpp"
- 
+
 -using ModelInterfacePtr = boost::shared_ptr<urdf::ModelInterface>;
 +using ModelInterfacePtr = fcl_shared_ptr<urdf::ModelInterface>;
- 
+
  namespace kido {
  namespace utils {
 diff --git a/kido/utils/urdf/urdf_world_parser.hpp b/kido/utils/urdf/urdf_world_parser.hpp
-index 74227bf..f49ca91 100644
+index 74227bf..21dd6ef 100644
 --- a/kido/utils/urdf/urdf_world_parser.hpp
 +++ b/kido/utils/urdf/urdf_world_parser.hpp
-@@ -63,7 +63,7 @@ public:
+@@ -43,6 +43,7 @@
+
+ #include "kido/common/Uri.hpp"
+ #include "kido/common/ResourceRetriever.hpp"
++#include "kido/collision/fcl/FCLTypes.hpp"
+
+ #include <urdf_model/model.h>
+ #include <urdf_model/pose.h>
+@@ -63,7 +64,7 @@ public:
    /// Copy over a standard urdfEntity
    Entity(const urdf::Entity& urdfEntity);
- 
+
 -  boost::shared_ptr<urdf::ModelInterface> model;
 +  fcl_shared_ptr<urdf::ModelInterface> model;
    urdf::Pose origin;
    urdf::Twist twist;
- 
+

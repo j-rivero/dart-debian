@@ -14,3 +14,4 @@ usr/share/kido/KIDOConfig.cmake
 usr/share/kido/KIDOConfigVersion.cmake
 usr/share/kido/KIDOTargets.cmake
 usr/lib/libkido.so
+usr/lib/pkgconfig/kido.pc

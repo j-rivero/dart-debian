@@ -5,19 +5,20 @@ set -e
 WORKDIR=$(mktemp -d)
 trap "rm -rf $WORKDIR" 0 INT QUIT ABRT PIPE TERM
 cd $WORKDIR
-cat <<EOF > kidotest.c
-#include "kido/common/Timer.hpp"
+cat <<EOF > kidotest.cpp
+#include <common/Timer.hpp>
 
+using namespace kido::common
 int main()
 {
-   kido::commmon::Timer timer1("Timer1");
+   Timer timer1("Timer1");
    timer1.start();
    timer1.stop();
    return 0;
 }
 EOF
 
-g++ -o kidotest kidotest.c `pkg-config --cflags --libs kido`
+g++ -o kidotest kidotest.cpp `pkg-config --cflags --libs kido`
 echo "build: OK"
 [ -x kidotest ]
 ./kidotest

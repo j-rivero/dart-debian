@@ -10,7 +10,7 @@ Build-Depends: debhelper (>= 9.20151219),
                libfcl-dev (>= 0.2.7),
                libbullet-dev,
                libassimp-dev (>= 3),
-               libnlopt-dev,
+               libnlopt-cxx-dev,
                coinor-libipopt-dev,
                freeglut3-dev,
                libxi-dev,
@@ -365,7 +365,7 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          libkido-dev,
          libkido-optimizer-nlopt0.1 (= ${binary:Version}),
-         libnlopt-dev
+         libnlopt-cxx-dev
 Description: Kinematics Dynamics and Optimization Library - optimizer dev files
  KIDO is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data

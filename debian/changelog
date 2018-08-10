@@ -1,3 +1,12 @@
+kido (0.1.0+dfsg-3) unstable; urgency=medium
+
+  * Team upload
+  * Move VCS fields after salsa.d.o move
+  * Fix a nlopt-related FTBFS, headers moved in cxx-dev (Closes: #905682)
+    thanks <hyperair> for the patch
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Fri, 10 Aug 2018 10:09:28 +0200
+
 kido (0.1.0+dfsg-2) unstable; urgency=medium
 
   * Use std::shared instead of boost::shared

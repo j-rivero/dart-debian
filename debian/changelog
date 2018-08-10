@@ -1,3 +1,11 @@
+kido (0.1.0+dfsg-4) unstable; urgency=medium
+
+  * Team upload
+  * Fix testsuite
+  * Install also pkgconfig file
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Fri, 10 Aug 2018 19:53:18 +0200
+
 kido (0.1.0+dfsg-3) unstable; urgency=medium
 
   * Team upload

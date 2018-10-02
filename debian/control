@@ -2,7 +2,6 @@ Source: kido
 Maintainer: Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>
 Uploaders: Jose Luis Rivero <jrivero@osrfoundation.org>
 Section: science
-Testsuite: autopkgtest
 Priority: optional
 Build-Depends: debhelper (>= 9.20151219),
                cmake,

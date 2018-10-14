@@ -1,0 +1,43 @@
+From: Jochen Sprickerhof <git@jochen.sprickerhof.de>
+Date: Sun, 14 Oct 2018 23:04:42 +0200
+Subject: Fix find Flann
+
+---
+ cmake/FindFLANN.cmake | 27 +--------------------------
+ 1 file changed, 1 insertion(+), 26 deletions(-)
+
+diff --git a/cmake/FindFLANN.cmake b/cmake/FindFLANN.cmake
+index 589cc86..4404787 100644
+--- a/cmake/FindFLANN.cmake
++++ b/cmake/FindFLANN.cmake
+@@ -13,29 +13,4 @@
+ find_package(PkgConfig QUIET)
+ 
+ # Check to see if pkgconfig is installed.
+-pkg_check_modules(PC_FLANN flann QUIET)
+-
+-# Include directories
+-find_path(FLANN_INCLUDE_DIRS
+-    NAMES flann/flann.h
+-    HINTS ${PC_FLANN_INCLUDEDIR} ${PC_FLANN_INCLUDE_DIRS}
+-    PATHS "${CMAKE_INSTALL_PREFIX}/include")
+-
+-# Library
+-find_library(FLANN_LIBRARIES
+-    NAMES flann
+-    HINTS ${PC_FLANN_LIBDIR} ${PC_FLANN_LIBRARY_DIRS})
+-
+-# Definitions
+-set(FLANN_DEFINITIONS ${PC_FLANN_CFLAGS_OTHER})
+-
+-# Version
+-set(FLANN_VERSION ${PC_FLANN_VERSION})
+-
+-# Set (NAME)_FOUND if all the variables and the version are satisfied.
+-include(FindPackageHandleStandardArgs)
+-find_package_handle_standard_args(FLANN
+-    FAIL_MESSAGE  DEFAULT_MSG
+-    REQUIRED_VARS FLANN_INCLUDE_DIRS FLANN_LIBRARIES
+-    VERSION_VAR   FLANN_VERSION)
+-
++pkg_check_modules(FLANN flann QUIET)

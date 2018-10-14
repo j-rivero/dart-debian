@@ -3,3 +3,4 @@
 0003-use-std-shared-pointers.patch
 0004-fix-tinyxml-constant.patch
 0005-link_flann_in_test.patch
+0006-Fix-find-Flann.patch

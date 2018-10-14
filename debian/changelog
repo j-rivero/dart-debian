@@ -1,3 +1,14 @@
+kido (0.1.0+dfsg-6) unstable; urgency=medium
+
+  * Team upload.
+  [ Jelmer Vernooĳ ]
+  * Remove unnecessary 'Testsuite: autopkgtest' header.
+
+  [ Jochen Sprickerhof ]
+  * Add patch to fix Flann inclusion
+
+ -- Jochen Sprickerhof <jspricke@debian.org>  Sun, 14 Oct 2018 23:59:26 +0200
+
 kido (0.1.0+dfsg-5) unstable; urgency=medium
 
   * Team upload

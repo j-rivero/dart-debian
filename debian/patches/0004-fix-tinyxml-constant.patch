@@ -2,10 +2,10 @@ Description: Use new tinyxml constant
 Origin: https://github.com/dartsim/dart/pull/750
 Applied-Upstream: 2841967fc6628c9aea58c93227b28abdf5dfbcc2
 
-diff --git a/kido/utils/XmlHelpers.cpp b/kido/utils/XmlHelpers.cpp
+diff --git a/dart/utils/XmlHelpers.cpp b/dart/utils/XmlHelpers.cpp
 index 6de40bd..22b8641 100644
---- a/kido/utils/XmlHelpers.cpp
-+++ b/kido/utils/XmlHelpers.cpp
+--- a/dart/utils/XmlHelpers.cpp
++++ b/dart/utils/XmlHelpers.cpp
 @@ -731,7 +731,7 @@ bool getAttributeBool(const tinyxml2::XMLElement* element,
    const int result = element->QueryBoolAttribute(attributeName.c_str(),
                                                   &val);

@@ -5,10 +5,10 @@ set -e
 WORKDIR=$(mktemp -d)
 trap "rm -rf $WORKDIR" 0 INT QUIT ABRT PIPE TERM
 cd $WORKDIR
-cat <<EOF > kidotest.cpp
-#include <kido/common/Timer.hpp>
+cat <<EOF > darttest.cpp
+#include <dart/common/Timer.hpp>
 
-using namespace kido::common;
+using namespace dart::common;
 int main()
 {
    Timer timer1("Timer1");
@@ -18,8 +18,8 @@ int main()
 }
 EOF
 
-g++ -o kidotest kidotest.cpp `pkg-config --cflags --libs kido`
+g++ -o darttest darttest.cpp `pkg-config --cflags --libs dart`
 echo "build: OK"
-[ -x kidotest ]
-./kidotest
+[ -x darttest ]
+./darttest
 echo "run: OK"

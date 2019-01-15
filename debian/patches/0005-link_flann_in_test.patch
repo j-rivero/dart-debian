@@ -8,7 +8,7 @@ index 4afb38a..3ab22bd 100644
 --- a/unittests/CMakeLists.txt
 +++ b/unittests/CMakeLists.txt
 @@ -72,6 +72,10 @@ foreach(test ${tests})
-     target_link_libraries(${base} kido kido-utils gtest)
+     target_link_libraries(${base} dart dart-utils gtest)
    endif()
  
 +  if (${base} STREQUAL "testNearestNeighbor")

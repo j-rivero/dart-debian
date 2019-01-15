@@ -1,2 +1,2 @@
-usr/include/kido/utils/*
-usr/lib/libkido-utils.so
+usr/include/dart/utils/*
+usr/lib/libdart-utils.so

@@ -1,2 +1,2 @@
-usr/include/kido/optimizer/ipopt/*
-usr/lib/libkido-optimizer-ipopt.so
+usr/include/dart/optimizer/ipopt/*
+usr/lib/libdart-optimizer-ipopt.so

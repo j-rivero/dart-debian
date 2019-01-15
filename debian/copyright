@@ -29,16 +29,16 @@ License: BSD-2-clause
  THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  SUCH DAMAGE.
 
-Files: kido/lcp*
+Files: dart/lcp*
 Copyright: 2001,2002 Russell L. Smith
 License: LGPL-2.1
   See `/usr/share/common-licenses/LGPL-2.1`
 
-Files: kido/planning/RRT.cpp
+Files: dart/planning/RRT.cpp
 Copyright: 2010, Georgia Tech Research Corporation
 License: BSD-3-clause
 
-Files: kido/gui/lodepng.hpp
+Files: dart/gui/lodepng.hpp
 Copyright: 2005-2012 Lode Vandevenne
 License: Zlib or Libpng
 
@@ -46,12 +46,12 @@ Files: tools/cpplint.py
 Copyright: 2009 Google Inc. All rights reserved
 License: AS-IS
 
-Files: kido/utils/ParserSkel.cpp_
+Files: dart/utils/ParserSkel.cpp_
 Copyright: 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
 License: GPL-2+
   See `/usr/share/common-licenses/GPL-2`
 
-Files: kido/utils/urdf/urdf_world_parser.hpp
+Files: dart/utils/urdf/urdf_world_parser.hpp
 Copyright: 2013, Humanoid Robotics Lab
            2013, Willow Garage, Inc
 License: BSD-3-clause

@@ -2,10 +2,10 @@ Description: wrap pointers to migrate from boost to std
 Origin: https://github.com/dartsim/dart/pull/750
 Applied-Upstream: 2841967fc6628c9aea58c93227b28abdf5dfbcc2
 
-diff --git a/kido/collision/fcl/FCLCollisionNode.cpp b/kido/collision/fcl/FCLCollisionNode.cpp
+diff --git a/dart/collision/fcl/FCLCollisionNode.cpp b/dart/collision/fcl/FCLCollisionNode.cpp
 index bf4e7e4..d6e5c83 100644
---- a/kido/collision/fcl/FCLCollisionNode.cpp
-+++ b/kido/collision/fcl/FCLCollisionNode.cpp
+--- a/dart/collision/fcl/FCLCollisionNode.cpp
++++ b/dart/collision/fcl/FCLCollisionNode.cpp
 @@ -351,7 +351,7 @@ FCLCollisionNode::FCLCollisionNode(dynamics::BodyNode* _bodyNode)
    {
      dynamics::ShapePtr shape = _bodyNode->getCollisionShape(i);
@@ -15,10 +15,10 @@ index bf4e7e4..d6e5c83 100644
 
      switch (shape->getShapeType())
      {
-diff --git a/kido/collision/fcl/FCLTypes.hpp b/kido/collision/fcl/FCLTypes.hpp
+diff --git a/dart/collision/fcl/FCLTypes.hpp b/dart/collision/fcl/FCLTypes.hpp
 index 3463d37..ba07a22 100644
---- a/kido/collision/fcl/FCLTypes.hpp
-+++ b/kido/collision/fcl/FCLTypes.hpp
+--- a/dart/collision/fcl/FCLTypes.hpp
++++ b/dart/collision/fcl/FCLTypes.hpp
 @@ -37,11 +37,25 @@
  #ifndef KIDO_COLLISION_FCL_FCLTTYPES_HPP_
  #define KIDO_COLLISION_FCL_FCLTTYPES_HPP_
@@ -42,31 +42,31 @@ index 3463d37..ba07a22 100644
 +  template <class T> using fcl_weak_ptr = boost::weak_ptr<T>;
 +#endif
 +
- namespace kido {
+ namespace dart {
  namespace collision {
 
-diff --git a/kido/utils/urdf/KidoLoader.cpp b/kido/utils/urdf/KidoLoader.cpp
+diff --git a/dart/utils/urdf/KidoLoader.cpp b/dart/utils/urdf/KidoLoader.cpp
 index a7e50c5..ec36feb 100644
---- a/kido/utils/urdf/KidoLoader.cpp
-+++ b/kido/utils/urdf/KidoLoader.cpp
+--- a/dart/utils/urdf/KidoLoader.cpp
++++ b/dart/utils/urdf/KidoLoader.cpp
 @@ -23,7 +23,7 @@
- #include "kido/simulation/World.hpp"
- #include "kido/utils/urdf/urdf_world_parser.hpp"
+ #include "dart/simulation/World.hpp"
+ #include "dart/utils/urdf/urdf_world_parser.hpp"
 
 -using ModelInterfacePtr = boost::shared_ptr<urdf::ModelInterface>;
 +using ModelInterfacePtr = fcl_shared_ptr<urdf::ModelInterface>;
 
- namespace kido {
+ namespace dart {
  namespace utils {
-diff --git a/kido/utils/urdf/urdf_world_parser.hpp b/kido/utils/urdf/urdf_world_parser.hpp
+diff --git a/dart/utils/urdf/urdf_world_parser.hpp b/dart/utils/urdf/urdf_world_parser.hpp
 index 74227bf..21dd6ef 100644
---- a/kido/utils/urdf/urdf_world_parser.hpp
-+++ b/kido/utils/urdf/urdf_world_parser.hpp
+--- a/dart/utils/urdf/urdf_world_parser.hpp
++++ b/dart/utils/urdf/urdf_world_parser.hpp
 @@ -43,6 +43,7 @@
 
- #include "kido/common/Uri.hpp"
- #include "kido/common/ResourceRetriever.hpp"
-+#include "kido/collision/fcl/FCLTypes.hpp"
+ #include "dart/common/Uri.hpp"
+ #include "dart/common/ResourceRetriever.hpp"
++#include "dart/collision/fcl/FCLTypes.hpp"
 
  #include <urdf_model/model.h>
  #include <urdf_model/pose.h>

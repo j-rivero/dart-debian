@@ -1,2 +1,2 @@
-usr/include/kido/gui/*.*
-usr/lib/libkido-gui.so
+usr/include/dart/gui/*.*
+usr/lib/libdart-gui.so

@@ -1,4 +1,4 @@
-Source: kido
+Source: dart
 Maintainer: Debian Science Maintainers <debian-science-maintainers@lists.alioth.debian.org>
 Uploaders: Jose Luis Rivero <jrivero@osrfoundation.org>
 Section: science
@@ -24,16 +24,16 @@ Build-Depends: debhelper (>= 9.20151219),
                libopenthreads-dev,
                libopenscenegraph-dev
 Standards-Version: 3.9.8
-Vcs-Git: https://salsa.debian.org/science-team/kido.git
-Vcs-Browser: https://salsa.debian.org/science-team/kido
+Vcs-Git: https://salsa.debian.org/science-team/dart.git
+Vcs-Browser: https://salsa.debian.org/science-team/dart
 Homepage: http://dartsim.github.io/
 
-Package: libkido-dev
+Package: libdart-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido0.1 (= ${binary:Version}),
+         libdart6 (= ${binary:Version}),
          libeigen3-dev,
          libassimp-dev (>= 3),
          libfcl-dev,
@@ -64,7 +64,7 @@ Description: Kinematics Dynamics and Optimization Library - development files
  software created by the Georgia Tech Graphics Lab.
  This package contains main headers and other tools for development.
 
-Package: libkido0.1
+Package: libdart6
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
@@ -95,13 +95,13 @@ Description: Kinematics Dynamics and Optimization Library - main library
  software created by the Georgia Tech Graphics Lab.
  This package contains the main library of KIDO.
 
-Package: libkido-planning-dev
+Package: libdart-planning-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido-dev,
-         libkido-planning0.1 (= ${binary:Version}),
+         libdart-dev,
+         libdart-planning6 (= ${binary:Version}),
          libflann-dev
 Description: Kinematics Dynamics and Optimization Library - planning dev files
  KIDO is a collaborative, cross-platform, open source library created by the
@@ -128,7 +128,7 @@ Description: Kinematics Dynamics and Optimization Library - planning dev files
  software created by the Georgia Tech Graphics Lab.
  This package contains the planning headers and other tools for development.
 
-Package: libkido-planning0.1
+Package: libdart-planning6
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
@@ -159,13 +159,13 @@ Description: Kinematics Dynamics and Optimization Library - planning library
  software created by the Georgia Tech Graphics Lab.
  This package contains the KIDO planning library.
 
-Package: libkido-utils-dev
+Package: libdart-utils-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido-dev,
-         libkido-utils0.1 (= ${binary:Version}),
+         libdart-dev,
+         libdart-utils6 (= ${binary:Version}),
          libtinyxml-dev,
          libtinyxml2-dev,
          liburdfdom-dev
@@ -194,7 +194,7 @@ Description: Kinematics Dynamics and Optimization Library - utils dev files
  software created by the Georgia Tech Graphics Lab.
  This package contains headers and other useful tools for development.
 
-Package: libkido-utils0.1
+Package: libdart-utils6
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
@@ -225,14 +225,14 @@ Description: Kinematics Dynamics and Optimization Library - utils library
  software created by the Georgia Tech Graphics Lab.
  This package contains the KIDO utils library.
 
-Package: libkido-gui-dev
+Package: libdart-gui-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido-dev,
-         libkido-utils-dev,
-         libkido-gui0.1 (= ${binary:Version}),
+         libdart-dev,
+         libdart-utils-dev,
+         libdart-gui6 (= ${binary:Version}),
          freeglut3-dev,
          libxi-dev,
          libxmu-dev
@@ -261,7 +261,7 @@ Description: Kinematics Dynamics and Optimization Library - gui dev files
  software created by the Georgia Tech Graphics Lab.
  This package contains GUI headers and other useful tools for GUI development.
 
-Package: libkido-gui0.1
+Package: libdart-gui6
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
@@ -291,13 +291,13 @@ Description: Kinematics Dynamics and Optimization Library - gui library
  Multibody dynamic simulation in KIDO is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libkido-gui-osg-dev
+Package: libdart-gui-osg-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido-gui-dev,
-         libkido-gui-osg0.1 (= ${binary:Version}),
+         libdart-gui-dev,
+         libdart-gui-osg6 (= ${binary:Version}),
          libopenthreads-dev,
          libopenscenegraph-dev
 Description: Kinematics Dynamics and Optimization Library - gui-osg dev files
@@ -326,7 +326,7 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg dev files
  This package contains GUI OpenSceneGraph headers and other useful tools for
  GUI OpenSceneGraph development.
 
-Package: libkido-gui-osg0.1
+Package: libdart-gui-osg6
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
@@ -357,13 +357,13 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg library
  software created by the Georgia Tech Graphics Lab.
  This package contains the GUI OpenSceneGraph optimizer library.
 
-Package: libkido-optimizer-nlopt-dev
+Package: libdart-optimizer-nlopt-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido-dev,
-         libkido-optimizer-nlopt0.1 (= ${binary:Version}),
+         libdart-dev,
+         libdart-optimizer-nlopt6 (= ${binary:Version}),
          libnlopt-cxx-dev
 Description: Kinematics Dynamics and Optimization Library - optimizer dev files
  KIDO is a collaborative, cross-platform, open source library created by the
@@ -391,7 +391,7 @@ Description: Kinematics Dynamics and Optimization Library - optimizer dev files
  This package contains NLOPT optimizer headers and other useful tools for
  development.
 
-Package: libkido-optimizer-nlopt0.1
+Package: libdart-optimizer-nlopt6
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
@@ -422,13 +422,13 @@ Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
  software created by the Georgia Tech Graphics Lab.
  This package contains the NLOPT optimizer library.
 
-Package: libkido-optimizer-ipopt-dev
+Package: libdart-optimizer-ipopt-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libkido-dev,
-         libkido-optimizer-ipopt0.1 (= ${binary:Version}),
+         libdart-dev,
+         libdart-optimizer-ipopt6 (= ${binary:Version}),
          coinor-libipopt-dev
 Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
  KIDO is a collaborative, cross-platform, open source library created by the
@@ -456,7 +456,7 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
  This package contains IPOPT optimizer headers and other useful tools for
  development.
 
-Package: libkido-optimizer-ipopt0.1
+Package: libdart-optimizer-ipopt6
 Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}

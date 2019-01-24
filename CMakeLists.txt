@@ -2,10 +2,14 @@
 # CMake settings
 #===============================================================================
 if(MSVC)
-  cmake_minimum_required(VERSION 3.1.3)
+  cmake_minimum_required(VERSION 3.8.0)
 else()
-  cmake_minimum_required(VERSION 2.8.6)
+  cmake_minimum_required(VERSION 3.5.1)
 endif()
+
+project(dart)
+
+string(TOUPPER ${PROJECT_NAME} PROJECT_NAME_UPPERCASE)
 
 # Use MACOSX_RPATH by default on OS X. This was added in CMake 2.8.12 and
 # became default in CMake 3.0. Explicitly setting this policy is necessary to
@@ -21,14 +25,25 @@ if(POLICY CMP0053)
   cmake_policy(SET CMP0053 NEW)
 endif()
 
-# Disables a warning about a change in Cygwin Cmake
-set(CMAKE_LEGACY_CYGWIN_WIN32 0)
-set(CMAKE_CXX_WARNING_LEVEL 4)
+# Variables used in Components.cmake
+set(INCLUDE_INSTALL_DIR "include")
+set(LIBRARY_INSTALL_DIR "lib")
+set(CONFIG_INSTALL_DIR "share/${PROJECT_NAME}/cmake")
+
+# Set relative location to install additional documentation (sample data,
+# examples, and tutorials)
+set(DART_ADDITIONAL_DOCUMENTATION_INSTALL_PATH "share/doc/${PROJECT_NAME}")
 
 set(CMAKE_DEBUG_POSTFIX "d")
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-include(${CMAKE_MODULE_PATH}/KIDOMacros.cmake)
+include(DARTMacros)
+
+# CMake component helper. It uses the following variables:
+# - LIBRARY_INSTALL_DIR
+# - CONFIG_INSTALL_DIR
+include(Components)
+initialize_component_helpers(${PROJECT_NAME})
 
 # System install paths on Windows
 if(WIN32)
@@ -38,41 +53,60 @@ endif()
 #===============================================================================
 # Project settings
 #===============================================================================
-#
+
 # If you change the version, please update the <version> tag in package.xml.
+set(DART_MAJOR_VERSION "6")
+set(DART_MINOR_VERSION "7")
+set(DART_PATCH_VERSION "2")
+set(DART_VERSION "${DART_MAJOR_VERSION}.${DART_MINOR_VERSION}.${DART_PATCH_VERSION}")
+set(DART_PKG_DESC "Dynamic Animation and Robotics Toolkit.")
+set(DART_PKG_EXTERNAL_DEPS "eigen, ccd, fcl, assimp, boost")
 
-project(kido)
-
-set(KIDO_MAJOR_VERSION "0")
-set(KIDO_MINOR_VERSION "1")
-set(KIDO_PATCH_VERSION "0")
-set(KIDO_VERSION "${KIDO_MAJOR_VERSION}.${KIDO_MINOR_VERSION}.${KIDO_PATCH_VERSION}")
-set(KIDO_PKG_DESC "Kinematics, Dynamics and Optimization Library for Animation and Robotics")
-set(KIDO_PKG_EXTERNAL_DEPS "flann, ccd, fcl")
+#===============================================================================
+# Build options
+#===============================================================================
+option(DART_VERBOSE "Whether print detailed information in CMake process" OFF)
+option(ENABLE_OPENMP "Build with OpenMP parallaization enabled" ON)
+if(MSVC)
+  set(DART_RUNTIME_LIBRARY "/MD" CACHE STRING "BaseName chosen by the user at CMake configure time")
+  set_property(CACHE DART_RUNTIME_LIBRARY PROPERTY STRINGS /MD /MT)
+  option(DART_MSVC_DEFAULT_OPTIONS "Build DART with default Visual Studio options" OFF)
+else()
+  option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+endif()
+# Warning: DART_ENABLE_SIMD should be ON only when you build DART and the DART
+# dependent projects on the same machine. If this option is on, then compile
+# option `-march=native` is added to the target `dart` that enables all
+# instruction subsets supported by the local machine. If the architecture of
+# local machines are different then the projects will be built with different
+# compile options, which may cause runtime errors especially memory alignment
+# errors.
+option(DART_ENABLE_SIMD
+  "Build DART with all SIMD instructions on the current local machine" OFF)
+option(DART_BUILD_GUI_OSG "Build osgDart library" ON)
+option(DART_BUILD_EXTRAS "Build extra projects" OFF)
+option(DART_CODECOV "Turn on codecov support" OFF)
+option(DART_TREAT_WARNINGS_AS_ERRORS "Treat warnings as errors" OFF)
+option(DART_FAST_DEBUG "Add -O1 option for DEBUG mode build" OFF)
 
 #===============================================================================
 # Print intro
 #===============================================================================
 message(STATUS "")
 message(STATUS "============================================")
-message(STATUS "                KIDO ${KIDO_VERSION}")
+message(STATUS "                DART ${DART_VERSION}")
 message(STATUS "============================================")
 
 #===============================================================================
-# Build options
+# CodeCov settings
 #===============================================================================
-option(ENABLE_OPENMP "Build with OpenMP parallaization enabled" ON)
-if(MSVC)
-  set(KIDO_RUNTIME_LIBRARY "/MD" CACHE STRING "BaseName chosen by the user at CMake configure time")
-  set_property(CACHE KIDO_RUNTIME_LIBRARY PROPERTY STRINGS /MD /MT)
-  option(KIDO_MSVC_DEFAULT_OPTIONS "Build KIDO with default Visual Studio options" OFF)
-else()
-  option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+if(DART_CODECOV)
+  include(CodeCoverage)
+  setup_target_for_coverage(codecov ctest coverage)
+  set(CMAKE_CXX_FLAGS
+    "${CMAKE_CXX_FLAGS} -g -O0 -fprofile-arcs -ftest-coverage"
+  )
 endif()
-option(KIDO_BUILD_OSGKIDO "Build osgKido library" ON) # TODO(JS): Rename the option name to more relevant name to osg GUI and add more options for other extensions (#590).
-option(KIDO_BUILD_EXAMPLES "Build examples" ON)
-option(KIDO_BUILD_TUTORIALS "Build tutorials" ON)
-option(KIDO_BUILD_UNITTESTS "Build unit tests" ON)
 
 #===============================================================================
 # Build type settings
@@ -96,375 +130,13 @@ elseif("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "RELWITHDEBINFO")
 elseif("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "MINSIZEREL")
   set(BUILD_TYPE_MINSIZEREL TRUE)
 else()
-  build_error("CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} unknown. Valid options are: Debug | Release | RelWithDebInfo | MinSizeRel")
+  message(STATUS "CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} unknown. Valid options are: Debug | Release | RelWithDebInfo | MinSizeRel")
 endif()
 
 #===============================================================================
 # Find dependencies
 #===============================================================================
-#
-# If you add a dependency, please add the corresponding rosdep key as a
-# dependency in package.xml.
-
-#------------------------
-# Mandatory dependencies
-#------------------------
-message(STATUS "")
-message(STATUS "[ Mandatory dependencies ]")
-
-# Eigen
-find_package(EIGEN3 3.0.5 QUIET)
-if(EIGEN3_FOUND)
-  message(STATUS "Looking for EIGEN3 - ${EIGEN3_VERSION} found")
-else()
-  if(PC_EIGEN3_VERSION)
-    message(SEND_ERROR "Looking for EIGEN3 - ${EIGEN3_VERSION} found, ${PROJECT_NAME} requires 3.0.5 or greater.")
-  else()
-    message(SEND_ERROR "Looking for EIGEN3 - NOT found, please install libeigen3-dev")
-  endif()
-endif()
-
-# CCD
-find_package(CCD 1.4.0 QUIET)
-if(CCD_FOUND)
-  message(STATUS "Looking for CCD - ${CCD_VERSION} found")
-else()
-  if(CCD_VERSION)
-    message(SEND_ERROR "Looking for CCD - ${CCD_VERSION} found, ${PROJECT_NAME} requires 1.4.0 or greater.")
-  else()
-    message(SEND_ERROR "Looking for CCD - NOT found, please install libccd-dev")
-  endif()
-endif()
-
-# FCL
-# TODO: We need to increate the minimum required fcl version to 0.4.0 for KIDO
-# 7.0 once fcl 0.4.0 is released.
-find_package(FCL 0.2.9 QUIET)
-if(FCL_FOUND)
-  message(STATUS "Looking for FCL - ${FCL_VERSION} found")
-else()
-  if(FCL_VERSION)
-    message(SEND_ERROR "Looking for FCL - ${FCL_VERSION} found, ${PROJECT_NAME} requires 0.2.9 or greater.")
-  else()
-    message(SEND_ERROR "Looking for FCL - NOT found, please install libfcl-dev")
-  endif()
-endif()
-
-# ASSIMP
-find_package(ASSIMP 3.0.0 QUIET)
-if(ASSIMP_FOUND)
-  message(STATUS "Looking for ASSIMP - ${ASSIMP_VERSION} found")
-
-  # Check for missing symbols in ASSIMP (see #451)
-  include(CheckCXXSourceCompiles)
-  set(CMAKE_REQUIRED_INCLUDES ${ASSIMP_INCLUDE_DIRS})
-  set(CMAKE_REQUIRED_LIBRARIES ${ASSIMP_LIBRARIES})
-  set(CMAKE_REQUIRED_QUIET TRUE)
-
-  check_cxx_source_compiles(
-  "
-  #include <assimp/scene.h>
-  int main()
-  {
-    aiScene* scene = new aiScene;
-    delete scene;
-    return 1;
-  }
-  "
-  ASSIMP_AISCENE_CTOR_DTOR_DEFINED)
-
-  if(NOT ASSIMP_AISCENE_CTOR_DTOR_DEFINED)
-    message(WARNING "The installed version of ASSIMP (${ASSIMP_VERSION}) is "
-                    "missing symbols for the constructor and/or destructor of "
-                    "aiScene. KIDO will use its own implementations of these "
-                    "functions. We recommend using a version of ASSIMP that "
-                    "does not have this issue, once one becomes available.")
-  endif(NOT ASSIMP_AISCENE_CTOR_DTOR_DEFINED)
-
-  check_cxx_source_compiles(
-  "
-  #include <assimp/material.h>
-  int main()
-  {
-    aiMaterial* material = new aiMaterial;
-    delete material;
-    return 1;
-  }
-  "
-  ASSIMP_AIMATERIAL_CTOR_DTOR_DEFINED)
-
-  if(NOT ASSIMP_AIMATERIAL_CTOR_DTOR_DEFINED)
-    message(WARNING "The installed version of ASSIMP (${ASSIMP_VERSION}) is "
-                    "missing symbols for the constructor and/or destructor of "
-                    "aiMaterial. KIDO will use its own implementations of "
-                    "these functions. We recommend using a version of ASSIMP "
-                    "that does not have this issue, once one becomes available.")
-  endif(NOT ASSIMP_AIMATERIAL_CTOR_DTOR_DEFINED)
-
-  unset(CMAKE_REQUIRED_INCLUDES)
-  unset(CMAKE_REQUIRED_LIBRARIES)
-  unset(CMAKE_REQUIRED_QUIET)
-
-else()
-  if(ASSIMP_VERSION)
-    message(SEND_ERROR "Looking for ASSIMP - ${ASSIMP_VERSION} found, ${PROJECT_NAME} requires 3.0.0 or greater.")
-  else()
-    message(SEND_ERROR "Looking for ASSIMP - NOT found, please install libassimp-dev")
-  endif()
-endif()
-
-# OpenGL
-find_package(OpenGL QUIET)
-if(OPENGL_FOUND)
-  message(STATUS "Looking for OpenGL - found")
-else()
-  message(SEND_ERROR "Looking for OpenGL - NOT found, please install OpenGL")
-endif()
-
-# Boost
-set(KIDO_MIN_BOOST_VERSION 1.46.0 CACHE INTERNAL "Boost min version requirement" FORCE)
-if(MSVC OR MSVC90 OR MSVC10)
-  add_definitions(-DBOOST_ALL_NO_LIB)
-endif()
-add_definitions(-DBOOST_TEST_DYN_LINK)
-set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost ${KIDO_MIN_BOOST_VERSION} COMPONENTS regex system QUIET)
-if(Boost_FOUND)
-  message(STATUS "Looking for Boost - ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION} found")
-else()
-  message(SEND_ERROR "Please install system boost version ${KIDO_MIN_BOOST_VERSION} or higher.")
-endif()
-
-#-----------------------
-# Optional dependencies
-#-----------------------
-message(STATUS "")
-message(STATUS "[ Optional dependencies ]")
-
-# GLUT
-if(WIN32 AND NOT CYGWIN)
-  set(GLUT_INCLUDE_DIR "@CMAKE_INSTALL_PREFIX@/include")
-  set(GLUT_LIBRARIES glut32)
-else()
-  find_package(GLUT QUIET)
-  if(GLUT_FOUND)
-    message(STATUS "Looking for GLUT - found")
-    set(GLUT_LIBRARIES ${GLUT_glut_LIBRARY})
-  else()
-    message(STATUS "Looking for GLUT - NOT found")
-    message(STATUS "To enable component kido-gui, please install freeglut3-dev")
-  endif()
-endif()
-
-# OpenSceneGraph
-find_package(OpenSceneGraph 3.0 QUIET
-  COMPONENTS osg osgViewer osgManipulator osgGA osgDB)
-if(OPENSCENEGRAPH_FOUND)
-  message(STATUS "Looking for OpenSceneGraph -- ${OPENSCENEGRAPH_VERSION} found")
-  set(HAVE_OPENSCENEGRAPH TRUE)
-else(OPENSCENEGRAPH_FOUND)
-  # kido-gui-osg requires both OSG and OpenThreads. This section attempts to
-  # identify which of those are missing from the building machine and offer
-  # advice to the user for getting osgKido to build.
-  find_package(OpenThreads QUIET)
-  if(OPENTHREADS_FOUND)
-    set(warning_msg "Could NOT find OpenSceneGraph")
-  else(OPENTHREADS_FOUND)
-    if(OSG_LIBRARY)
-      set(warning_msg "Could NOT find OpenThreads")
-    else(OSG_LIBRARY)
-      set(warning_msg "Could NOT find OpenSceneGraph nor OpenThreads")
-    endif(OSG_LIBRARY)
-  endif(OPENTHREADS_FOUND)
-  message(WARNING "${warning_msg} -- we will skip kido-gui-osg\n"
-          "If you believe you do have both OSG and OpenThreads installed, try setting OSG_DIR")
-  set(HAVE_OPENSCENEGRAPH FALSE)
-endif(OPENSCENEGRAPH_FOUND)
-
-# FLANN
-find_package(FLANN 1.8.4 QUIET)
-if(FLANN_FOUND)
-  message(STATUS "Looking for FLANN - ${FLANN_VERSION} found")
-else()
-  if(FLANN_VERSION)
-    message(STATUS "Looking for FLANN - ${FLANN_VERSION} (< 1.8.4) found")
-    message(STATUS "To enable component kido-planning, please install libflann-dev 1.8.4 or greater")
-  else()
-    message(STATUS "Looking for FLANN - NOT found")
-    message(STATUS "To enable component kido-planning, please install libflann-dev")
-  endif()
-endif()
-
-# TINYXML
-find_package(TINYXML 2.6.2 QUIET)
-if(TINYXML_FOUND)
-  message(STATUS "Looking for TINYXML - ${TINYXML_VERSION} found")
-else()
-  if(TINYXML_VERSION)
-    message(STATUS "Looking for TINYXML - ${TINYXML_VERSION} (< 2.6.2) found")
-    message(STATUS "To enable component kido-utils, please install libtinyxml-dev 2.6.2 or greater")
-  else()
-    message(STATUS "Looking for TINYXML - NOT found")
-    message(STATUS "To enable component kido-utils, please install libtinyxml-dev")
-  endif()
-endif()
-
-# TINYXML2
-find_package(TINYXML2 QUIET)
-if(TINYXML2_FOUND)
-  message(STATUS "Looking for TINYXML2 - ${TINYXML2_VERSION} found")
-else()
-  if(TINYXML2_VERSION)
-    message(STATUS "Looking for TINYXML2 - ${TINYXML2_VERSION} (< 1.0.1) found")
-    message(STATUS "To enable component kido-utils, please install libtinyxml2-dev 1.0.1 or greater")
-  else()
-    message(STATUS "Looking for TINYXML2 - NOT found")
-    message(STATUS "To enable component kido-utils, please install libtinyxml2-dev")
-  endif()
-endif()
-
-# urdfdom
-find_package(urdfdom QUIET)
-if(urdfdom_FOUND)
-  message(STATUS "Looking for urdfdom - found")
-else()
-  message(STATUS "Looking for urdfdom - NOT found, please install liburdfdom-dev")
-  message(STATUS "To enable component kido-utils, please install liburdfdom-dev")
-endif()
-if(MSVC)
-  set(urdfdom_LIBRARIES optimized urdfdom_sensor      debug urdfdom_sensord
-                        optimized urdfdom_model_state debug urdfdom_model_stated
-                        optimized urdfdom_model       debug urdfdom_modeld
-                        optimized urdfdom_world       debug urdfdom_worldd
-                        optimized console_bridge      debug console_bridged)
-endif()
-
-# OpenMP
-if(ENABLE_OPENMP)
-  find_package(OpenMP QUIET)
-  if(OPENMP_FOUND)
-    message(STATUS "Looking for OpenMP - found")
-  else()
-    message(STATUS "Looking for OpenMP - NOT found")
-  endif()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-endif()
-
-# NLOPT
-find_package(NLOPT 2.4.1 QUIET)
-if(NLOPT_FOUND)
-  message(STATUS "Looking for NLOPT - ${NLOPT_VERSION} found")
-  set(HAVE_NLOPT TRUE)
-else()
-  if(NLOPT_VERSION)
-    message(STATUS "Looking for NLOPT - ${NLOPT_VERSION} (< 2.4.1) found")
-    message(STATUS "To enable component kido-optimizer-nlopt, please install libnlopt-dev 2.4.1 or greater")
-  else()
-    message(STATUS "Looking for NLOPT - NOT found")
-    message(STATUS "To enable component kido-optimizer-nlopt, please install libnlopt-dev")
-  endif()
-  set(HAVE_NLOPT FALSE)
-endif()
-
-# IPOPT
-find_package(IPOPT 3.11.4 QUIET)
-if(IPOPT_FOUND)
-  message(STATUS "Looking for IPOPT - ${IPOPT_VERSION} found")
-  set(HAVE_IPOPT TRUE)
-else()
-  if(IPOPT_VERSION)
-    message(STATUS "Looking for IPOPT - ${IPOPT_VERSION} (< 3.11.4) found")
-    message(STATUS "To enable component kido-optimizer-ipopt, please install libipopt-dev 3.11.4 or greater")
-  else()
-    message(STATUS "Looking for IPOPT - NOT found")
-    message(STATUS "To enable component kido-optimizer-ipopt, please install libipopt-dev")
-  endif()
-  set(HAVE_IPOPT FALSE)
-endif()
-
-# Shark
-find_package(SHARK QUIET)
-if(SHARK_FOUND)
-  message(STATUS "Looking for SHARK - ${SHARK_VERSION} found")
-  set(HAVE_SHARK TRUE)
-else()
-  message(STATUS "Looking for SHARK - NOT found, please install SHARK (http://image.diku.dk/shark)")
-  set(HAVE_SHARK FALSE)
-endif()
-
-# BulletCollision
-if(UNIX)
-  pkg_check_modules(BULLET bullet>=2.82 QUIET)
-  if(NOT BULLET_FOUND)
-     pkg_check_modules(BULLET bullet2.82>=2.82 QUIET)
-  endif()
-else()
-  find_package(Bullet COMPONENTS BulletMath BulletCollision QUIET)
-endif()
-if(BULLET_FOUND)
-  message(STATUS "Looking for BulletCollision - ${BULLET_VERSION} found")
-  set(HAVE_BULLET_COLLISION TRUE)
-  add_definitions(-DHAVE_BULLET_COLLISION)
-else()
-  message(STATUS "Looking for BulletCollision - NOT found")
-  message(STATUS "To enable bullet collision detection, please install libbullet-dev")
-  set(HAVE_BULLET_COLLISION FALSE)
-endif()
-
-# Perl modules
-find_package(PerlModules COMPONENTS Regexp::Common Getopt::ArgvFile Getopt::Long Term::ANSIColor QUIET)
-if("${PERLMODULES_FOUND}" STREQUAL "TRUE")
-  message(STATUS "Looking for PerlModules - found")
-else()
-  message(STATUS "Looking for PerlModules - NOT found, please install Regexp::Common Getopt::ArgvFile Getopt::Long Term::ANSIColor (http://www.cpan.org/modules/INSTALL.html)")
-endif()
-
-# Doxygen
-find_package(Doxygen QUIET)
-if(DOXYGEN_FOUND)
-  message(STATUS "Looking for Doxygen - found")
-else()
-  message(STATUS "Looking for Doxygen - NOT found, please install doxygen")
-endif()
-
-#===============================================================================
-# Include directories
-#===============================================================================
-include_directories(BEFORE ${PROJECT_SOURCE_DIR})
-include_directories(SYSTEM ${EIGEN3_INCLUDE_DIRS})
-include_directories(SYSTEM ${CCD_INCLUDE_DIRS})
-include_directories(SYSTEM ${FCL_INCLUDE_DIRS})
-include_directories(SYSTEM ${ASSIMP_INCLUDE_DIRS})
-include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
-include_directories(SYSTEM ${OPENGL_INCLUDE_DIR})
-if(HAVE_BULLET_COLLISION)
-  include_directories(SYSTEM ${BULLET_INCLUDE_DIRS})
-  add_definitions(${BULLET_CFLAGS})
-endif()
-include_directories("${CMAKE_BINARY_DIR}")
-
-#===============================================================================
-# Link directories
-#===============================================================================
-link_directories("${CMAKE_BINARY_DIR}/lib")
-link_directories("${CMAKE_INSTALL_PREFIX}/lib")
-link_directories(${Boost_LIBRARY_DIRS})
-if(HAVE_BULLET_COLLISION)
-  link_directories(${BULLET_LIBRARY_DIRS})
-endif()
-
-#===============================================================================
-# Link directories
-#===============================================================================
-set(KIDO_DEPENDENCIES ${CCD_LIBRARIES}
-                      ${FCL_LIBRARIES}
-                      ${ASSIMP_LIBRARIES}
-                      ${Boost_LIBRARIES}
-                      ${OPENGL_LIBRARIES})
-if(HAVE_BULLET_COLLISION)
-  set(KIDO_DEPENDENCIES ${KIDO_DEPENDENCIES} ${BULLET_LIBRARIES})
-endif()
+include(DARTFindDependencies)
 
 #===============================================================================
 # Check for non-case-sensitive filesystems
@@ -481,108 +153,221 @@ endif()
 # Compiler flags
 #===============================================================================
 if(MSVC)
+
   # Visual Studio enables c++11 support by default
-  if(NOT MSVC12 AND NOT MSVC14)
-    message(FATAL_ERROR "${PROJECT_NAME} requires VS 2013 or greater.")
+  if(MSVC_VERSION VERSION_LESS 1900)
+    message(FATAL_ERROR "${PROJECT_NAME} requires VS2017 or greater.")
   endif()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP4")
-  set(CMAKE_EXE_LINKER_FLAGS_RELEASE "/LTCG /INCREMENTAL:NO")
-  if(NOT KIDO_MSVC_DEFAULT_OPTIONS)
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${KIDO_RUNTIME_LIBRARY}d /Zi /Gy /W1 /EHsc")
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${KIDO_RUNTIME_LIBRARY} /Zi /GL /Gy /W1 /EHsc /arch:SSE2")
-  endif(NOT KIDO_MSVC_DEFAULT_OPTIONS)
+  if(DART_TREAT_WARNINGS_AS_ERRORS)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
+  endif()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /permissive-")
+  #set(CMAKE_EXE_LINKER_FLAGS_RELEASE "/LTCG /INCREMENTAL:NO")
+  if(NOT DART_MSVC_DEFAULT_OPTIONS)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${DART_RUNTIME_LIBRARY}d /Zi /Gy /W1 /EHsc")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${DART_RUNTIME_LIBRARY} /Zi /GL /Gy /W1 /EHsc")
+  endif(NOT DART_MSVC_DEFAULT_OPTIONS)
+  add_definitions(-D_CRT_SECURE_NO_WARNINGS)
+  add_compile_options(/wd4334)
+  add_compile_options(/wd4267)
+  add_compile_options(/wd4244)
+  add_compile_options(/wd4250)
+  add_compile_options(/wd4996)
+  add_compile_options(/wd4099)
+  add_compile_options(/wd4305)
+  add_compile_options(/wd4838)
+  add_compile_options(/bigobj)
+
 elseif(CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS "-Wall -msse2 -fPIC")
+
+  if(DART_TREAT_WARNINGS_AS_ERRORS)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
+  endif()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -fPIC")
   execute_process(
-    COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+    COMMAND ${CMAKE_CXX_COMPILER} -dumpfullversion -dumpversion OUTPUT_VARIABLE GCC_VERSION)
   set(CXX_COMPILER_VERSION ${GCC_VERSION})
   if(GCC_VERSION VERSION_LESS 4.8)
     message(FATAL_ERROR "The installed g++ version is ${GCC_VERSION}. ${PROJECT_NAME} requires g++ 4.8 or greater.")
-  else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
   endif()
   set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG "-g -fno-omit-frame-pointer -fno-inline-functions -fno-inline-functions-called-once -fno-optimize-sibling-calls")
+  if(DART_FAST_DEBUG)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O1")
+  endif()
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS_DEBUG}")
   set(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS_DEBUG} -pg")
-elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-  set(CMAKE_CXX_FLAGS "-msse2 -fPIC")
+  set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
+
+elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+
+  if(DART_TREAT_WARNINGS_AS_ERRORS)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wno-error=deprecated-declarations")
+    # Turn warning "deprecated-declarations" into an warning even if -Werror is
+    # specified until we abandon glut.
+  endif()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
   execute_process(
     COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE CLANG_VERSION)
   set(CXX_COMPILER_VERSION ${CLANG_VERSION})
   if(CLANG_VERSION VERSION_LESS 3.3)
     message(FATAL_ERROR "The installed Clang version is ${CLANG_VERSION}. ${PROJECT_NAME} requires clang 3.3 or greater.")
-  else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
   endif()
   if("${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
   endif()
   set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
   set(CMAKE_CXX_FLAGS_DEBUG "-g -fno-omit-frame-pointer -fno-inline-functions -fno-optimize-sibling-calls")
+  if(DART_FAST_DEBUG)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O1")
+  endif()
   set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS_DEBUG}")
   set(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS_DEBUG} -pg")
+  set(CMAKE_OSX_DEPLOYMENT_TARGET "10.8")
+
 else()
+
   message(SEND_ERROR "Compiler[${CMAKE_CXX_COMPILER_ID}] not supported.")
+
 endif()
 
 #===============================================================================
 # Print build summary
 #===============================================================================
-message(STATUS "")
-message(STATUS "[ Build summary ]")
-message(STATUS "CMAKE_GENERATOR  : ${CMAKE_GENERATOR}")
-message(STATUS "Compiler ID      : ${CMAKE_CXX_COMPILER_ID}")
-message(STATUS "Compiler version : ${CXX_COMPILER_VERSION}")
-message(STATUS "Build type       : ${CMAKE_BUILD_TYPE}")
-message(STATUS "BUILD_SHARED_LIBS: ${BUILD_SHARED_LIBS}")
-message(STATUS "ENABLE_OPENMP    : ${ENABLE_OPENMP}")
-message(STATUS "Build osgKido    : ${KIDO_BUILD_OSGKIDO}")
-message(STATUS "Build examples   : ${KIDO_BUILD_EXAMPLES}")
-message(STATUS "Build tutorials  : ${KIDO_BUILD_TUTORIALS}")
-message(STATUS "Build unit tests : ${KIDO_BUILD_UNITTESTS}")
-message(STATUS "Install path     : ${CMAKE_INSTALL_PREFIX}")
-message(STATUS "CXX_FLAGS        : ${CMAKE_CXX_FLAGS}")
-if(${CMAKE_BUILD_TYPE_UPPERCASE} STREQUAL "RELEASE")
-  message(STATUS "CXX_FLAGS_RELEASE: ${CMAKE_CXX_FLAGS_RELEASE}")
-elseif(${CMAKE_BUILD_TYPE_UPPERCASE} STREQUAL "DEBUG")
-  message(STATUS "CXX_FLAGS_DEBUG  : ${CMAKE_CXX_FLAGS_DEBUG}")
-elseif(${CMAKE_BUILD_TYPE_UPPERCASE} STREQUAL "RELWITHDEBINFO")
-  message(STATUS "CXX_FLAGS_RELWITHDEBINFO: ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
-elseif(${CMAKE_BUILD_TYPE_UPPERCASE} STREQUAL "PROFILE")
-  message(STATUS "CXX_FLAGS_PROFILE: ${CMAKE_CXX_FLAGS_PROFILE}")
+if(DART_VERBOSE)
+  message(STATUS "")
+  message(STATUS "[ Build summary ]")
+  message(STATUS "CMAKE_GENERATOR  : ${CMAKE_GENERATOR}")
+  message(STATUS "Compiler ID      : ${CMAKE_CXX_COMPILER_ID}")
+  message(STATUS "Compiler version : ${CXX_COMPILER_VERSION}")
+  message(STATUS "Build type       : ${CMAKE_BUILD_TYPE}")
+  message(STATUS "BUILD_SHARED_LIBS: ${BUILD_SHARED_LIBS}")
+  message(STATUS "ENABLE_OPENMP    : ${ENABLE_OPENMP}")
+  message(STATUS "Build gui::osg   : ${DART_BUILD_GUI_OSG}")
+  message(STATUS "Install path     : ${CMAKE_INSTALL_PREFIX}")
+  message(STATUS "CXX_FLAGS        : ${CMAKE_CXX_FLAGS}")
+  if(${CMAKE_BUILD_TYPE_UPPERCASE} STREQUAL "RELEASE")
+    message(STATUS "CXX_FLAGS_RELEASE: ${CMAKE_CXX_FLAGS_RELEASE}")
+  elseif(${CMAKE_BUILD_TYPE_UPPERCASE} STREQUAL "DEBUG")
+    message(STATUS "CXX_FLAGS_DEBUG  : ${CMAKE_CXX_FLAGS_DEBUG}")
+  elseif(${CMAKE_BUILD_TYPE_UPPERCASE} STREQUAL "RELWITHDEBINFO")
+    message(STATUS "CXX_FLAGS_RELWITHDEBINFO: ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+  elseif(${CMAKE_BUILD_TYPE_UPPERCASE} STREQUAL "PROFILE")
+    message(STATUS "CXX_FLAGS_PROFILE: ${CMAKE_CXX_FLAGS_PROFILE}")
+  endif()
+  message(STATUS "CMAKE_SOURCE_DIR : ${CMAKE_SOURCE_DIR}")
+  message(STATUS "CMAKE_BINARY_DIR : ${CMAKE_BINARY_DIR}")
+endif(DART_VERBOSE)
+
+#===============================================================================
+# Add sub-directories
+#===============================================================================
+
+add_subdirectory(dart)
+
+set(DART_IN_SOURCE_BUILD TRUE)
+
+if(TARGET dart)
+
+  # Add a "tests" target to build unit tests.
+  enable_testing()
+  add_subdirectory(unittests EXCLUDE_FROM_ALL)
+
+  # Add example subdirectories and an "examples" target.
+  add_subdirectory(examples EXCLUDE_FROM_ALL)
+  get_property(examples GLOBAL PROPERTY DART_EXAMPLES)
+  add_custom_target(examples DEPENDS ${examples})
+
+  if(DART_VERBOSE)
+    message(STATUS "")
+    message(STATUS "[ Examples ]")
+    foreach(example ${examples})
+      message(STATUS "Adding example: ${example}")
+    endforeach(example ${examples})
+  else(DART_VERBOSE)
+    list(LENGTH examples examples_length)
+    message(STATUS "Adding ${examples_length} examples")
+  endif(DART_VERBOSE)
+
+  # Add a "tutorials" target to build tutorials.
+  add_subdirectory(tutorials EXCLUDE_FROM_ALL)
+  get_property(tutorials GLOBAL PROPERTY DART_TUTORIALS)
+  add_custom_target(tutorials DEPENDS ${tutorials})
+
+  if(DART_VERBOSE)
+    message(STATUS "")
+    message(STATUS "[ Tutorials ]")
+    foreach(tutorial ${tutorials})
+      message(STATUS "Adding tutorial: ${tutorial}")
+    endforeach(tutorial ${tutorials})
+  else(DART_VERBOSE)
+    list(LENGTH tutorials tutorials_length)
+    message(STATUS "Adding ${tutorials_length} tutorials")
+  endif(DART_VERBOSE)
+
 endif()
-message(STATUS "CMAKE_SOURCE_DIR : ${CMAKE_SOURCE_DIR}")
-message(STATUS "CMAKE_BINARY_DIR : ${CMAKE_BINARY_DIR}")
+
+if(DART_BUILD_EXTRAS)
+  add_subdirectory(extras)
+endif()
+
+#===============================================================================
+# CMake configuration files for components and targets
+#===============================================================================
+# Generate and install CMake configuration files for each component <C>:
+# - <C>Component.cmake, which defines:
+#   - dart_<C>_DEPENDENCIES: list of component dependencies
+#   - dart_<C>_LIBRARIES: list of library targets in this component
+# - <C>Targets.cmake, which creates IMPORTED targets
+install_component_exports(${PROJECT_NAME})
 
 #===============================================================================
 # Configure files
 #===============================================================================
-message(STATUS "")
-message(STATUS "[ Configured files ]")
+if(DART_VERBOSE)
+  message(STATUS "")
+  message(STATUS "[ Configured files ]")
+endif()
 
-# Generate the kido config file
-# Ref: http://www.vtk.org/Wiki/CMake:How_To_Write_Platform_Checks
-set(KIDO_CONFIG_IN ${CMAKE_SOURCE_DIR}/kido/config.hpp.in)
-set(KIDO_CONFIG_OUT ${CMAKE_BINARY_DIR}/kido/config.hpp)
-message(STATUS ${KIDO_CONFIG_OUT})
-configure_file(${KIDO_CONFIG_IN} ${KIDO_CONFIG_OUT} @ONLY)
-install(FILES ${KIDO_CONFIG_OUT} DESTINATION include/kido)
+# Generate and install a Config.cmake file. This file includes the
+# <C>Component.cmake and <C>Targets.cmake created above. It also uses the
+# following variables:
+#
+# - PACKAGE_INCLUDE_INSTALL_DIR
+# - PACKAGE_INCLUDE_DIRS
+get_property(PACKAGE_INCLUDE_DIRS GLOBAL
+  PROPERTY "${PROJECT_NAME_UPPERCASE}_INCLUDE_DIRS")
 
-# Generate the KIDO CMake Config and version files
-include(WriteBasicConfigVersionFile)
-set(KIDO_CONFIG_IN ${CMAKE_SOURCE_DIR}/cmake/KIDOConfig.cmake.in)
-set(KIDO_CONFIG_OUT ${CMAKE_BINARY_DIR}/cmake/KIDOConfig.cmake)
-message(STATUS ${KIDO_CONFIG_OUT})
-message(STATUS ${CMAKE_BINARY_DIR}/cmake/KIDOConfigVersion.cmake)
-configure_file(${KIDO_CONFIG_IN} ${KIDO_CONFIG_OUT} @ONLY)
-write_basic_config_version_file(${CMAKE_BINARY_DIR}/cmake/KIDOConfigVersion.cmake VERSION ${KIDO_VERSION} COMPATIBILITY SameMajorVersion)
-install(FILES ${KIDO_CONFIG_OUT} ${CMAKE_BINARY_DIR}/cmake/KIDOConfigVersion.cmake DESTINATION share/kido)
+# Generate the DART CMake Config and version files
+include(CMakePackageConfigHelpers)
+set(DART_CONFIG_IN ${CMAKE_SOURCE_DIR}/cmake/${PROJECT_NAME_UPPERCASE}Config.cmake.in)
+set(DART_CONFIG_OUT ${CMAKE_BINARY_DIR}/${PROJECT_NAME_UPPERCASE}Config.cmake)
+set(DART_VERSION_OUT ${CMAKE_BINARY_DIR}/cmake/${PROJECT_NAME_UPPERCASE}ConfigVersion.cmake)
+if(DART_VERBOSE)
+  message(STATUS ${DART_CONFIG_OUT})
+  message(STATUS ${DART_VERSION_OUT})
+endif()
+configure_package_config_file(
+  ${DART_CONFIG_IN}
+  ${DART_CONFIG_OUT}
+  INSTALL_DESTINATION "${CONFIG_INSTALL_DIR}"
+  PATH_VARS INCLUDE_INSTALL_DIR
+)
+write_basic_config_version_file(
+  ${DART_VERSION_OUT}
+  VERSION ${${PROJECT_NAME_UPPERCASE}_VERSION}
+  COMPATIBILITY SameMajorVersion
+)
+install(
+  FILES ${DART_CONFIG_OUT} ${DART_VERSION_OUT}
+  DESTINATION "${CONFIG_INSTALL_DIR}")
 
-# Generate the KIDO pkg-config
-set(PC_CONFIG_IN ${CMAKE_SOURCE_DIR}/cmake/kido.pc.in)
-set(PC_CONFIG_OUT ${CMAKE_BINARY_DIR}/cmake/kido.pc)
-message(STATUS ${PC_CONFIG_OUT})
+# Generate the DART pkg-config
+set(PC_CONFIG_IN ${CMAKE_SOURCE_DIR}/cmake/dart.pc.in)
+set(PC_CONFIG_OUT ${CMAKE_BINARY_DIR}/cmake/dart.pc)
+if(DART_VERBOSE)
+  message(STATUS ${PC_CONFIG_OUT})
+endif()
 configure_file(${PC_CONFIG_IN} ${PC_CONFIG_OUT} @ONLY)
 install(FILES ${PC_CONFIG_OUT} DESTINATION lib/pkgconfig)
 
@@ -590,34 +375,83 @@ install(FILES ${PC_CONFIG_OUT} DESTINATION lib/pkgconfig)
 install(FILES package.xml DESTINATION share/${PROJECT_NAME})
 
 #===============================================================================
-# Add sub-directories
+# Install sample data, examples, and tutorials
 #===============================================================================
-add_subdirectory(kido)
 
-# Unit tests
-if(KIDO_BUILD_UNITTESTS)
-  enable_testing()
-  add_subdirectory(unittests)
-endif(KIDO_BUILD_UNITTESTS)
+# Sample data
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/data"
+  DESTINATION ${DART_ADDITIONAL_DOCUMENTATION_INSTALL_PATH})
 
-# Examples
-if(KIDO_BUILD_EXAMPLES)
-  add_subdirectory(apps)
-endif(KIDO_BUILD_EXAMPLES)
+# Examples source
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/examples"
+  DESTINATION ${DART_ADDITIONAL_DOCUMENTATION_INSTALL_PATH})
 
-if(KIDO_BUILD_TUTORIALS)
-  add_subdirectory(tutorials)
-endif()
+# Tutorials source
+install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/tutorials"
+  DESTINATION ${DART_ADDITIONAL_DOCUMENTATION_INSTALL_PATH})
 
 #===============================================================================
-# Export targets
+# Uninstall
 #===============================================================================
-install(EXPORT KIDOTargets DESTINATION share/kido)
 
 # Add an "uninstall" target
 # Ref: http://www.cmake.org/Wiki/CMake_FAQ#Can_I_do_.22make_uninstall.22_with_CMake.3F
 configure_file("${PROJECT_SOURCE_DIR}/cmake/uninstall_target.cmake.in" "${PROJECT_BINARY_DIR}/uninstall_target.cmake" IMMEDIATE @ONLY)
 add_custom_target(uninstall "${CMAKE_COMMAND}" -P "${PROJECT_BINARY_DIR}/uninstall_target.cmake")
+
+#===============================================================================
+# Code Formatting
+#===============================================================================
+if(DART_VERBOSE)
+  message(STATUS "")
+  message(STATUS "[ Code Formatting ]")
+endif()
+
+find_program(
+  CLANG_FORMAT_EXECUTABLE
+  NAMES clang-format-3.8
+)
+
+get_property(formatting_files GLOBAL PROPERTY DART_FORMAT_FILES)
+list(LENGTH formatting_files formatting_files_length)
+
+if(CLANG_FORMAT_EXECUTABLE)
+
+  if(DART_VERBOSE)
+    message(STATUS "Looking for clang-format - found")
+  endif()
+
+  message(STATUS "Formatting on ${formatting_files_length} source files.")
+
+  if(formatting_files)
+    add_custom_target(format
+                      COMMAND ${CMAKE_COMMAND} -E echo "Formatting ${formatting_files_length} files... "
+                      COMMAND ${CLANG_FORMAT_EXECUTABLE} -style=file -i ${formatting_files}
+                      COMMAND ${CMAKE_COMMAND} -E echo "Done."
+                      DEPENDS ${CLANG_FORMAT_EXECUTABLE}
+                      WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/dart)
+
+    add_custom_target(check-format
+                      COMMAND ${CMAKE_COMMAND} -E echo "Checking ${formatting_files_length} files... "
+                      COMMAND ${CMAKE_SOURCE_DIR}/tools/check_format.sh ${CLANG_FORMAT_EXECUTABLE} ${formatting_files}
+                      COMMAND ${CMAKE_COMMAND} -E echo "Done."
+                      DEPENDS ${CLANG_FORMAT_EXECUTABLE}
+                      WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/dart)
+  else()
+    add_custom_target(format
+                      COMMAND ${CMAKE_COMMAND} -E echo "Warning: Not found any source files to format.")
+
+    add_custom_target(check-format
+                      COMMAND ${CMAKE_COMMAND} -E echo "Warning: Not found any source files to check.")
+  endif()
+
+else()
+
+  if(DART_VERBOSE)
+    message(STATUS "Looking for clang-format - NOT found, please install clang-format to enable automatic code formatting")
+  endif()
+
+endif()
 
 #===============================================================================
 # API Document using Doxygen
@@ -627,32 +461,68 @@ add_custom_target(uninstall "${CMAKE_COMMAND}" -P "${PROJECT_BINARY_DIR}/uninsta
 #===============================================================================
 if(DOXYGEN_FOUND)
 
-  set(DOXYGEN_DOXYFILE_IN  ${PROJECT_SOURCE_DIR}/doxygen/Doxyfile.in    )
-  set(DOXYGEN_DOXYFILE     ${PROJECT_BINARY_DIR}/doxygen/Doxyfile       )
-  set(DOXYGEN_HTML_INDEX   ${PROJECT_SOURCE_DIR}/doxygen/html/index.html)
-  set(DOXYGEN_OUTPUT_ROOT  ${PROJECT_SOURCE_DIR}/doxygen/html           ) # Pasted into Doxyfile.in
-  set(DOXYGEN_INPUT_ROOT   ${PROJECT_SOURCE_DIR}/kido                   ) # Pasted into Doxyfile.in
-  set(DOXYGEN_EXTRA_INPUTS ${PROJECT_SOURCE_DIR}/doxygen/mainpage.dox   ) # Pasted into Doxyfile.in
+  set(DOXYGEN_DOXYFILE_IN      "${PROJECT_SOURCE_DIR}/doxygen/Doxyfile.in"    )
+  set(DOXYGEN_DOXYFILE         "${PROJECT_BINARY_DIR}/doxygen/Doxyfile"       )
+  set(DOXYGEN_HTML_INDEX       "${PROJECT_BINARY_DIR}/doxygen/html/index.html")
+  set(DOXYGEN_OUTPUT_ROOT      "${PROJECT_BINARY_DIR}/doxygen/html"           )
+  set(DOXYGEN_GENERATE_TAGFILE "${DOXYGEN_OUTPUT_ROOT}/${PROJECT_NAME}.tag"   )
+  set(DOXYGEN_INCLUDE_PATH     "${PROJECT_SOURCE_DIR}"                        )
+  set(DOXYGEN_INPUT_ROOT       "${PROJECT_SOURCE_DIR}/dart"                   )
+  set(DOXYGEN_EXTRA_INPUTS     "${PROJECT_SOURCE_DIR}/doxygen/mainpage.dox"   )
+  set(DOXYGEN_EXCLUDE          "${PROJECT_SOURCE_DIR}/dart/external"          )
+  set(DOXYGEN_STRIP_FROM_PATH  "${CMAKE_CURRENT_SOURCE_DIR}"                  )
 
+  # Generate a Doxyfile. This uses the variables:
+  #
+  # - DOXYGEN_OUTPUT_ROOT
+  # - DOXYGEN_GENERATE_TAGFILE
+  # - DOXYGEN_EXTRA_INPUTS
+  # - DOXYGEN_INPUT_ROOT
+  # - DOXYGEN_EXCLUDE
+  # - DOXYGEN_STRIP_FROM_PATH
   configure_file(${DOXYGEN_DOXYFILE_IN} ${DOXYGEN_DOXYFILE} @ONLY)
-  file(COPY "${PROJECT_SOURCE_DIR}/doxygen/KIDO logo.png" DESTINATION ${DOXYGEN_OUTPUT_ROOT})
-  add_custom_command(OUTPUT ${DOXYGEN_HTML_INDEX}
-                     COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
-                     COMMAND ${DOXYGEN_EXECUTABLE} -u ${DOXYGEN_DOXYFILE}
-                     COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_DOXYFILE}
-                     COMMAND ${CMAKE_COMMAND} -E echo "Done."
-                     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doxygen
-                     DEPENDS ${DOXYGEN_DOXYFILE}
+  file(
+    COPY "${PROJECT_SOURCE_DIR}/doxygen/DART logo.png"
+    DESTINATION ${DOXYGEN_OUTPUT_ROOT}
+  )
+  add_custom_command(
+    OUTPUT ${DOXYGEN_HTML_INDEX}
+    COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
+    COMMAND ${DOXYGEN_EXECUTABLE} -u ${DOXYGEN_DOXYFILE}
+    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_DOXYFILE}
+    # Strip path prefix from all paths in dart.tag
+    COMMAND ${CMAKE_COMMAND} -E echo "Stripping paths from"
+        "${DOXYGEN_GENERATE_TAGFILE}"
+    COMMAND sed -i s:${DOXYGEN_STRIP_FROM_PATH}::g ${DOXYGEN_GENERATE_TAGFILE}
+    # Strip all doxygen="path" HTML tags
+    COMMAND ${CMAKE_COMMAND} -E echo "Stripping Doxygen HTML tags"
+    COMMAND find "${DOXYGEN_OUTPUT_ROOT}" -type f -name "*.html"
+        -exec sed -i 's: doxygen=\"[^\"]*\"::g' {} \\$<SEMICOLON>
+    COMMAND ${CMAKE_COMMAND} -E echo "Done."
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doxygen
+    DEPENDS ${DOXYGEN_DOXYFILE}
   )
   # add_custom_target(docs ALL DEPENDS ${DOXYGEN_HTML_INDEX})
   add_custom_target(docs DEPENDS ${DOXYGEN_HTML_INDEX})
-  add_custom_target(docs_forced
-                    COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
-                    COMMAND ${DOXYGEN_EXECUTABLE} -u ${DOXYGEN_DOXYFILE}
-                    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_DOXYFILE}
-                    COMMAND ${CMAKE_COMMAND} -E echo "Done."
-                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doxygen
+  add_custom_target(
+    docs_forced
+    COMMAND ${CMAKE_COMMAND} -E echo_append "Building API Documentation..."
+    COMMAND ${DOXYGEN_EXECUTABLE} -u ${DOXYGEN_DOXYFILE}
+    COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_DOXYFILE}
+    COMMAND ${CMAKE_COMMAND} -E echo "Done."
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doxygen
   )
+
+  # Add the "view_docs" target that opens the generated API documentation.
+  if(APPLE)
+    set(OPEN_COMMAND "open")
+  else()
+    set(OPEN_COMMAND "xdg-open")
+  endif()
+
+  add_custom_target(view_docs "${OPEN_COMMAND}" "${DOXYGEN_HTML_INDEX}"
+    DEPENDS "${DOXYGEN_HTML_INDEX}"
+    COMMENT "Opening documentation in a web browser.")
 
 endif()
 
@@ -669,6 +539,16 @@ if("${PERLMODULES_FOUND}" STREQUAL "TRUE")
     endif()
   endif()
 endif()
+
+#===============================================================================
+# Build Instructions
+#===============================================================================
+message(STATUS "")
+message(STATUS "Run 'make' to build all the components")
+message(STATUS "Run 'make tests' to build all the unittests")
+message(STATUS "Run 'make examples' to build all the examples")
+message(STATUS "Run 'make tutorials' to build all the tutorials")
+message(STATUS "Run 'make view_docs' to see the API documentation")
 
 #===============================================================================
 # END

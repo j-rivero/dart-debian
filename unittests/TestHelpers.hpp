@@ -1,14 +1,9 @@
 /*
- * Copyright (c) 2013-2014, Georgia Tech Research Corporation
+ * Copyright (c) 2011-2019, The DART development contributors
  * All rights reserved.
  *
- * Author(s): Can Erdogan <cerdogan3@gatech.edu>,
- *            Jeongseok Lee <jslee02@gmail.com>
- *
- * Georgia Tech Graphics Lab and Humanoid Robotics Lab
- *
- * Directed by Prof. C. Karen Liu and Prof. Mike Stilman
- * <karenliu@cc.gatech.edu> <mstilman@cc.gatech.edu>
+ * The list of contributors can be found at:
+ *   https://github.com/dartsim/dart/blob/master/LICENSE
  *
  * This file is provided under the following "BSD-style" License:
  *   Redistribution and use in source and binary forms, with or
@@ -42,25 +37,25 @@
  * @brief Contains the helper functions for the tests.
  */
 
-#ifndef KIDO_UNITTESTS_TEST_HELPERS_HPP_
-#define KIDO_UNITTESTS_TEST_HELPERS_HPP_
+#ifndef DART_UNITTESTS_TEST_HELPERS_H
+#define DART_UNITTESTS_TEST_HELPERS_H
 
 #include <vector>
 #include <boost/math/special_functions/fpclassify.hpp>
 #include <Eigen/Dense>
-#include "kido/common/Uri.hpp"
-#include "kido/math/Geometry.hpp"
-#include "kido/dynamics/dynamics.hpp"
-#include "kido/collision/CollisionDetector.hpp"
-#include "kido/constraint/ConstraintSolver.hpp"
-#include "kido/simulation/World.hpp"
-#include "kido/common/ResourceRetriever.hpp"
+#include "dart/common/ResourceRetriever.hpp"
+#include "dart/common/Uri.hpp"
+#include "dart/math/Geometry.hpp"
+#include "dart/dynamics/dynamics.hpp"
+#include "dart/collision/CollisionDetector.hpp"
+#include "dart/constraint/ConstraintSolver.hpp"
+#include "dart/simulation/World.hpp"
 
 using namespace Eigen;
-using namespace kido::math;
-using namespace kido::collision;
-using namespace kido::dynamics;
-using namespace kido::simulation;
+using namespace dart::math;
+using namespace dart::collision;
+using namespace dart::dynamics;
+using namespace dart::simulation;
 
 /// Function headers
 enum TypeOfDOF
@@ -68,7 +63,7 @@ enum TypeOfDOF
   DOF_X, DOF_Y, DOF_Z, DOF_ROLL, DOF_PITCH, DOF_YAW
 };
 
-/******************************************************************************/
+//==============================================================================
 /// Returns true if the two matrices are equal within the given bound
 template <class MATRIX>
 bool equals(const Eigen::DenseBase<MATRIX>& _expected,
@@ -103,20 +98,32 @@ bool equals(const Eigen::DenseBase<MATRIX>& _expected,
 }
 
 //==============================================================================
+bool equals(const Eigen::Isometry3d& tf1,
+            const Eigen::Isometry3d& tf2, double tol = 1e-5)
+{
+  auto se3 = dart::math::logMap(tf1.inverse()*tf2);
+  auto norm = se3.norm();
+
+  return (norm < tol);
+}
+
+//==============================================================================
 /// Add an end-effector to the last link of the given robot
 void addEndEffector(SkeletonPtr robot, BodyNode* parent_node, Vector3d dim)
 {
-    // Create the end-effector node with a random dimension
-    BodyNode::Properties node(std::string("ee"));
-    std::shared_ptr<Shape> shape(new BoxShape(Vector3d(0.2, 0.2, 0.2)));
-    node.mVizShapes.push_back(shape);
-    node.mColShapes.push_back(shape);
+  // Create the end-effector node with a random dimension
+  BodyNode::Properties node(BodyNode::AspectProperties("ee"));
+  std::shared_ptr<Shape> shape(new BoxShape(Vector3d(0.2, 0.2, 0.2)));
 
-    Eigen::Isometry3d T = Eigen::Isometry3d::Identity();
-    T.translate(Eigen::Vector3d(0.0, 0.0, dim(2)));
-    Joint::Properties joint("eeJoint", T);
+  Eigen::Isometry3d T = Eigen::Isometry3d::Identity();
+  T.translate(Eigen::Vector3d(0.0, 0.0, dim(2)));
+  Joint::Properties joint("eeJoint", T);
 
-    robot->createJointAndBodyNodePair<WeldJoint>(parent_node, joint, node);
+  auto pair = robot->createJointAndBodyNodePair<WeldJoint>(
+        parent_node, joint, node);
+  auto bodyNode = pair.second;
+  bodyNode->createShapeNodeWith<
+      VisualAspect, CollisionAspect, DynamicsAspect>(shape);
 }
 
 //==============================================================================
@@ -124,9 +131,9 @@ std::pair<Joint*, BodyNode*> add1DofJoint(SkeletonPtr skel,
     BodyNode* parent, const BodyNode::Properties& node,
     const std::string& name, double val, double min, double max, int type)
 {
-  SingleDofJoint::Properties properties(name);
-  properties.mPositionLowerLimit = min;
-  properties.mPositionUpperLimit = max;
+  GenericJoint<R1Space>::Properties properties(name);
+  properties.mPositionLowerLimits[0] = min;
+  properties.mPositionUpperLimits[0] = max;
   std::pair<Joint*, BodyNode*> newComponent;
   if(DOF_X == type)
     newComponent = skel->createJointAndBodyNodePair<PrismaticJoint>(parent,
@@ -165,34 +172,43 @@ SkeletonPtr createThreeLinkRobot(Vector3d dim1, TypeOfDOF type1,
   Vector3d dimEE = dim1;
 
   // Create the first link
-  BodyNode::Properties node(std::string("link1"));
+  BodyNode::Properties node(BodyNode::AspectProperties("link1"));
   node.mInertia.setLocalCOM(Vector3d(0.0, 0.0, dim1(2)/2.0));
   std::shared_ptr<Shape> shape(new BoxShape(dim1));
-  node.mVizShapes.push_back(shape);
-  if(collisionShape)
-    node.mColShapes.push_back(shape);
 
   std::pair<Joint*, BodyNode*> pair1 = add1DofJoint(
-      robot, nullptr, node, "joint1", 0.0, -KIDO_PI, KIDO_PI, type1);
+      robot, nullptr, node, "joint1", 0.0, -constantsd::pi(), constantsd::pi(), type1);
+  auto current_node = pair1.second;
+  auto shapeNode = current_node->createShapeNodeWith<VisualAspect>(shape);
+  if(collisionShape)
+  {
+    shapeNode->createCollisionAspect();
+    shapeNode->createDynamicsAspect();
+  }
 
-  BodyNode* parent_node = pair1.second;
+  BodyNode* parent_node = current_node;
 
   if(stopAfter > 1)
   {
     // Create the second link
-    node = BodyNode::Properties(std::string("link2"));
+    node = BodyNode::Properties(BodyNode::AspectProperties("link2"));
     node.mInertia.setLocalCOM(Vector3d(0.0, 0.0, dim2(2)/2.0));
     shape = std::shared_ptr<Shape>(new BoxShape(dim2));
-    node.mVizShapes.push_back(shape);
-    if (collisionShape)
-        node.mColShapes.push_back(shape);
 
     std::pair<Joint*, BodyNode*> pair2 = add1DofJoint(
-        robot, parent_node, node, "joint2", 0.0, -KIDO_PI, KIDO_PI, type2);
+        robot, parent_node, node, "joint2", 0.0, -constantsd::pi(), constantsd::pi(), type2);
     Joint* joint = pair2.first;
     Eigen::Isometry3d T = Eigen::Isometry3d::Identity();
     T.translate(Eigen::Vector3d(0.0, 0.0, dim1(2)));
     joint->setTransformFromParentBodyNode(T);
+
+    auto current_node = pair2.second;
+    auto shapeNode = current_node->createShapeNodeWith<VisualAspect>(shape);
+    if(collisionShape)
+    {
+      shapeNode->createCollisionAspect();
+      shapeNode->createDynamicsAspect();
+    }
 
     parent_node = pair2.second;
     dimEE = dim2;
@@ -201,19 +217,24 @@ SkeletonPtr createThreeLinkRobot(Vector3d dim1, TypeOfDOF type1,
   if(stopAfter > 2)
   {
     // Create the third link
-    node = BodyNode::Properties(std::string("link3"));
+    node = BodyNode::Properties(BodyNode::AspectProperties("link3"));
     node.mInertia.setLocalCOM(Vector3d(0.0, 0.0, dim3(2)/2.0));
     shape = std::shared_ptr<Shape>(new BoxShape(dim3));
-    node.mVizShapes.push_back(shape);
-    if (collisionShape)
-        node.mColShapes.push_back(shape);
     std::pair<Joint*, BodyNode*> pair3 = add1DofJoint(
-          robot, parent_node, node, "joint3", 0.0, -KIDO_PI, KIDO_PI, type3);
+          robot, parent_node, node, "joint3", 0.0, -constantsd::pi(), constantsd::pi(), type3);
 
     Joint* joint = pair3.first;
     Eigen::Isometry3d T = Eigen::Isometry3d::Identity();
     T.translate(Eigen::Vector3d(0.0, 0.0, dim2(2)));
     joint->setTransformFromParentBodyNode(T);
+
+    auto current_node = pair3.second;
+    auto shapeNode = current_node->createShapeNodeWith<VisualAspect>(shape);
+    if(collisionShape)
+    {
+      shapeNode->createCollisionAspect();
+      shapeNode->createDynamicsAspect();
+    }
 
     parent_node = pair3.second;
     dimEE = dim3;
@@ -246,22 +267,24 @@ SkeletonPtr createNLinkRobot(int _n, Vector3d dim, TypeOfDOF type,
   assert(_n > 0);
 
   SkeletonPtr robot = Skeleton::create();
-  robot->disableSelfCollision();
+  robot->disableSelfCollisionCheck();
 
   // Create the first link, the joint with the ground and its shape
-  BodyNode::Properties node(std::string("link1"));
+  BodyNode::Properties node(BodyNode::AspectProperties("link1"));
   node.mInertia.setLocalCOM(Vector3d(0.0, 0.0, dim(2)/2.0));
   std::shared_ptr<Shape> shape(new BoxShape(dim));
-  node.mVizShapes.push_back(shape);
-  node.mColShapes.push_back(shape);
 
   std::pair<Joint*, BodyNode*> pair1 = add1DofJoint(
-        robot, nullptr, node, "joint1", 0.0, -KIDO_PI, KIDO_PI, type);
+        robot, nullptr, node, "joint1", 0.0, -constantsd::pi(), constantsd::pi(), type);
 
   Joint* joint = pair1.first;
   joint->setDampingCoefficient(0, 0.01);
 
-  BodyNode* parent_node = pair1.second;
+  auto current_node = pair1.second;
+  current_node->createShapeNodeWith<VisualAspect, CollisionAspect, DynamicsAspect>(
+        shape);
+
+  BodyNode* parent_node = current_node;
 
   // Create links iteratively
   for (int i = 1; i < _n; ++i)
@@ -271,14 +294,12 @@ SkeletonPtr createNLinkRobot(int _n, Vector3d dim, TypeOfDOF type,
     ssLink << "link" << i;
     ssJoint << "joint" << i;
 
-    node = BodyNode::Properties(ssLink.str());
+    node = BodyNode::Properties(BodyNode::AspectProperties(ssLink.str()));
     node.mInertia.setLocalCOM(Vector3d(0.0, 0.0, dim(2)/2.0));
     shape = std::shared_ptr<Shape>(new BoxShape(dim));
-    node.mVizShapes.push_back(shape);
-    node.mColShapes.push_back(shape);
 
     std::pair<Joint*, BodyNode*> newPair = add1DofJoint(
-        robot, parent_node, node, ssJoint.str(), 0.0, -KIDO_PI, KIDO_PI, type);
+        robot, parent_node, node, ssJoint.str(), 0.0, -constantsd::pi(), constantsd::pi(), type);
 
     Joint* joint = newPair.first;
     Eigen::Isometry3d T = Eigen::Isometry3d::Identity();
@@ -286,7 +307,11 @@ SkeletonPtr createNLinkRobot(int _n, Vector3d dim, TypeOfDOF type,
     joint->setTransformFromParentBodyNode(T);
     joint->setDampingCoefficient(0, 0.01);
 
-    parent_node = newPair.second;
+    auto current_node = newPair.second;
+    current_node->createShapeNodeWith<VisualAspect, CollisionAspect, DynamicsAspect>(
+          shape);
+
+    parent_node = current_node;
   }
 
   // If finished, initialize the skeleton
@@ -309,17 +334,15 @@ SkeletonPtr createNLinkPendulum(size_t numBodyNodes,
   assert(numBodyNodes > 0);
 
   SkeletonPtr robot = Skeleton::create();
-  robot->disableSelfCollision();
+  robot->disableSelfCollisionCheck();
 
   // Create the first link, the joint with the ground and its shape
-  BodyNode::Properties node(std::string("link1"));
+  BodyNode::Properties node(BodyNode::AspectProperties("link1"));
   node.mInertia.setLocalCOM(Vector3d(0.0, 0.0, dim(2)/2.0));
   std::shared_ptr<Shape> shape(new BoxShape(dim));
-  node.mVizShapes.push_back(shape);
-  node.mColShapes.push_back(shape);
 
   std::pair<Joint*, BodyNode*> pair1 = add1DofJoint(
-        robot, nullptr, node, "joint1", 0.0, -KIDO_PI, KIDO_PI, type);
+        robot, nullptr, node, "joint1", 0.0, -constantsd::pi(), constantsd::pi(), type);
 
   Joint* joint = pair1.first;
   Eigen::Isometry3d T = joint->getTransformFromChildBodyNode();
@@ -327,7 +350,11 @@ SkeletonPtr createNLinkPendulum(size_t numBodyNodes,
   joint->setTransformFromChildBodyNode(T);
   joint->setDampingCoefficient(0, 0.01);
 
-  BodyNode* parent_node = pair1.second;
+  auto current_node = pair1.second;
+  current_node->createShapeNodeWith<VisualAspect, CollisionAspect, DynamicsAspect>(
+        shape);
+
+  BodyNode* parent_node = current_node;
 
   // Create links iteratively
   for (size_t i = 1; i < numBodyNodes; ++i)
@@ -337,14 +364,12 @@ SkeletonPtr createNLinkPendulum(size_t numBodyNodes,
     ssLink << "link" << i;
     ssJoint << "joint" << i;
 
-    node = BodyNode::Properties(ssLink.str());
+    node = BodyNode::Properties(BodyNode::AspectProperties(ssLink.str()));
     node.mInertia.setLocalCOM(Vector3d(0.0, 0.0, dim(2)/2.0));
     shape = std::shared_ptr<Shape>(new BoxShape(dim));
-    node.mVizShapes.push_back(shape);
-    node.mColShapes.push_back(shape);
 
     std::pair<Joint*, BodyNode*> newPair = add1DofJoint(
-        robot, parent_node, node, ssJoint.str(), 0.0, -KIDO_PI, KIDO_PI, type);
+        robot, parent_node, node, ssJoint.str(), 0.0, -constantsd::pi(), constantsd::pi(), type);
 
     Joint* joint = newPair.first;
     Eigen::Isometry3d T = joint->getTransformFromChildBodyNode();
@@ -352,7 +377,11 @@ SkeletonPtr createNLinkPendulum(size_t numBodyNodes,
     joint->setTransformFromChildBodyNode(T);
     joint->setDampingCoefficient(0, 0.01);
 
-    parent_node = newPair.second;
+    auto current_node = newPair.second;
+    current_node->createShapeNodeWith<VisualAspect, CollisionAspect, DynamicsAspect>(
+          shape);
+
+    parent_node = current_node;
   }
 
   // If finished, initialize the skeleton
@@ -375,14 +404,17 @@ SkeletonPtr createGround(
     T.linear() = eulerXYZToMatrix(_orientation);
     Joint::Properties joint("joint1", T);
 
-    BodyNode::Properties node(std::string("link"));
+    BodyNode::Properties node(BodyNode::AspectProperties(std::string("link")));
     std::shared_ptr<Shape> shape(new BoxShape(_size));
-    node.mVizShapes.push_back(shape);
-    node.mColShapes.push_back(shape);
     node.mInertia.setMass(mass);
 
     SkeletonPtr skeleton = Skeleton::create();
-    skeleton->createJointAndBodyNodePair<WeldJoint>(nullptr, joint, node);
+    auto pair = skeleton->createJointAndBodyNodePair<WeldJoint>(
+          nullptr, joint, node);
+
+    auto body_node = pair.second;
+    body_node->createShapeNodeWith<VisualAspect, CollisionAspect, DynamicsAspect>(
+          shape);
 
     return skeleton;
 }
@@ -394,9 +426,9 @@ SkeletonPtr createObject(
 {
   double mass = 1.0;
 
-  MultiDofJoint<6>::Properties joint(std::string("joint1"));
+  GenericJoint<SE3Space>::Properties joint(std::string("joint1"));
 
-  BodyNode::Properties node(std::string("link1"));
+  BodyNode::Properties node(BodyNode::AspectProperties(std::string("link1")));
   node.mInertia.setMass(mass);
 
   SkeletonPtr skeleton = Skeleton::create();
@@ -419,10 +451,8 @@ SkeletonPtr createSphere(
 
   BodyNode* bn = sphere->getBodyNode(0);
   std::shared_ptr<EllipsoidShape> ellipShape(
-        new EllipsoidShape(Vector3d(
-                             _radius * 2.0, _radius * 2.0, _radius * 2.0)));
-  bn->addVisualizationShape(ellipShape);
-  bn->addCollisionShape(ellipShape);
+        new EllipsoidShape(Vector3d::Constant(_radius * 2.0)));
+  bn->createShapeNodeWith<VisualAspect, CollisionAspect, DynamicsAspect>(ellipShape);
 
   return sphere;
 }
@@ -437,14 +467,13 @@ SkeletonPtr createBox(
 
   BodyNode* bn = box->getBodyNode(0);
   std::shared_ptr<Shape> boxShape(new BoxShape(_size));
-  bn->addVisualizationShape(boxShape);
-  bn->addCollisionShape(boxShape);
+  bn->createShapeNodeWith<VisualAspect, CollisionAspect, DynamicsAspect>(boxShape);
 
   return box;
 }
 
 //==============================================================================
-struct TestResource : public kido::common::Resource
+struct TestResource : public dart::common::Resource
 {
   size_t getSize() override
   {
@@ -456,53 +485,67 @@ struct TestResource : public kido::common::Resource
     return 0;
   }
 
-  bool seek(ptrdiff_t _offset, SeekType _origin) override
+  bool seek(ptrdiff_t /*_offset*/, SeekType /*_origin*/) override
   {
     return false;
   }
 
-  size_t read(void *_buffer, size_t _size, size_t _count) override
+  size_t read(void */*_buffer*/, size_t /*_size*/, size_t /*_count*/) override
   {
     return 0;
   }
 };
 
 //==============================================================================
-struct PresentResourceRetriever : public kido::common::ResourceRetriever
+struct PresentResourceRetriever : public dart::common::ResourceRetriever
 {
-  bool exists(const kido::common::Uri& _uri) override
+  bool exists(const dart::common::Uri& _uri) override
   {
     mExists.push_back(_uri.toString());
     return true;
   }
 
-  kido::common::ResourcePtr retrieve(const kido::common::Uri& _uri) override
+  std::string getFilePath(const dart::common::Uri& _uri) override
+  {
+    mGetFilePath.push_back(_uri.toString());
+    return _uri.toString();
+  }
+
+  dart::common::ResourcePtr retrieve(const dart::common::Uri& _uri) override
   {
     mRetrieve.push_back(_uri.toString());
     return std::make_shared<TestResource>();
   }
 
   std::vector<std::string> mExists;
+  std::vector<std::string> mGetFilePath;
   std::vector<std::string> mRetrieve;
 };
 
 //==============================================================================
-struct AbsentResourceRetriever : public kido::common::ResourceRetriever
+struct AbsentResourceRetriever : public dart::common::ResourceRetriever
 {
-  bool exists(const kido::common::Uri& _uri) override
+  bool exists(const dart::common::Uri& _uri) override
   {
     mExists.push_back(_uri.toString());
     return false;
   }
 
-  kido::common::ResourcePtr retrieve(const kido::common::Uri& _uri) override
+  std::string getFilePath(const dart::common::Uri& _uri) override
+  {
+    mGetFilePath.push_back(_uri.toString());
+    return "";
+  }
+
+  dart::common::ResourcePtr retrieve(const dart::common::Uri& _uri) override
   {
     mRetrieve.push_back(_uri.toString());
     return nullptr;
   }
 
   std::vector<std::string> mExists;
+  std::vector<std::string> mGetFilePath;
   std::vector<std::string> mRetrieve;
 };
 
-#endif // #ifndef KIDO_UNITTESTS_TEST_HELPERS_HPP_
+#endif // #ifndef DART_UNITTESTS_TEST_HELPERS_H

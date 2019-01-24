@@ -1,3 +1,0 @@
-# package.xml is not a PEAR config.
-# package.xml is a file used by the ROS framework (robot operative system)
-kido source: pear-package-without-pkg-php-tools-builddep

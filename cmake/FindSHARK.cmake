@@ -1,4 +1,9 @@
-# Copyright (c) 2015, Georgia Tech Graphics Lab and Humanoid Robotics Lab
+# Copyright (c) 2011-2018, The DART development contributors
+# All rights reserved.
+#
+# The list of contributors can be found at:
+#   https://github.com/dartsim/dart/blob/master/LICENSE
+#
 # This file is provided under the "BSD-style" License
 
 # Find SHARK
@@ -38,4 +43,3 @@ find_package_handle_standard_args(SHARK
     FAIL_MESSAGE  DEFAULT_MSG
     REQUIRED_VARS SHARK_INCLUDE_DIRS SHARK_LIBRARIES
     VERSION_VAR   SHARK_VERSION)
-

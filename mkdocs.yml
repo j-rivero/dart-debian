@@ -1,10 +1,10 @@
 # Project information
-site_name: KIDO Documentation
+site_name: DART Documentation
 repo_url: https://github.com/dartsim/dart.git
 repo_name: GitHub
-site_description: Kinematics, Dynamics and Optimization Library for Animation and Robotics
-# site_favicon: null  # todo: add kido.ico
-copyright: ﻿Copyright (c) 2011-2015, Georgia Tech Research Corporation
+site_description: Dynamic Animation and Robotics Toolkit
+# site_favicon: null  # todo: add dart.ico
+copyright: ﻿Copyright (c) 2011-2016, Georgia Tech Research Corporation
 
 # Build directories
 theme: readthedocs

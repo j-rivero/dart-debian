@@ -1,2 +1,3 @@
 0001-respect-cflags.patch
+0002-fix-wamiktest-ndebug.patch
 0006-Fix-find-Flann.patch

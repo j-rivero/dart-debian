@@ -2,19 +2,11 @@
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
-CFLAGS:=$(shell dpkg-buildflags --get CFLAGS) $(CPPFLAGS)
-CXXFLAGS:=$(shell dpkg-buildflags --get CXXFLAGS) $(CPPFLAGS)
-LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
-
 # Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
 
 CMAKE_FLAGS = \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_C_FLAGS_RELWITHDEBINFO="$(CFLAGS)" \
-        -DCMAKE_CXX_FLAGS_RELWITHDEBINFO="$(CXXFLAGS)" \
-        -DCMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO="$(LDFLAGS)" \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DCMAKE_SKIP_INSTALL_RPATH=TRUE
 
@@ -32,5 +24,10 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	dh_auto_build -- tests
 
-override_dh_auto_install:
-	dh_auto_install
+override_dh_compress:
+	dh_compress \
+            -X.hpp -X.h -X.c -X.cpp \
+            -X.dae -X.obj -X.stl -X.STL \
+            -X.sdf -X.skel -X.urdf -X.vsk -X.world \
+            -X.c3d -X.changelog -X.dof -X.path -X.tris
+

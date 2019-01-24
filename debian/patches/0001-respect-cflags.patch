@@ -4,15 +4,24 @@ Last-Update: 2016-08-03
 Forwarded: No
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 36526d3..6e6a322 100644
+index d3754c2..87d3c35 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -503,7 +503,7 @@ elseif(CMAKE_COMPILER_IS_GNUCXX)
+@@ -195,7 +195,7 @@ elseif(CMAKE_COMPILER_IS_GNUCXX)
+   if(DART_FAST_DEBUG)
+     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O1")
    endif()
-   set(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
-   set(CMAKE_CXX_FLAGS_DEBUG "-g -fno-omit-frame-pointer -fno-inline-functions -fno-inline-functions-called-once -fno-optimize-sibling-calls")
 -  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS_DEBUG}")
 +  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
    set(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS_DEBUG} -pg")
- elseif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-   set(CMAKE_CXX_FLAGS "-msse2 -fPIC")
+   set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
+ 
+@@ -221,7 +221,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+   if(DART_FAST_DEBUG)
+     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O1")
+   endif()
+-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS_DEBUG}")
++  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+   set(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS_DEBUG} -pg")
+   set(CMAKE_OSX_DEPLOYMENT_TARGET "10.8")
+ 

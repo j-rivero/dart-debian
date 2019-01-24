@@ -1,4 +1,14 @@
-dart (0.1.0+dfsg-6) unstable; urgency=medium
+dart (6.7.2+dfsg-1) unstable; urgency=medium
+
+  * Rename package according with upstream: KIDO to DART 
+  * Change file names for install files
+  * Replace occurences to dart
+  * Add transitional packages from kido to dart
+  * New upstream version 6.7.2+dfsg
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Thu, 24 Jan 2019 00:07:17 +0000
+
+kido (0.1.0+dfsg-6) unstable; urgency=medium
 
   * Team upload.
   [ Jelmer Vernooĳ ]

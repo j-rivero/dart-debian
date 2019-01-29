@@ -787,13 +787,12 @@ Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
 
-Package: libdart-extension-ikfast-dev
+Package: libdart-external-ikfast-dev
 Section: libdevel
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
-         libdart-dev,
-         libdart6-extension-ikfast-dev (= ${binary:Version})
+         libdart-dev
 Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -826,7 +825,7 @@ Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart6-external-imgui-dev (= ${binary:Version})
+         libdart-external-imgui (= ${binary:Version})
 Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data

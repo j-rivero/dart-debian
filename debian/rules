@@ -10,8 +10,7 @@ CMAKE_FLAGS = \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DCMAKE_SKIP_INSTALL_RPATH=TRUE
 
-%:
-	dh $@ --parallel --buildsystem=cmake
+.PHONY: override_dh_clean override_dh_auto_configure override_dh_auto_build override_dh_compress
 
 override_dh_clean:
 	rm -rf build bin lib
@@ -30,4 +29,5 @@ override_dh_compress:
             -X.dae -X.obj -X.stl -X.STL \
             -X.sdf -X.skel -X.urdf -X.vsk -X.world \
             -X.c3d -X.changelog -X.dof -X.path -X.tris
-
+%:
+	dh $@ --parallel --buildsystem=cmake

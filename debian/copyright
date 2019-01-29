@@ -38,7 +38,7 @@ Files: dart/planning/RRT.cpp
 Copyright: 2010, Georgia Tech Research Corporation
 License: BSD-3-clause
 
-Files: dart/gui/lodepng.hpp
+Files: dart/external/lodepng/*
 Copyright: 2005-2012 Lode Vandevenne
 License: Zlib or Libpng
 

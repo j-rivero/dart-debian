@@ -2,7 +2,7 @@ dart (6.7.2+dfsg-1) unstable; urgency=medium
 
   * Rename package according with upstream: KIDO to DART 
   * Change file names for install files
-  * Replace occurences to dart
+  * Replace occurrences to dart
   * Add transitional packages from kido to dart
   * New upstream version 6.7.2+dfsg
 

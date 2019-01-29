@@ -26,7 +26,7 @@ Build-Depends: debhelper (>= 11),
                liboctomap-dev,
                libopenthreads-dev,
                libopenscenegraph-dev
-Standards-Version: 3.9.8
+Standards-Version: 4.3.0
 Vcs-Git: https://salsa.debian.org/science-team/dart.git
 Vcs-Browser: https://salsa.debian.org/science-team/dart
 Homepage: http://dartsim.github.io/
@@ -70,7 +70,6 @@ Description: Kinematics Dynamics and Optimization Library - development files
 Package: libkido-dev
 Depends: libdart-dev, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -109,7 +108,6 @@ Description: Kinematics Dynamics and Optimization Library - main library
 Package: libkido0
 Depends: libdart6, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -175,6 +173,7 @@ Description: Dynamic Animation and Robotics Toolkit - Utils Component Developmen
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
+
 Package: libdart6-collision-ode
 Section: libs
 Architecture: any
@@ -235,7 +234,7 @@ Description: Dynamic Animation and Robotics Toolkit - Utils Component Developmen
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
-
+ This package contains the collision ode headers and other tools for development.
 
 Package: libdart-planning-dev
 Section: libdevel
@@ -273,7 +272,6 @@ Description: Kinematics Dynamics and Optimization Library - planning dev files
 Package: libkido-planning-dev
 Depends: libdart-planning-dev, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -312,7 +310,6 @@ Description: Kinematics Dynamics and Optimization Library - planning library
 Package: libkido-planning0
 Depends: libdart6-planning, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -355,7 +352,6 @@ Description: Kinematics Dynamics and Optimization Library - utils dev files
 Package: libkido-utils-dev
 Depends: libdart-utils-dev, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -394,7 +390,6 @@ Description: Kinematics Dynamics and Optimization Library - utils library
 Package: libkido-utils0
 Depends: libdart6-utils, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -460,6 +455,8 @@ Description: Dynamic Animation and Robotics Toolkit - URDF Component Development
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains urdf utils headers and other useful tools for
+ development.
 
 Package: libdart-gui-dev
 Section: libdevel
@@ -500,7 +497,6 @@ Description: Kinematics Dynamics and Optimization Library - gui dev files
 Package: libkido-gui-dev
 Depends: libdart-gui-dev, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -538,7 +534,6 @@ Description: Kinematics Dynamics and Optimization Library - gui library
 Package: libkido-gui0
 Depends: libdart6-gui, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -581,7 +576,6 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg dev files
 Package: libkido-gui-osg-dev
 Depends: libdart-gui-osg-dev, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -620,7 +614,6 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg library
 Package: libkido-gui-osg0
 Depends: libdart6-gui-osg, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -662,7 +655,6 @@ Description: Kinematics Dynamics and Optimization Library - optimizer dev files
 Package: libkido-optimizer-nlopt-dev
 Depends: libdart-optimizer-nlopt-dev, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -701,7 +693,6 @@ Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
 Package: libkido-optimizer-nlopt0
 Depends: libdart-optimizer-nlopt0, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -743,7 +734,6 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
 Package: libkido-optimizer-ipopt-dev
 Depends: libdart-optimizer-ipopt-dev, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -782,7 +772,6 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
 Package: libkido-optimizer-ipopt0
 Depends: libdart-optimizer-ipopt0, ${misc:Depends}
 Architecture: all
-Priority: optional
 Section: oldlibs
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -849,7 +838,7 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
- This package contains ikfast headers and other useful tools for
+ This package contains imgui headers and other useful tools for
  development.
 
 Package: libdart6-external-imgui

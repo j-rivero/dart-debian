@@ -1,0 +1,23 @@
+Description: Use GNUInstallDir
+Author: Jose Luis Rivero <jrivero@osrfoundation.org>
+Last-Update: 2019-01-27
+Forwarded: No
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d3754c2..340093f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -25,9 +25,11 @@ if(POLICY CMP0053)
+   cmake_policy(SET CMP0053 NEW)
+ endif()
+ 
++include(GNUInstallDirs)
++
+ # Variables used in Components.cmake
+-set(INCLUDE_INSTALL_DIR "include")
+-set(LIBRARY_INSTALL_DIR "lib")
++set(INCLUDE_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR})
++set(LIBRARY_INSTALL_DIR ${CMAKE_INSTALL_LIBDIR})
+ set(CONFIG_INSTALL_DIR "share/${PROJECT_NAME}/cmake")
+ 
+ # Set relative location to install additional documentation (sample data,

@@ -814,7 +814,7 @@ Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-external-imgui (= ${binary:Version})
+         libdart6-external-imgui (= ${binary:Version})
 Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data

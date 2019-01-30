@@ -10,7 +10,7 @@ CMAKE_FLAGS = \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
         -DCMAKE_SKIP_INSTALL_RPATH=TRUE
 
-.PHONY: override_dh_clean override_dh_auto_configure override_dh_auto_build override_dh_compress
+.PHONY: override_dh_clean override_dh_auto_configure override_dh_auto_build override_dh_compress override_dh_auto_install
 
 override_dh_clean:
 	rm -rf build bin lib
@@ -22,6 +22,10 @@ override_dh_auto_configure:
 
 override_dh_auto_build:
 	dh_auto_build -- tests
+
+override_dh_auto_install:
+	dh_missing --list-missing
+	dh_auto_install
 
 override_dh_compress:
 	dh_compress \

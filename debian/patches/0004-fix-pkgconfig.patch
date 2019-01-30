@@ -12,7 +12,7 @@ index d3754c2..276966a 100644
  set(DART_VERSION "${DART_MAJOR_VERSION}.${DART_MINOR_VERSION}.${DART_PATCH_VERSION}")
  set(DART_PKG_DESC "Dynamic Animation and Robotics Toolkit.")
 -set(DART_PKG_EXTERNAL_DEPS "eigen, ccd, fcl, assimp, boost")
-+set(DART_PKG_EXTERNAL_DEPS "eigen3, ccd, fcl, assimp, boost")
++set(DART_PKG_EXTERNAL_DEPS "eigen3, ccd, fcl, assimp")
  
  #===============================================================================
  # Build options

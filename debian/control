@@ -1039,7 +1039,7 @@ Description: Dynamic Animation and Robotics Toolkit - All Development Files
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
- This package does not contain any file but install all developement packages
+ This package does not contain any file but install all development packages
 
 Package: dart-doc
 Architecture: all

@@ -3,3 +3,4 @@
 0003-use-gnuinstalldir.patch
 0004-fix-pkgconfig.patch
 0006-Fix-find-Flann.patch
+0005-remove-empty.patch

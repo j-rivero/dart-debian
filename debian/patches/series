@@ -4,3 +4,4 @@
 0004-fix-pkgconfig.patch
 0006-Fix-find-Flann.patch
 0005-remove-empty.patch
+0007-fix-soversion.patch

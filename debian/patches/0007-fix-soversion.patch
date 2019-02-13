@@ -1,0 +1,19 @@
+Description: Fix SOVERSION to match upstream policy
+Author: Jose Luis Rivero <jrivero@osrfoundation.org>
+Last-Update: 2019-02-14
+Forwarded: https://github.com/dartsim/dart/pull/1239
+
+diff --git a/cmake/DARTMacros.cmake b/cmake/DARTMacros.cmake
+index cfa5410..7af5199 100644
+--- a/cmake/DARTMacros.cmake
++++ b/cmake/DARTMacros.cmake
+@@ -90,7 +90,7 @@ macro(dart_add_library _name)
+   add_library(${_name} ${ARGN})
+   set_target_properties(
+     ${_name} PROPERTIES
+-    SOVERSION "${DART_MAJOR_VERSION}.${DART_MINOR_VERSION}"
++    SOVERSION "${DART_MAJOR_VERSION}"
+     VERSION "${DART_VERSION}"
+   )
+ endmacro()
+

@@ -16,3 +16,13 @@ index d3754c2..276966a 100644
  
  #===============================================================================
  # Build options
+diff --git a/cmake/dart.pc.in b/cmake/dart.pc.in
+index 90f3cde..1cf8eb8 100644
+--- a/cmake/dart.pc.in
++++ b/cmake/dart.pc.in
+@@ -9,4 +9,4 @@ Description: @DART_PKG_DESC@
+ Version: @DART_VERSION@
+ Requires: @DART_PKG_EXTERNAL_DEPS@
+ Libs: -L${libdir} -ldart
+-Cflags: @CMAKE_CXX_FLAGS@
++Cflags: -I${includedir}

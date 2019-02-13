@@ -179,7 +179,7 @@ Section: libs
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Dynamic Animation and Robotics Toolkit - Utils Component Shared Library
+Description: Dynamic Animation and Robotics Toolkit - Utils Component Library
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics

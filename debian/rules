@@ -25,6 +25,7 @@ override_dh_auto_build:
 
 override_dh_auto_install:
 	dh_missing --list-missing
+	rm -f debian/tmp/usr/share/doc/dart/data/screencap/.KEEP
 	dh_auto_install
 
 override_dh_compress:

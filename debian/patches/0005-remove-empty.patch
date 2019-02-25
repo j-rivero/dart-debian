@@ -1,8 +1,0 @@
-Description: Remove empty file
-Author: Jose Luis Rivero <jrivero@osrfoundation.org>
-Last-Update: 2019-01-28
-Forwarded: No
-
-diff --git a/data/screencap/.KEEP b/data/screencap/.KEEP
-deleted file mode 100644
-index e69de29..0000000

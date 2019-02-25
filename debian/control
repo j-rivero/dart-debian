@@ -211,7 +211,7 @@ Depends: ${misc:Depends},
          libdart-dev,
          libdart6-collision-ode (= ${binary:Version}),
          libode-dev
-Description: Dynamic Animation and Robotics Toolkit - Utils Component Development Files
+Description: Dynamic Animation and Robotics Toolkit - Utils Component Dev Files
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -1040,6 +1040,8 @@ Description: Dynamic Animation and Robotics Toolkit - All Development Files
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
  This package does not contain any file but install all development packages
+ .
+ Metapackage for all development files
 
 Package: dart-doc
 Architecture: all

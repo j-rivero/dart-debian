@@ -1,3 +1,10 @@
+dart (6.9.2-1) UNRELEASED; urgency=medium
+
+  * Team upload.
+  * New upstream version
+
+ -- Andreas Tille <tille@debian.org>  Mon, 19 Aug 2019 13:06:08 +0200
+
 dart (6.7.2+dfsg-1) unstable; urgency=medium
 
   * Rename package according with upstream: KIDO to DART 

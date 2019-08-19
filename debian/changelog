@@ -11,6 +11,7 @@ dart (6.9.2-1) UNRELEASED; urgency=medium
   [ Andreas Tille ]
   * debhelper-compat 12
   * Standards-Version: 4.4.0
+  * Build-Depends: s/libopenscenegraph-dev/libopenscenegraph-3.4-dev/
 
  -- Andreas Tille <tille@debian.org>  Mon, 19 Aug 2019 13:06:08 +0200
 

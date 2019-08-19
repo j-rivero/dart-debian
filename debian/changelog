@@ -4,6 +4,7 @@ dart (6.9.2-1) UNRELEASED; urgency=medium
   * New upstream version
   * debhelper-compat 12
   * Point Vcs fields to salsa.debian.org
+  * Standards-Version: 4.4.0
 
  -- Andreas Tille <tille@debian.org>  Mon, 19 Aug 2019 13:06:08 +0200
 

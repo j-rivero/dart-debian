@@ -68,18 +68,16 @@ ContactConstraint::ContactConstraint(
     collision::Contact& contact, double timeStep)
   : ConstraintBase(),
     mTimeStep(timeStep),
-    mBodyNodeA(
-        const_cast<dynamics::ShapeFrame*>(
-            contact.collisionObject1->getShapeFrame())
-            ->asShapeNode()
-            ->getBodyNodePtr()
-            .get()),
-    mBodyNodeB(
-        const_cast<dynamics::ShapeFrame*>(
-            contact.collisionObject2->getShapeFrame())
-            ->asShapeNode()
-            ->getBodyNodePtr()
-            .get()),
+    mBodyNodeA(const_cast<dynamics::ShapeFrame*>(
+                   contact.collisionObject1->getShapeFrame())
+                   ->asShapeNode()
+                   ->getBodyNodePtr()
+                   .get()),
+    mBodyNodeB(const_cast<dynamics::ShapeFrame*>(
+                   contact.collisionObject2->getShapeFrame())
+                   ->asShapeNode()
+                   ->getBodyNodePtr()
+                   .get()),
     mContact(contact),
     mFirstFrictionalDirection(Eigen::Vector3d::UnitZ()),
     mIsFrictionOn(true),
@@ -307,13 +305,6 @@ void ContactConstraint::setConstraintForceMixing(double cfm)
            << "] is lower than 1e-9. "
            << "It is set to 1e-9." << std::endl;
     mConstraintForceMixing = 1e-9;
-  }
-  if (cfm > 1.0)
-  {
-    dtwarn << "Constraint force mixing parameter[" << cfm
-           << "] is greater than 1.0. "
-           << "It is set to 1.0." << std::endl;
-    mConstraintForceMixing = 1.0;
   }
 
   mConstraintForceMixing = cfm;

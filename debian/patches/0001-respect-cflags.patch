@@ -3,11 +3,9 @@ Author: Jose Luis Rivero <jrivero@osrfoundation.org>
 Last-Update: 2016-08-03
 Forwarded: No
 
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index d3754c2..87d3c35 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -195,7 +195,7 @@ elseif(CMAKE_COMPILER_IS_GNUCXX)
+@@ -207,7 +207,7 @@ elseif(CMAKE_COMPILER_IS_GNUCXX)
    if(DART_FAST_DEBUG)
      set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O1")
    endif()
@@ -16,7 +14,7 @@ index d3754c2..87d3c35 100644
    set(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS_DEBUG} -pg")
    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
  
-@@ -221,7 +221,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+@@ -233,7 +233,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" MATCHE
    if(DART_FAST_DEBUG)
      set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O1")
    endif()

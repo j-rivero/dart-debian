@@ -6,8 +6,6 @@ Subject: Fix find Flann
  cmake/FindFLANN.cmake | 27 +--------------------------
  1 file changed, 1 insertion(+), 26 deletions(-)
 
-diff --git a/cmake/Findflann.cmake b/cmake/Findflann.cmake
-index 804b904..675a852 100644
 --- a/cmake/Findflann.cmake
 +++ b/cmake/Findflann.cmake
 @@ -20,24 +20,4 @@
@@ -31,7 +29,7 @@ index 804b904..675a852 100644
 -
 -# Set (NAME)_FOUND if all the variables and the version are satisfied.
 -include(FindPackageHandleStandardArgs)
--find_package_handle_standard_args(FLANN
+-find_package_handle_standard_args(flann
 -    FAIL_MESSAGE  DEFAULT_MSG
 -    REQUIRED_VARS FLANN_INCLUDE_DIRS FLANN_LIBRARIES
 -    VERSION_VAR   FLANN_VERSION)

@@ -1,22 +1,18 @@
 dart (6.9.2-1) UNRELEASED; urgency=medium
 
   * Team upload.
-  * New upstream version
-  * debhelper-compat 12
-  * Point Vcs fields to salsa.debian.org
-  * Standards-Version: 4.4.0
 
- -- Andreas Tille <tille@debian.org>  Mon, 19 Aug 2019 13:06:08 +0200
-
-dart (6.7.2+dfsg-1) unstable; urgency=medium
-
+  [ Jose Luis Rivero ]
   * Rename package according with upstream: KIDO to DART 
   * Change file names for install files
   * Replace occurrences to dart
   * Add transitional packages from kido to dart
-  * New upstream version 6.7.2+dfsg
 
- -- Jose Luis Rivero <jrivero@osrfoundation.org>  Thu, 24 Jan 2019 00:07:17 +0000
+  [ Andreas Tille ]
+  * debhelper-compat 12
+  * Standards-Version: 4.4.0
+
+ -- Andreas Tille <tille@debian.org>  Mon, 19 Aug 2019 13:06:08 +0200
 
 kido (0.1.0+dfsg-6) unstable; urgency=medium
 

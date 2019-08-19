@@ -35,4 +35,4 @@ override_dh_compress:
             -X.sdf -X.skel -X.urdf -X.vsk -X.world \
             -X.c3d -X.changelog -X.dof -X.path -X.tris
 %:
-	dh $@ --parallel --buildsystem=cmake
+	dh $@ --buildsystem=cmake

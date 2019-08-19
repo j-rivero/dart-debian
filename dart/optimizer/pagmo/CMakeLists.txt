@@ -34,7 +34,7 @@ endif()
 add_component(${PROJECT_NAME} ${component_name})
 add_component_targets(${PROJECT_NAME} ${component_name} ${target_name})
 add_component_dependencies(${PROJECT_NAME} ${component_name} dart)
-add_component_dependency_packages(${PROJECT_NAME} ${component_name} pagmo)
+add_component_dependency_packages(${PROJECT_NAME} ${component_name} pagmo NLOPT)
 
 # Generate header for this namespace
 dart_get_filename_components(header_names "optimizer_pagmo headers" ${hdrs})
@@ -45,10 +45,12 @@ dart_generate_include_header_file(
 )
 
 # Install
-install(
-  FILES ${hdrs} ${CMAKE_CURRENT_BINARY_DIR}/pagmo.hpp
-  DESTINATION include/dart/optimizer/pagmo
-  COMPONENT headers
-)
+if(NOT DART_BUILD_DARTPY)
+  install(
+    FILES ${hdrs} ${CMAKE_CURRENT_BINARY_DIR}/pagmo.hpp
+    DESTINATION include/dart/optimizer/pagmo
+    COMPONENT headers
+  )
+endif()
 
 dart_format_add(${hdrs} ${srcs})

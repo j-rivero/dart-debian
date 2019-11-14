@@ -1,3 +1,14 @@
+dart (6.9.2-2) unstable; urgency=medium
+
+  * Team upload
+  * Build against openscenegraph, not openscenegraph-3.4, that is scheduled
+    for removal.
+  * Fixup a libdart6-dev -> libdart-dev missing replacement
+  * fixup a libdart-optimizer-nlopt0 -> libdart6-optimizer-nlopt missing rename
+  * Fixup a missing libdart-optimizer-ipopt0 -> libdart6-optimizer-ipopt rename
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Thu, 14 Nov 2019 08:28:23 +0100
+
 dart (6.9.2-1) unstable; urgency=medium
 
   * Team upload.

@@ -148,7 +148,7 @@ Package: libdart-collision-bullet-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart6-dev,
+         libdart-dev,
          libdart6-collision-bullet (= ${binary:Version}),
          libbullet-dev
 Pre-Depends: ${misc:Pre-Depends}

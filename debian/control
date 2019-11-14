@@ -25,7 +25,7 @@ Build-Depends: debhelper-compat (= 12),
                libboost-regex-dev,
                liboctomap-dev,
                libopenthreads-dev,
-               libopenscenegraph-3.4-dev
+               libopenscenegraph-dev
 Standards-Version: 4.4.0
 Vcs-Browser: https://salsa.debian.org/science-team/dart
 Vcs-Git: https://salsa.debian.org/science-team/dart.git

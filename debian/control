@@ -787,7 +787,7 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
 Package: libkido-optimizer-ipopt0
 Architecture: all
 Section: oldlibs
-Depends: libdart-optimizer-ipopt0,
+Depends: libdart6-optimizer-ipopt,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.

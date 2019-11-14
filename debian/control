@@ -706,7 +706,7 @@ Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
 Package: libkido-optimizer-nlopt0
 Architecture: all
 Section: oldlibs
-Depends: libdart-optimizer-nlopt0,
+Depends: libdart6-optimizer-nlopt,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.

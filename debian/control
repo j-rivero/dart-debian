@@ -78,6 +78,7 @@ Description: transitional package
 
 Package: libdart6
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
@@ -117,6 +118,7 @@ Description: transitional package
 
 Package: libdart6-collision-bullet
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${shlibs:Depends},
          ${misc:Depends}
@@ -179,6 +181,7 @@ Description: Dynamic Animation and Robotics Toolkit - Utils Component Developmen
 
 Package: libdart6-collision-ode
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${shlibs:Depends},
          ${misc:Depends}
@@ -283,6 +286,7 @@ Description: transitional package
 
 Package: libdart6-planning
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
@@ -365,6 +369,7 @@ Description: transitional package
 
 Package: libdart6-utils
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
@@ -404,6 +409,7 @@ Description: transitional package
 
 Package: libdart6-utils-urdf
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${shlibs:Depends},
          ${misc:Depends}
@@ -513,6 +519,7 @@ Description: transitional package
 
 Package: libdart6-gui
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
@@ -594,6 +601,7 @@ Description: transitional package
 
 Package: libdart6-gui-osg
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
@@ -675,6 +683,7 @@ Description: transitional package
 
 Package: libdart6-optimizer-nlopt
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
@@ -756,6 +765,7 @@ Description: transitional package
 
 Package: libdart6-optimizer-ipopt
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
@@ -796,6 +806,7 @@ Description: transitional package
 Package: libdart-external-ikfast-dev
 Architecture: any
 Section: libdevel
+Multi-Arch: same
 Depends: ${misc:Depends},
          libdart-dev
 Pre-Depends: ${misc:Pre-Depends}
@@ -860,6 +871,7 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
 
 Package: libdart6-external-imgui
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
@@ -924,6 +936,7 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
 
 Package: libdart6-external-lodepng
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
@@ -988,6 +1001,7 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
 
 Package: libdart6-external-odelcpsolver
 Architecture: any
+Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
@@ -1020,6 +1034,7 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
 Package: libdart-all-dev
 Architecture: any
 Section: libdevel
+Multi-Arch: same
 Depends: ${misc:Depends},
          libdart-dev,
          libdart-planning-dev,

@@ -1,9 +1,15 @@
-Description: Fix library name in test_IkFast by removing d prefix
- The code sets library d prefix if not NDEBUG is present. This conflicts
- with the debian build infrastructure.
-Author: Jose Luis Rivero <jrivero@osrfoundation.org>
+From: Jose Luis Rivero <jrivero@osrfoundation.org>
+Date: Wed, 18 Nov 2020 14:39:36 +0100
+Subject: Fix library name in test_IkFast by removing d prefix
+
 Last-Update: 2019-01-24
 Forwarded: No
+
+The code sets library d prefix if not NDEBUG is present. This conflicts
+with the debian build infrastructure.
+---
+ unittests/unit/test_IkFast.cpp | 3 ---
+ 1 file changed, 3 deletions(-)
 
 diff --git a/unittests/unit/test_IkFast.cpp b/unittests/unit/test_IkFast.cpp
 index e926897..7b35dfa 100644

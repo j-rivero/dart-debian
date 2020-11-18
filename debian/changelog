@@ -23,7 +23,7 @@ dart (6.9.2-1) unstable; urgency=medium
   * Team upload.
 
   [ Jose Luis Rivero ]
-  * Rename package according with upstream: KIDO to DART 
+  * Rename package according with upstream: KIDO to DART
   * Change file names for install files
   * Replace occurrences to dart
   * Add transitional packages from kido to dart

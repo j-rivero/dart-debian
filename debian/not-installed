@@ -1,0 +1,11 @@
+usr/include/dart/gui/glut/GLUTFuncs.hpp
+usr/include/dart/gui/glut/GraphWindow.hpp
+usr/include/dart/gui/glut/LoadGlut.hpp
+usr/include/dart/gui/glut/MotionBlurSimWindow.hpp
+usr/include/dart/gui/glut/SimWindow.hpp
+usr/include/dart/gui/glut/SoftSimWindow.hpp
+usr/include/dart/gui/glut/Win2D.hpp
+usr/include/dart/gui/glut/Win3D.hpp
+usr/include/dart/gui/glut/Window.hpp
+usr/include/dart/gui/glut/glut.hpp
+usr/share/dart/package.xml

@@ -27,7 +27,7 @@ Build-Depends: debhelper-compat (= 12),
                liboctomap-dev,
                libopenthreads-dev,
                libopenscenegraph-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.5.1
 Vcs-Browser: https://salsa.debian.org/science-team/dart
 Vcs-Git: https://salsa.debian.org/science-team/dart.git
 Homepage: http://dartsim.github.io/

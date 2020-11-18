@@ -1,32 +1,20 @@
 #!/usr/bin/make -f
 
-export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all reproducible=+all future=+lfs
 
-# Uncomment this to turn on verbose mode.
-export DH_VERBOSE=1
-
-CMAKE_FLAGS = \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-        -DCMAKE_SKIP_INSTALL_RPATH=TRUE
-
-.PHONY: override_dh_clean override_dh_auto_configure override_dh_auto_build override_dh_compress override_dh_auto_install
-
-override_dh_clean:
-	rm -rf build bin lib
-	dh_clean
+%:
+	dh $@ --buildsystem=cmake
 
 override_dh_auto_configure:
-	mkdir -p build
-	dh_auto_configure -- $(CMAKE_FLAGS)
+	dh_auto_configure --buildsystem=cmake -- \
+		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+		-DCMAKE_SKIP_INSTALL_RPATH=ON
 
-override_dh_auto_build:
-	dh_auto_build -- tests
+execute_before_dh_auto_test:
+	dh_auto_build --buildsystem=cmake -- tests
 
-override_dh_auto_install:
-	dh_missing --list-missing
+execute_after_dh_auto_install:
 	rm -f debian/tmp/usr/share/doc/dart/data/screencap/.KEEP
-	dh_auto_install
 
 override_dh_compress:
 	dh_compress \
@@ -34,5 +22,6 @@ override_dh_compress:
             -X.dae -X.obj -X.stl -X.STL \
             -X.sdf -X.skel -X.urdf -X.vsk -X.world \
             -X.c3d -X.changelog -X.dof -X.path -X.tris
-%:
-	dh $@ --buildsystem=cmake
+
+execute_before_dh_link:
+	jdupes -rl debian/dart-doc/usr

@@ -124,7 +124,7 @@ Section: libs
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Description: Dynamic Animation and Robotics Toolkit - Utils Component Shared Library
+Description: Dynamic Animation and Robotics Toolkit - Bullet Collision Library
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -147,6 +147,7 @@ Description: Dynamic Animation and Robotics Toolkit - Utils Component Shared Lib
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains the collision library with Bullet backend.
 
 Package: libdart-collision-bullet-dev
 Architecture: any
@@ -156,7 +157,7 @@ Depends: ${misc:Depends},
          libdart6-collision-bullet (= ${binary:Version}),
          libbullet-dev
 Pre-Depends: ${misc:Pre-Depends}
-Description: Dynamic Animation and Robotics Toolkit - Utils Component Development Files
+Description: Dynamic Animation and Robotics Toolkit - Bullet Collision Dev
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -187,7 +188,7 @@ Section: libs
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Description: Dynamic Animation and Robotics Toolkit - Utils Component Library
+Description: Dynamic Animation and Robotics Toolkit - ODE Collision Library
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -210,6 +211,7 @@ Description: Dynamic Animation and Robotics Toolkit - Utils Component Library
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains the collision library with ODE backend.
 
 Package: libdart-collision-ode-dev
 Architecture: any
@@ -219,7 +221,7 @@ Depends: ${misc:Depends},
          libdart6-collision-ode (= ${binary:Version}),
          libode-dev
 Pre-Depends: ${misc:Pre-Depends}
-Description: Dynamic Animation and Robotics Toolkit - Utils Component Dev Files
+Description: Dynamic Animation and Robotics Toolkit - ODE Collision Dev
  DART is a collaborative, cross-platform, open source library created by
  the Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library
  provides data structures and algorithms for kinematic and dynamic
@@ -415,7 +417,7 @@ Section: libs
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Description: Dynamic Animation and Robotics Toolkit - Utils Component Shared Library
+Description: Dynamic Animation and Robotics Toolkit - Utils URDF Library
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -438,6 +440,7 @@ Description: Dynamic Animation and Robotics Toolkit - Utils Component Shared Lib
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains the Utils URDF library.
 
 Package: libdart-utils-urdf-dev
 Architecture: any
@@ -548,6 +551,7 @@ Description: Kinematics Dynamics and Optimization Library - gui library
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
+ This package contains the GUI library.
 
 Package: libkido-gui0
 Architecture: all
@@ -648,7 +652,7 @@ Depends: ${misc:Depends},
          libdart6-optimizer-nlopt (= ${binary:Version}),
          libnlopt-cxx-dev
 Pre-Depends: ${misc:Pre-Depends}
-Description: Kinematics Dynamics and Optimization Library - optimizer dev files
+Description: Kinematics Dynamics and Optimization Library - nlopt optimizer dev
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -811,7 +815,7 @@ Multi-Arch: same
 Depends: ${misc:Depends},
          libdart-dev
 Pre-Depends: ${misc:Pre-Depends}
-Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
+Description: Kinematics Dynamics and Optimization Library - ikfast dev
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -844,7 +848,7 @@ Depends: ${misc:Depends},
          libdart-dev,
          libdart6-external-imgui (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
-Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
+Description: Kinematics Dynamics and Optimization Library - imgui dev
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -877,7 +881,7 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
+Description: Kinematics Dynamics and Optimization Library - imgui lib
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -909,7 +913,7 @@ Depends: ${misc:Depends},
          libdart-dev,
          libdart6-external-lodepng (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
-Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
+Description: Kinematics Dynamics and Optimization Library - lodepng dev
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -942,7 +946,7 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
+Description: Kinematics Dynamics and Optimization Library - lodepng lib
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -974,7 +978,7 @@ Depends: ${misc:Depends},
          libdart-dev,
          libdart6-external-odelcpsolver (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
-Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
+Description: Kinematics Dynamics and Optimization Library - odelcpsolver dev
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -997,7 +1001,7 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
- This package contains lodepng headers and other useful tools for
+ This package contains odelcpsolver headers and other useful tools for
  development.
 
 Package: libdart6-external-odelcpsolver
@@ -1007,7 +1011,7 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
+Description: Kinematics Dynamics and Optimization Library - odelcpsolver lib
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics

@@ -119,7 +119,7 @@ Depends: libdart6,
 Description: transitional package
  This is a transitional package. It can safely be removed.
 
-Package: libdart6-collision-bullet
+Package: libdart-collision-bullet6
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -156,7 +156,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart6-collision-bullet (= ${binary:Version}),
+         libdart-collision-bullet6 (= ${binary:Version}),
          libbullet-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: Dynamic Animation and Robotics Toolkit - Bullet Collision Dev
@@ -183,7 +183,7 @@ Description: Dynamic Animation and Robotics Toolkit - Bullet Collision Dev
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libdart6-collision-ode
+Package: libdart-collision-ode6
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -220,7 +220,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart6-collision-ode (= ${binary:Version}),
+         libdart-collision-ode6 (= ${binary:Version}),
          libode-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: Dynamic Animation and Robotics Toolkit - ODE Collision Dev
@@ -253,7 +253,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart6-planning (= ${binary:Version}),
+         libdart-planning6 (= ${binary:Version}),
          libflann-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - planning dev files
@@ -289,7 +289,7 @@ Depends: libdart-planning-dev,
 Description: transitional package
  This is a transitional package. It can safely be removed.
 
-Package: libdart6-planning
+Package: libdart-planning6
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -324,7 +324,7 @@ Description: Kinematics Dynamics and Optimization Library - planning library
 Package: libkido-planning0
 Architecture: all
 Section: oldlibs
-Depends: libdart6-planning,
+Depends: libdart-planning6,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -334,7 +334,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart6-utils (= ${binary:Version}),
+         libdart-utils6 (= ${binary:Version}),
          libtinyxml-dev,
          libtinyxml2-dev,
          liburdfdom-dev
@@ -372,7 +372,7 @@ Depends: libdart-utils-dev,
 Description: transitional package
  This is a transitional package. It can safely be removed.
 
-Package: libdart6-utils
+Package: libdart-utils6
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -407,12 +407,12 @@ Description: Kinematics Dynamics and Optimization Library - utils library
 Package: libkido-utils0
 Architecture: all
 Section: oldlibs
-Depends: libdart6-utils,
+Depends: libdart-utils6,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
 
-Package: libdart6-utils-urdf
+Package: libdart-utils-urdf6
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -450,7 +450,7 @@ Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
          libdart-utils-dev,
-         libdart6-utils-urdf (= ${binary:Version}),
+         libdart-utils-urdf6 (= ${binary:Version}),
          liburdfdom-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: Dynamic Animation and Robotics Toolkit - URDF Component Development Files
@@ -485,7 +485,7 @@ Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
          libdart-utils-dev,
-         libdart6-gui (= ${binary:Version}),
+         libdart-gui6 (= ${binary:Version}),
          freeglut3-dev,
          libxi-dev,
          libxmu-dev
@@ -523,7 +523,7 @@ Depends: libdart-gui-dev,
 Description: transitional package
  This is a transitional package. It can safely be removed.
 
-Package: libdart6-gui
+Package: libdart-gui6
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -558,7 +558,7 @@ Description: Kinematics Dynamics and Optimization Library - gui library
 Package: libkido-gui0
 Architecture: all
 Section: oldlibs
-Depends: libdart6-gui,
+Depends: libdart-gui6,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -568,7 +568,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-gui-dev,
-         libdart6-gui-osg (= ${binary:Version}),
+         libdart-gui-osg6 (= ${binary:Version}),
          libopenthreads-dev,
          libopenscenegraph-dev
 Pre-Depends: ${misc:Pre-Depends}
@@ -606,7 +606,7 @@ Depends: libdart-gui-osg-dev,
 Description: transitional package
  This is a transitional package. It can safely be removed.
 
-Package: libdart6-gui-osg
+Package: libdart-gui-osg6
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -641,7 +641,7 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg library
 Package: libkido-gui-osg0
 Architecture: all
 Section: oldlibs
-Depends: libdart6-gui-osg,
+Depends: libdart-gui-osg6,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -651,7 +651,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart6-optimizer-nlopt (= ${binary:Version}),
+         libdart-optimizer-nlopt6 (= ${binary:Version}),
          libnlopt-cxx-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - nlopt optimizer dev
@@ -688,7 +688,7 @@ Depends: libdart-optimizer-nlopt-dev,
 Description: transitional package
  This is a transitional package. It can safely be removed.
 
-Package: libdart6-optimizer-nlopt
+Package: libdart-optimizer-nlopt6
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -723,7 +723,7 @@ Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
 Package: libkido-optimizer-nlopt0
 Architecture: all
 Section: oldlibs
-Depends: libdart6-optimizer-nlopt,
+Depends: libdart-optimizer-nlopt6,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -733,7 +733,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart6-optimizer-ipopt (= ${binary:Version}),
+         libdart-optimizer-ipopt6 (= ${binary:Version}),
          coinor-libipopt-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
@@ -770,7 +770,7 @@ Depends: libdart-optimizer-ipopt-dev,
 Description: transitional package
  This is a transitional package. It can safely be removed.
 
-Package: libdart6-optimizer-ipopt
+Package: libdart-optimizer-ipopt6
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -805,7 +805,7 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
 Package: libkido-optimizer-ipopt0
 Architecture: all
 Section: oldlibs
-Depends: libdart6-optimizer-ipopt,
+Depends: libdart-optimizer-ipopt6,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -848,7 +848,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart6-external-imgui (= ${binary:Version})
+         libdart-external-imgui6 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - imgui dev
  DART is a collaborative, cross-platform, open source library created by the
@@ -876,7 +876,7 @@ Description: Kinematics Dynamics and Optimization Library - imgui dev
  This package contains imgui headers and other useful tools for
  development.
 
-Package: libdart6-external-imgui
+Package: libdart-external-imgui6
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -913,7 +913,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart6-external-lodepng (= ${binary:Version})
+         libdart-external-lodepng6 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - lodepng dev
  DART is a collaborative, cross-platform, open source library created by the
@@ -941,7 +941,7 @@ Description: Kinematics Dynamics and Optimization Library - lodepng dev
  This package contains lodepng headers and other useful tools for
  development.
 
-Package: libdart6-external-lodepng
+Package: libdart-external-lodepng6
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -978,7 +978,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart6-external-odelcpsolver (= ${binary:Version})
+         libdart-external-odelcpsolver6 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - odelcpsolver dev
  DART is a collaborative, cross-platform, open source library created by the
@@ -1006,7 +1006,7 @@ Description: Kinematics Dynamics and Optimization Library - odelcpsolver dev
  This package contains odelcpsolver headers and other useful tools for
  development.
 
-Package: libdart6-external-odelcpsolver
+Package: libdart-external-odelcpsolver6
 Architecture: any
 Multi-Arch: same
 Section: libs

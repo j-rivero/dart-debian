@@ -5,6 +5,7 @@ File-Excluded: .ci/ .github/ .travis.yml .gitignore .appveyor.yml .azure-pipelin
 
 Files: *
 Copyright: 2008-2015 Georgia Tech Research Corporation
+           2011-2020, The DART development
 License: BSD-2-clause
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions

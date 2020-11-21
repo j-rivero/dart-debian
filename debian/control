@@ -977,7 +977,6 @@ Package: libdart-external-odelcpsolver-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev,
          libdart-external-odelcpsolver6 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - odelcpsolver dev

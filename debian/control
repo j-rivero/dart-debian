@@ -43,7 +43,8 @@ Depends: ${misc:Depends},
          libassimp-dev,
          libfcl-dev,
          libbullet-dev,
-         libboost-all-dev
+         libboost-all-dev,
+         libdart-external-odelcpsolver-dev,
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - development files
  DART is a collaborative, cross-platform, open source library created by the

@@ -1,6 +1,7 @@
-dart (6.9.5-1) unstable; urgency=medium
+dart (6.9.5-1) experimental; urgency=medium
 
   * Team upload.
+  [ Timo Röhling ]
   * New upstream version 6.9.5
   * Bump Standards-Version to 4.5.1 (no changes)
   * Bump to debhelper 13
@@ -8,7 +9,13 @@ dart (6.9.5-1) unstable; urgency=medium
   * Fix package descriptions
   * Add R-R-R: no to d/control
 
- -- Timo Röhling <timo@gaussglocke.de>  Wed, 18 Nov 2020 17:56:32 +0100
+  [ Jochen Sprickerhof ]
+  * update copyright
+  * Add dependency (Closes: #967008)
+  * Fix library package names to match SONames
+  * Break circular dependency
+
+ -- Jochen Sprickerhof <jspricke@debian.org>  Sun, 22 Nov 2020 11:00:19 +0100
 
 dart (6.9.2-3) unstable; urgency=medium
 

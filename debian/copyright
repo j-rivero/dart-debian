@@ -1,11 +1,105 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: dart
 Source: http://github.com/dartsim/dart
 File-Excluded: .ci/ .github/ .travis.yml .gitignore .appveyor.yml .azure-pipelines.yml docs/ paper/ Brewfile data/screencap/.KEEP
 
 Files: *
-Copyright: 2008-2015 Georgia Tech Research Corporation
-           2011-2020, The DART development
+Copyright: 2011, Georgia Tech Graphics Lab
+           2011-2016, Georgia Tech Research Corporation
+           2011-2019, Graphics Lab, Georgia Tech Research Corporation
+           2011-2016, Humanoid Lab, Georgia Tech Research Corporation
+           2017-2019, Open Source Robotics Foundation
+           2016-2017, Personal Robotics Lab, Carnegie Mellon University
+           2017-2019, Personal Robotics Lab, University of Washington
+           2001-2004, Russell L. Smith
+           2011-2020, The DART development contributors
+           2004-2005, Tristan Grimmer
+License: BSD-2-clause
+
+Files: cmake/CodeCoverage.cmake
+       cmake/Components.cmake
+       dart/planning/RRT.cpp
+       dart/planning/RRT.hpp
+       dart/utils/urdf/urdf_world_parser.cpp
+       dart/utils/urdf/urdf_world_parser.hpp
+       python/dartpy/eigen_geometry_pybind.cpp
+       python/dartpy/eigen_geometry_pybind.h
+       python/dartpy/eigen_pybind.h
+       tools/cpplint.py
+       unittests/gtest/include/gtest/gtest-death-test.h
+       unittests/gtest/include/gtest/gtest-message.h
+       unittests/gtest/include/gtest/gtest-param-test.h
+       unittests/gtest/include/gtest/gtest-param-test.h.pump
+       unittests/gtest/include/gtest/gtest-printers.h
+       unittests/gtest/include/gtest/gtest-spi.h
+       unittests/gtest/include/gtest/gtest-test-part.h
+       unittests/gtest/include/gtest/gtest-typed-test.h
+       unittests/gtest/include/gtest/gtest.h
+       unittests/gtest/include/gtest/gtest_pred_impl.h
+       unittests/gtest/include/gtest/gtest_prod.h
+       unittests/gtest/include/gtest/internal/custom/gtest-port.h
+       unittests/gtest/include/gtest/internal/custom/gtest-printers.h
+       unittests/gtest/include/gtest/internal/custom/gtest.h
+       unittests/gtest/include/gtest/internal/gtest-death-test-internal.h
+       unittests/gtest/include/gtest/internal/gtest-filepath.h
+       unittests/gtest/include/gtest/internal/gtest-internal.h
+       unittests/gtest/include/gtest/internal/gtest-linked_ptr.h
+       unittests/gtest/include/gtest/internal/gtest-param-util-generated.h
+       unittests/gtest/include/gtest/internal/gtest-param-util-generated.h.pump
+       unittests/gtest/include/gtest/internal/gtest-param-util.h
+       unittests/gtest/include/gtest/internal/gtest-port-arch.h
+       unittests/gtest/include/gtest/internal/gtest-port.h
+       unittests/gtest/include/gtest/internal/gtest-string.h
+       unittests/gtest/include/gtest/internal/gtest-tuple.h
+       unittests/gtest/include/gtest/internal/gtest-tuple.h.pump
+       unittests/gtest/include/gtest/internal/gtest-type-util.h
+       unittests/gtest/include/gtest/internal/gtest-type-util.h.pump
+       unittests/gtest/src/*
+Copyright: 2016, Carnegie Mellon University
+           2003-2015, Google Inc
+           2013, Humanoid Robotics Lab
+           2012-2015, Lars Bilke
+           2012-2016, Robot Locomotion <Group@CSAIL>
+           2011-2019, The DART development contributors
+           2013, Willow Garage, Inc
+License: BSD-3-clause
+
+Files: dart/external/imgui/imstb_rectpack.h
+       dart/external/imgui/imstb_textedit.h
+       dart/external/imgui/imstb_truetype.h
+Copyright: 2017, Sean Barrett
+License: Expat
+
+Files: dart/external/ikfast/ikfast.h
+       examples/wam_ikfast/ikfast/ikfast71.Transform6D.4_6_9_10_11_12_f8.cpp
+       unittests/unit/GeneratedWamIkFast.cpp
+Copyright: 2012, Rosen Diankov <rosen.diankov@gmail.com>
+License: Apache-2
+
+Files: dart/external/lodepng/lodepng.cpp
+       dart/external/lodepng/lodepng.h
+Copyright: 2005-2016, Lode Vandevenne
+License: Zlib
+
+Files: cmake/FindPerlModules.cmake
+Copyright: 2012, Iowa State University
+License: BSL-1
+
+Files: dart/utils/ParserSkel.cpp_
+Copyright: 1984-2006, Free Software Foundation, Inc
+License: GPL-2+ with Bison exception
+
+Files: tools/gccfilter
+Copyright: 2010, Emmanuel Le Trong
+License: GPL-3+
+
+Files: debian/*
+Copyright: 2016, Jose Luis Rivero <jrivero@osrfoundation.org>
+License: BSD-2-clause
+
+License: Apache-2
+ See `/usr/share/common-licenses/Apache-2.0`
+
 License: BSD-2-clause
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions
@@ -29,37 +123,6 @@ License: BSD-2-clause
  TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
  THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  SUCH DAMAGE.
-
-Files: dart/lcp*
-Copyright: 2001,2002 Russell L. Smith
-License: LGPL-2.1
-  See `/usr/share/common-licenses/LGPL-2.1`
-
-Files: dart/planning/RRT.cpp
-Copyright: 2010, Georgia Tech Research Corporation
-License: BSD-3-clause
-
-Files: dart/external/lodepng/*
-Copyright: 2005-2012 Lode Vandevenne
-License: Zlib or Libpng
-
-Files: tools/cpplint.py
-Copyright: 2009 Google Inc. All rights reserved
-License: AS-IS
-
-Files: dart/utils/ParserSkel.cpp_
-Copyright: 1984, 1989, 1990, 2000, 2001, 2002, 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
-License: GPL-2+
-  See `/usr/share/common-licenses/GPL-2`
-
-Files: dart/utils/urdf/urdf_world_parser.hpp
-Copyright: 2013, Humanoid Robotics Lab
-           2013, Willow Garage, Inc
-License: BSD-3-clause
-
-Files: unittests/gtest/include/gtest/gtest.h
-Copyright: 2005, Google Inc
-License: BSD-3-clause
 
 License: BSD-3-clause
  Redistribution and use in source and binary forms, with or without
@@ -86,6 +149,72 @@ License: BSD-3-clause
  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF    
  SUCH DAMAGE.
 
+License: BSL-1
+ Boost Software License - Version 1.0 - August 17th, 2003
+ .
+ Permission is hereby granted, free of charge, to any person or
+ organization obtaining a copy of the software and accompanying
+ documentation covered by this license (the "Software") to use,
+ reproduce, display, distribute, execute, and transmit the
+ Software, and to prepare derivative works of the Software, and
+ to permit third-parties to whom the Software is furnished to do
+ so, all subject to the following:
+ .
+ The copyright notices in the Software and this entire statement,
+ including the above license grant, this restriction and the
+ following disclaimer, must be included in all copies of the
+ Software, in whole or in part, and all derivative works of the
+ Software, unless such copies or derivative works are solely in
+ the form of machine-executable object code generated by a source
+ language processor.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND
+ NON-INFRINGEMENT. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR
+ ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE FOR ANY DAMAGES OR
+ OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ OTHER DEALINGS IN THE SOFTWARE.
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person obtaining a
+ copy of this software and associated documentation files (the "Software"),
+ to deal in the Software without restriction, including without limitation
+ the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ and/or sell copies of the Software, and to permit persons to whom the
+ Software is furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included
+ in all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+ OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+License: GPL-2+ with Bison exception
+ See `/usr/share/common-licenses/GPL-2`
+ .
+ As a special exception, you may create a larger work that contains
+ part or all of the Bison parser skeleton and distribute that work
+ under terms of your choice, so long as that work isn't itself a
+ parser generator using the skeleton or a modified version thereof
+ as a parser skeleton.  Alternatively, if you modify or redistribute
+ the parser skeleton itself, you may (at your option) remove this
+ special exception, which will cause the skeleton and the resulting
+ Bison output files to be licensed under the GNU General Public
+ License without this special exception.
+ .
+ This special exception was added by the Free Software Foundation in
+ version 2.2 of Bison.
+
+License: GPL-3+
+ See `/usr/share/common-licenses/GPL-3`
+
 License: Zlib
  This software is provided 'as-is', without any express or implied
  warranty. In no event will the authors be held liable for any damages
@@ -106,49 +235,3 @@ License: Zlib
  3. This notice may not be removed or altered from any source
  distribution.
 
-License: libpng
- The PNG Reference Library is supplied "AS IS".  The Contributing Authors
- and Group 42, Inc. disclaim all warranties, expressed or implied,
- including, without limitation, the warranties of merchantability and of
- fitness for any purpose.  The Contributing Authors and Group 42, Inc.
- assume no liability for direct, indirect, incidental, special, exemplary,
- or consequential damages, which may result from the use of the PNG
- Reference Library, even if advised of the possibility of such damage.
- .
- Permission is hereby granted to use, copy, modify, and distribute this
- source code, or portions hereof, for any purpose, without fee, subject
- to the following restrictions:
- .
- 1. The origin of this source code must not be misrepresented.
- .
- 2. Altered versions must be plainly marked as such and must not
- be misrepresented as being the original source.
- .
- 3. This Copyright notice may not be removed or altered from any
- source or altered source distribution.
- .
- The Contributing Authors and Group 42, Inc. specifically permit, without
- fee, and encourage the use of this source code as a component to
- supporting the PNG file format in commercial products.  If you use this
- source code in a product, acknowledgment is not required but would be
- appreciated.
-
-License: AS-IS
- This software is provided 'as-is', without any express or implied 
- warranty. In no event will the authors be held liable for any 
- damages arising from the use of this software.
- .
- Permission is granted to anyone to use this software for any 
- purpose, including commercial applications, and to alter it and 
- redistribute it freely, subject to the following restrictions:
- .
- 1. The origin of this software must not be misrepresented; you must 
- not claim that you wrote the original software. If you use this
- software in a product, an acknowledgment in the product documentation
- would be appreciated but is not required.
- .
- 2. Altered source versions must be plainly marked as such, and 
- must not be misrepresented as being the original software.
- .
- 3. This notice may not be removed or altered from any source 
- distribution.

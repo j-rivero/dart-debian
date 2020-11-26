@@ -1,3 +1,11 @@
+dart (6.9.5-2) experimental; urgency=medium
+
+  * Team upload.
+  * Add Breaks+Replaces for old library names (Closes: #975868)
+  * Add patch to fix i386 test
+
+ -- Jochen Sprickerhof <jspricke@debian.org>  Thu, 26 Nov 2020 08:28:31 +0100
+
 dart (6.9.5-1) experimental; urgency=medium
 
   * Team upload.

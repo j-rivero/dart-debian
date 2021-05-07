@@ -8,11 +8,9 @@ Forwarded: No
  CMakeLists.txt | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index e64c9e8..18a0f67 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -207,7 +207,7 @@ elseif(CMAKE_COMPILER_IS_GNUCXX)
+@@ -218,7 +218,7 @@
    if(DART_FAST_DEBUG)
      set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O1")
    endif()
@@ -21,7 +19,7 @@ index e64c9e8..18a0f67 100644
    set(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS_DEBUG} -pg")
    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
  
-@@ -233,7 +233,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+@@ -248,7 +248,7 @@
    if(DART_FAST_DEBUG)
      set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O1")
    endif()

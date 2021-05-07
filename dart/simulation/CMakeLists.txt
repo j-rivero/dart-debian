@@ -25,7 +25,3 @@ install(
   DESTINATION include/dart/simulation/detail
   COMPONENT headers
 )
-
-dart_format_add(
-  detail/World-impl.hpp
-)

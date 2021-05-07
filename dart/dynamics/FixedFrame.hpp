@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -33,9 +33,9 @@
 #ifndef DART_DYNAMICS_FIXEDFRAME_HPP_
 #define DART_DYNAMICS_FIXEDFRAME_HPP_
 
-#include "dart/dynamics/Frame.hpp"
 #include "dart/common/EmbeddedAspect.hpp"
 #include "dart/common/VersionCounter.hpp"
+#include "dart/dynamics/Frame.hpp"
 #include "dart/dynamics/detail/FixedFrameAspect.hpp"
 
 namespace dart {
@@ -45,16 +45,18 @@ namespace dynamics {
 /// zero relative acceleration. It does not move within its parent Frame after
 /// its relative transform is set. However, classes that inherit the FixedFrame
 /// class may alter its relative transform or change what its parent Frame is.
-class FixedFrame :
-    public virtual Frame,
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_BEGIN
+class FixedFrame
+  : public virtual Frame,
     public virtual common::VersionCounter,
     public common::EmbedProperties<FixedFrame, detail::FixedFrameProperties>
 {
 public:
   /// Constructor
-  explicit FixedFrame(Frame* refFrame,
-      const Eigen::Isometry3d& relativeTransform =
-          Eigen::Isometry3d::Identity());
+  explicit FixedFrame(
+      Frame* refFrame,
+      const Eigen::Isometry3d& relativeTransform
+      = Eigen::Isometry3d::Identity());
 
   /// Destructor
   virtual ~FixedFrame();
@@ -81,7 +83,6 @@ public:
   const Eigen::Vector6d& getPartialAcceleration() const override;
 
 protected:
-
   /// Default constructor -- calls the Abstract constructor
   FixedFrame();
 
@@ -95,9 +96,9 @@ public:
   // To get byte-aligned Eigen vectors
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_END
 
 } // namespace dynamics
 } // namespace dart
-
 
 #endif // DART_DYNAMICS_FIXEDFRAME_HPP_

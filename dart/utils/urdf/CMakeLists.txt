@@ -5,7 +5,7 @@ if(urdfdom_FOUND)
     message(STATUS "Looking for urdfdom - ${urdfdom_headers_VERSION} found")
   endif()
 else()
-  message(STATUS "Looking for urdfdom - NOT found, please install liburdfdom-dev")
+  message(WARNING "Looking for urdfdom - NOT found, to use dart-utils-urdf, please install liburdfdom-dev")
   return()
 endif()
 if(MSVC)
@@ -68,3 +68,5 @@ install(
   DESTINATION include/dart/utils/urdf
   COMPONENT headers
 )
+
+dart_format_add(${hdrs} ${srcs})

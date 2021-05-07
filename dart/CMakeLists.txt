@@ -3,12 +3,12 @@ add_subdirectory(external)
 # Enable multi-threaded compilation.
 # We do this here and not in the root folder since the examples and the
 # tutorials do not have enough source files to benefit from this.
-if(MSVC)
+if(MSVC AND ${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
 endif()
 
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${DART_BINARY_DIR}/lib")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${DART_BINARY_DIR}/lib")
 
 #===============================================================================
 # Source directories
@@ -88,8 +88,8 @@ add_subdirectory(planning) # flann
 add_subdirectory(utils) # tinyxml2, bullet
 add_subdirectory(gui) # opengl, glut, bullet
 
-set(DART_CONFIG_HPP_IN ${CMAKE_SOURCE_DIR}/dart/config.hpp.in)
-set(DART_CONFIG_HPP_OUT ${CMAKE_BINARY_DIR}/dart/config.hpp)
+set(DART_CONFIG_HPP_IN ${DART_SOURCE_DIR}/dart/config.hpp.in)
+set(DART_CONFIG_HPP_OUT ${DART_BINARY_DIR}/dart/config.hpp)
 if(DART_VERBOSE)
   message(STATUS ${DART_CONFIG_HPP_OUT})
 endif()
@@ -120,8 +120,8 @@ get_property(dart_core_sources GLOBAL PROPERTY DART_CORE_SOURCES)
 dart_add_library(dart ${dart_core_headers} ${dart_core_sources})
 target_include_directories(dart BEFORE
   PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}>
-    $<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
+    $<BUILD_INTERFACE:${DART_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${DART_BINARY_DIR}>
     $<INSTALL_INTERFACE:include>
 )
 target_link_libraries(dart
@@ -135,15 +135,14 @@ target_link_libraries(dart
     Boost::boost
     Boost::system
     Boost::filesystem
-    octomap
 )
-if(NOT MSVC)
-  target_link_libraries(dart PUBLIC Boost::regex)
+if (TARGET octomap)
+  target_link_libraries(dart PUBLIC octomap)
 endif()
 if(CMAKE_VERSION VERSION_LESS 3.8.2)
-  target_compile_options(dart PUBLIC -std=c++11)
+  target_compile_options(dart PUBLIC -std=c++14)
 else()
-  target_compile_features(dart PUBLIC cxx_std_11)
+  target_compile_features(dart PUBLIC cxx_std_14)
 endif()
 
 # Build DART with all available SIMD instructions
@@ -180,3 +179,5 @@ if(MSVC)
 endif()
 
 install(FILES dart.hpp DESTINATION include/dart/ COMPONENT headers)
+
+dart_format_add(${dart_core_headers} ${dart_core_sources})

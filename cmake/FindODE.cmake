@@ -1,4 +1,4 @@
-# Copyright (c) 2011-2019, The DART development contributors
+# Copyright (c) 2011-2021, The DART development contributors
 # All rights reserved.
 #
 # The list of contributors can be found at:
@@ -30,7 +30,7 @@ find_path(ODE_INCLUDE_DIRS
 
 # Libraries
 if(MSVC)
-  set(ODE_LIBRARIES optimized ode debug oded)
+  set(ODE_LIBRARIES "ode$<$<CONFIG:Debug>:d>")
 else()
   find_library(ODE_LIBRARIES
       NAMES ode

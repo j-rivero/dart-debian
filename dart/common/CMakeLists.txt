@@ -25,9 +25,3 @@ install(
   DESTINATION include/dart/common/detail
   COMPONENT headers
 )
-
-dart_format_add(
-  LockableReference.hpp
-  SmartPointer.hpp
-  detail/LockableReference-impl.hpp
-)

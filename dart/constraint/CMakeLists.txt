@@ -25,19 +25,3 @@ install(
   DESTINATION include/dart/constraint/detail
   COMPONENT headers
 )
-
-dart_format_add(
-  BoxedLcpConstraintSolver.hpp
-  BoxedLcpConstraintSolver.cpp
-  BoxedLcpSolver.hpp
-  ContactConstraint.hpp
-  ContactConstraint.cpp
-  DantzigBoxedLcpSolver.hpp
-  DantzigBoxedLcpSolver.cpp
-  MimicMotorConstraint.hpp
-  MimicMotorConstraint.cpp
-  PgsBoxedLcpSolver.hpp
-  PgsBoxedLcpSolver.cpp
-  SmartPointer.hpp
-  detail/BoxedLcpSolver-impl.hpp
-)

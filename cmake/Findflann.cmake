@@ -1,4 +1,4 @@
-# Copyright (c) 2011-2019, The DART development contributors
+# Copyright (c) 2011-2021, The DART development contributors
 # All rights reserved.
 #
 # The list of contributors can be found at:
@@ -37,7 +37,7 @@ set(FLANN_VERSION ${PC_FLANN_VERSION})
 
 # Set (NAME)_FOUND if all the variables and the version are satisfied.
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(FLANN
+find_package_handle_standard_args(flann
     FAIL_MESSAGE  DEFAULT_MSG
     REQUIRED_VARS FLANN_INCLUDE_DIRS FLANN_LIBRARIES
     VERSION_VAR   FLANN_VERSION)

@@ -25,9 +25,3 @@ install(
   DESTINATION include/dart/math/detail
   COMPONENT headers
 )
-
-dart_format_add(
-  Random.hpp
-  Random.cpp
-  detail/Random-impl.hpp
-)

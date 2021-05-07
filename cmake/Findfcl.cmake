@@ -1,4 +1,4 @@
-# Copyright (c) 2011-2019, The DART development contributors
+# Copyright (c) 2011-2021, The DART development contributors
 # All rights reserved.
 #
 # The list of contributors can be found at:
@@ -13,9 +13,6 @@
 #   FCL_INCLUDE_DIRS
 #   FCL_LIBRARIES
 #   FCL_VERSION
-#
-# and the following targets:
-#   fcl
 
 find_package(PkgConfig QUIET)
 
@@ -23,21 +20,18 @@ find_package(PkgConfig QUIET)
 pkg_check_modules(PC_FCL fcl QUIET)
 
 # Include directories
-if(PC_FCL_VERSION VERSION_LESS 0.6.0)
-  find_path(FCL_INCLUDE_DIRS
-      NAMES fcl/collision.h
-      HINTS ${PC_FCL_INCLUDEDIR}
-      PATHS "${CMAKE_INSTALL_PREFIX}/include")
-else()
-  find_path(FCL_INCLUDE_DIRS
-      NAMES fcl/narrowphase/collision.h
-      HINTS ${PC_FCL_INCLUDEDIR}
-      PATHS "${CMAKE_INSTALL_PREFIX}/include")
-endif()
+find_path(FCL_INCLUDE_DIRS
+    NAMES fcl/collision.h  # for FCL < 0.6
+    NAMES fcl/narrowphase/collision.h
+    HINTS ${PC_FCL_INCLUDEDIR}
+    PATHS "${CMAKE_INSTALL_PREFIX}/include")
 
 # Libraries
 if(MSVC)
-  set(FCL_LIBRARIES optimized fcl debug fcld)
+  find_package(fcl QUIET CONFIG)
+  if(TARGET fcl)
+    set(FCL_LIBRARIES fcl)
+  endif()
 else()
   # Give explicit precedence to ${PC_FCL_LIBDIR}
   find_library(FCL_LIBRARIES
@@ -53,11 +47,13 @@ else()
 endif()
 
 # Version
-set(FCL_VERSION ${PC_FCL_VERSION})
+if(PC_FCL_VERSION)
+  set(FCL_VERSION ${PC_FCL_VERSION})
+endif()
 
 # Set (NAME)_FOUND if all the variables and the version are satisfied.
 include(FindPackageHandleStandardArgs)
-find_package_handle_standard_args(FCL
+find_package_handle_standard_args(fcl
     FAIL_MESSAGE  DEFAULT_MSG
     REQUIRED_VARS FCL_INCLUDE_DIRS FCL_LIBRARIES
     VERSION_VAR   FCL_VERSION)

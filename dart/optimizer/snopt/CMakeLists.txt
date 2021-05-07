@@ -27,3 +27,5 @@ install(TARGETS dart-optimizer-snopt
   EXPORT DARTTargets
   DESTINATION lib
 )
+
+dart_format_add(${hdrs} ${srcs})

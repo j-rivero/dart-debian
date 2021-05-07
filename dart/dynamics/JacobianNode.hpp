@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -50,15 +50,15 @@ class InverseKinematics;
 /// The JacobianNode class serves as a common interface for BodyNodes and
 /// EndEffectors to both be used as references for IK modules. This is a pure
 /// abstract class.
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_BEGIN
 class JacobianNode : public virtual Frame, public Node
 {
 public:
-
   /// Virtual destructor
   virtual ~JacobianNode();
 
-  using Node::setName;
   using Node::getName;
+  using Node::setName;
 
   /// Get a pointer to an IK module for this JacobianNode. If _createIfNull is
   /// true, then the IK module will be generated if one does not already exist.
@@ -94,10 +94,12 @@ public:
 
   /// Return a generalized coordinate index from the array index
   /// (< getNumDependentDofs)
-  virtual std::size_t getDependentGenCoordIndex(std::size_t _arrayIndex) const = 0;
+  virtual std::size_t getDependentGenCoordIndex(
+      std::size_t _arrayIndex) const = 0;
 
   /// Indices of the generalized coordinates which affect this JacobianNode
-  virtual const std::vector<std::size_t>& getDependentGenCoordIndices() const = 0;
+  virtual const std::vector<std::size_t>& getDependentGenCoordIndices()
+      const = 0;
 
   /// Same as getNumDependentGenCoords()
   virtual std::size_t getNumDependentDofs() const = 0;
@@ -112,7 +114,8 @@ public:
   virtual const std::vector<DegreeOfFreedom*>& getDependentDofs() = 0;
 
   /// Return a std::vector of DegreeOfFreedom pointers that this Node depends on
-  virtual const std::vector<const DegreeOfFreedom*>& getDependentDofs() const = 0;
+  virtual const std::vector<const DegreeOfFreedom*>& getDependentDofs()
+      const = 0;
 
   /// Returns a DegreeOfFreedom vector containing the dofs that form a Chain
   /// leading up to this JacobianNode from the root of the Skeleton.
@@ -138,8 +141,8 @@ public:
 
   /// A version of getJacobian(const Eigen::Vector3d&) that lets you specify a
   /// coordinate Frame to express the Jacobian in.
-  virtual math::Jacobian getJacobian(const Eigen::Vector3d& _offset,
-                                     const Frame* _inCoordinatesOf) const = 0;
+  virtual math::Jacobian getJacobian(
+      const Eigen::Vector3d& _offset, const Frame* _inCoordinatesOf) const = 0;
 
   /// Return the generalized Jacobian targeting the origin of this JacobianNode.
   /// The Jacobian is expressed in the World Frame.
@@ -203,8 +206,7 @@ public:
   /// A version of getJacobianSpatialDeriv(const Eigen::Vector3d&) that allows
   /// an arbitrary coordinate Frame to be specified.
   virtual math::Jacobian getJacobianSpatialDeriv(
-      const Eigen::Vector3d& _offset,
-      const Frame* _inCoordinatesOf) const = 0;
+      const Eigen::Vector3d& _offset, const Frame* _inCoordinatesOf) const = 0;
 
   /// Return the classical time derivative of the generalized Jacobian targeting
   /// the origin of this BodyNode. The Jacobian is expressed in the World
@@ -281,7 +283,6 @@ public:
   void dirtyJacobianDeriv();
 
 protected:
-
   /// Constructor
   JacobianNode(BodyNode* bn);
 
@@ -302,10 +303,10 @@ protected:
 
   /// JacobianNode children that descend from this JacobianNode
   std::unordered_set<JacobianNode*> mChildJacobianNodes;
-
 };
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_END
 
-} // namespace dart
 } // namespace dynamics
+} // namespace dart
 
 #endif // DART_DYNAMICS_JACOBIANNODE_HPP_

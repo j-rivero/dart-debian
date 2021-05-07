@@ -169,7 +169,7 @@ function(add_component_targets package_name component)
       EXPORT "${target}"
       ARCHIVE DESTINATION "${LIBRARY_INSTALL_DIR}"
       LIBRARY DESTINATION "${LIBRARY_INSTALL_DIR}"
-      )
+    )
   endforeach()
 
   set_property(TARGET "${target}" APPEND
@@ -225,11 +225,10 @@ function(install_component_exports package_name)
     endforeach()
 
     configure_file(
-      "${CMAKE_SOURCE_DIR}/cmake/dart_Component.cmake.in"
+      "${DART_SOURCE_DIR}/cmake/dart_Component.cmake.in"
       "${output_path}"
       @ONLY)
 
-    install(FILES "${output_path}"
-      DESTINATION "${CONFIG_INSTALL_DIR}")
+    install(FILES "${output_path}" DESTINATION "${CONFIG_INSTALL_DIR}")
   endforeach()
 endfunction()

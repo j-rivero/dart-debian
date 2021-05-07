@@ -37,7 +37,4 @@ install(
   COMPONENT headers
 )
 
-dart_format_add(
-  detail/OdeHeightmap.hpp
-  detail/OdeHeightmap-impl.hpp
-)
+dart_format_add(${hdrs} ${srcs} ${detail_hdrs} ${detail_srcs})

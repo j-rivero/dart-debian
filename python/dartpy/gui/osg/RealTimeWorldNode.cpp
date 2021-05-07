@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -41,7 +41,7 @@ namespace py = pybind11;
 namespace dart {
 namespace python {
 
-class PyPyRealTimeWorldNodeNode : public dart::gui::osg::RealTimeWorldNode
+class PyRealTimeWorldNodeNode : public dart::gui::osg::RealTimeWorldNode
 {
 public:
   // Inherit the constructors
@@ -103,7 +103,7 @@ void RealTimeWorldNode(py::module& m)
   ::py::class_<
       dart::gui::osg::RealTimeWorldNode,
       dart::gui::osg::WorldNode,
-      PyPyRealTimeWorldNodeNode,
+      PyRealTimeWorldNodeNode,
       ::osg::ref_ptr<dart::gui::osg::RealTimeWorldNode>>(m, "RealTimeWorldNode")
       .def(::py::init<>())
       .def(

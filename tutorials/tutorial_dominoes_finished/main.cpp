@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -39,7 +39,7 @@ const double default_domino_width = 0.4 * default_domino_height;
 const double default_domino_depth = default_domino_width / 5.0;
 
 const double default_distance = default_domino_height / 2.0;
-const double default_angle = 20.0 * M_PI / 180.0;
+const double default_angle = dart::math::toRadian(20.0);
 
 const double default_domino_density = 2.6e3; // kg/m^3
 const double default_domino_mass
@@ -479,8 +479,8 @@ SkeletonPtr createManipulator()
   manipulator->getJoint(0)->setTransformFromParentBodyNode(tf);
 
   // Get it into a useful configuration
-  manipulator->getDof(1)->setPosition(140.0 * M_PI / 180.0);
-  manipulator->getDof(2)->setPosition(-140.0 * M_PI / 180.0);
+  manipulator->getDof(1)->setPosition(toRadian(140.0));
+  manipulator->getDof(2)->setPosition(toRadian(-140.0));
 
   return manipulator;
 }

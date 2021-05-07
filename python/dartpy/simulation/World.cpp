@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -51,10 +51,12 @@ void World(py::module& m)
       .def(::py::init(+[]() -> dart::simulation::WorldPtr {
         return dart::simulation::World::create();
       }))
-      .def(::py::init(
-          +[](const std::string& name) -> dart::simulation::WorldPtr {
-            return dart::simulation::World::create(name);
-          }))
+      .def(
+          ::py::init(
+              +[](const std::string& name) -> dart::simulation::WorldPtr {
+                return dart::simulation::World::create(name);
+              }),
+          ::py::arg("name"))
       .def(
           "clone",
           +[](const dart::simulation::World* self)

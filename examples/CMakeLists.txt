@@ -9,6 +9,7 @@ add_subdirectory(speed_test)
 # OSG renderer examples
 add_subdirectory(atlas_puppet)
 add_subdirectory(atlas_simbicon)
+add_subdirectory(biped_stand)
 add_subdirectory(box_stacking)
 add_subdirectory(drag_and_drop)
 add_subdirectory(empty)
@@ -22,6 +23,9 @@ endif()
 add_subdirectory(soft_bodies)
 add_subdirectory(tinkertoy)
 add_subdirectory(wam_ikfast)
+
+# MJCF model based examples
+add_subdirectory(fetch)
 
 # Deprecated examples
 add_subdirectory(deprecated_examples)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -35,23 +35,25 @@
 
 #include <unordered_map>
 #include <vector>
+#include "dart/common/ClassWithVirtualBase.hpp"
 #include "dart/common/ResourceRetriever.hpp"
 
 namespace dart {
 namespace utils {
 
-/// Retrieve local resources specified by package:// URIs by: (1) resolving 
+/// Retrieve local resources specified by package:// URIs by: (1) resolving
 /// the package path and (2) passing the resolved URI to another
 /// \ref ResourceRetriever. This class uses requires you to manually provide the
 /// base URI of every package that you wish to resolve using the
 /// \ref addPackageDirectory method.
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_BEGIN
 class PackageResourceRetriever : public virtual common::ResourceRetriever
 {
 public:
   /// Construct a PackageResourceRetriever that uses the specified \a
   /// _localRetriever to load resolved URIs.
   explicit PackageResourceRetriever(
-    const common::ResourceRetrieverPtr& _localRetriever = nullptr);
+      const common::ResourceRetrieverPtr& _localRetriever = nullptr);
 
   virtual ~PackageResourceRetriever() = default;
 
@@ -82,8 +84,8 @@ public:
   ///
   /// This class supports arbitrary URIs for \a _packageDirectory, as long as
   /// they are supported by the \a _localRetriever passed to the constructor.
-  void addPackageDirectory(const std::string& _packageName,
-                           const std::string& _packageDirectory);
+  void addPackageDirectory(
+      const std::string& _packageName, const std::string& _packageDirectory);
 
   // Documentation inherited.
   bool exists(const common::Uri& _uri) override;
@@ -99,10 +101,13 @@ private:
   std::unordered_map<std::string, std::vector<std::string> > mPackageMap;
 
   const std::vector<std::string>& getPackagePaths(
-    const std::string& _packageName) const;
-  bool resolvePackageUri(const common::Uri& _uri,
-    std::string& _packageName, std::string& _relativePath) const;
+      const std::string& _packageName) const;
+  bool resolvePackageUri(
+      const common::Uri& _uri,
+      std::string& _packageName,
+      std::string& _relativePath) const;
 };
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_END
 
 using PackageResourceRetrieverPtr = std::shared_ptr<PackageResourceRetriever>;
 

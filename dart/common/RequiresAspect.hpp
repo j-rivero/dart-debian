@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -33,6 +33,7 @@
 #ifndef DART_COMMON_REQUIRESASPECT_HPP_
 #define DART_COMMON_REQUIRESASPECT_HPP_
 
+#include "dart/common/ClassWithVirtualBase.hpp"
 #include "dart/common/SpecializedForAspect.hpp"
 
 namespace dart {
@@ -45,25 +46,30 @@ namespace common {
 ///
 /// Required Aspects are also automatically specialized for.
 template <class... OtherRequiredAspects>
-class RequiresAspect { };
+class RequiresAspect
+{
+};
 
 //==============================================================================
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_BEGIN
 template <class ReqAspect>
 class RequiresAspect<ReqAspect> : public virtual SpecializedForAspect<ReqAspect>
 {
 public:
-
   /// Default constructor. This is where the base Composite is informed that
   /// the Aspect type is required.
   RequiresAspect();
-
 };
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_END
 
 //==============================================================================
 template <class ReqAspect1, class... OtherReqAspects>
-class RequiresAspect<ReqAspect1, OtherReqAspects...> :
-    public CompositeJoiner< Virtual< RequiresAspect<ReqAspect1> >,
-                               Virtual< RequiresAspect<OtherReqAspects...> > > { };
+class RequiresAspect<ReqAspect1, OtherReqAspects...>
+  : public CompositeJoiner<
+        Virtual<RequiresAspect<ReqAspect1> >,
+        Virtual<RequiresAspect<OtherReqAspects...> > >
+{
+};
 
 } // namespace common
 } // namespace dart

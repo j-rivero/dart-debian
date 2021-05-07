@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -34,8 +34,8 @@
 
 #include <cassert>
 #ifndef NDEBUG
-#include <iomanip>
-#include <iostream>
+#  include <iomanip>
+#  include <iostream>
 #endif
 
 #include "dart/external/odelcpsolver/lcp.h"
@@ -102,7 +102,7 @@ void BoxedLcpConstraintSolver::setBoxedLcpSolver(BoxedLcpSolverPtr lcpSolver)
   if (!lcpSolver)
   {
     dtwarn << "[BoxedLcpConstraintSolver::setBoxedLcpSolver] "
-           << "nullptr for boxed LCP solver is not allowed.";
+           << "nullptr for boxed LCP solver is not allowed.\n";
     return;
   }
 
@@ -169,7 +169,7 @@ void BoxedLcpConstraintSolver::solveConstrainedGroup(ConstrainedGroup& group)
   mFIndex.setConstant(n, -1); // set findex to -1
 
   // Compute offset indices
-  mOffset.resize(n);
+  mOffset.resize(numConstraints);
   mOffset[0] = 0;
   for (std::size_t i = 1; i < numConstraints; ++i)
   {

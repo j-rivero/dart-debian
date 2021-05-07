@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -37,7 +37,7 @@ namespace dart {
 
 namespace simulation {
 class Recording;
-}  // namespace simulation
+} // namespace simulation
 
 namespace utils {
 
@@ -69,7 +69,7 @@ protected:
   simulation::Recording* mRecord;
 };
 
-}  // namespace utils
-}  // namespace dart
+} // namespace utils
+} // namespace dart
 
-#endif  // DART_UTILS_FILEINFOWORLD_HPP_
+#endif // DART_UTILS_FILEINFOWORLD_HPP_

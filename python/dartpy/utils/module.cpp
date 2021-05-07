@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -39,6 +39,7 @@ namespace python {
 
 void DartLoader(py::module& sm);
 void SkelParser(py::module& sm);
+void MjcfParser(py::module& sm);
 
 void dart_utils(py::module& m)
 {
@@ -46,6 +47,7 @@ void dart_utils(py::module& m)
 
   DartLoader(sm);
   SkelParser(sm);
+  MjcfParser(sm);
 }
 
 } // namespace python

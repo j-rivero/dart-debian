@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -62,8 +62,8 @@ void DARTCollisionDetector(py::module& m)
       .def(
           "createCollisionGroup",
           +[](dart::collision::DARTCollisionDetector* self)
-              -> std::unique_ptr<dart::collision::CollisionGroup> {
-            return self->createCollisionGroup();
+              -> std::shared_ptr<dart::collision::CollisionGroup> {
+            return self->createCollisionGroupAsSharedPtr();
           })
       .def_static(
           "getStaticType",

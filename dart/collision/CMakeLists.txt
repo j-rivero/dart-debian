@@ -23,29 +23,19 @@ dart_generate_include_header_file(
 )
 
 # Install
-if(NOT DART_BUILD_DARTPY)
-  install(
-    FILES ${hdrs} ${CMAKE_CURRENT_BINARY_DIR}/collision.hpp
-    DESTINATION include/dart/collision
-    COMPONENT headers
-  )
-  install(
-    FILES ${detail_hdrs}
-    DESTINATION include/dart/collision/detail
-    COMPONENT headers
-  )
-endif()
+install(
+  FILES ${hdrs} ${CMAKE_CURRENT_BINARY_DIR}/collision.hpp
+  DESTINATION include/dart/collision
+  COMPONENT headers
+)
+install(
+  FILES ${detail_hdrs}
+  DESTINATION include/dart/collision/detail
+  COMPONENT headers
+)
 
 # Add subdirectories
 add_subdirectory(dart)
 add_subdirectory(fcl)
 add_subdirectory(ode)
 add_subdirectory(bullet)
-
-dart_format_add(
-  RaycastOption.hpp
-  RaycastOption.cpp
-  RaycastResult.hpp
-  RaycastResult.cpp
-  SmartPointer.hpp
-)

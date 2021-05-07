@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -41,7 +41,7 @@ namespace dart {
 
 namespace dynamics {
 class Skeleton;
-}  // namespace dynamics
+} // namespace dynamics
 
 namespace constraint {
 
@@ -74,6 +74,9 @@ struct ConstraintInfo
 class ConstraintBase
 {
 public:
+  /// Returns a string representing the constraint type
+  virtual const std::string& getType() const;
+
   /// Return dimesion of this constranit
   std::size_t getDimension() const;
 
@@ -135,5 +138,4 @@ protected:
 } // namespace constraint
 } // namespace dart
 
-#endif  // DART_CONSTRAINT_CONSTRAINTBASE_HPP_
-
+#endif // DART_CONSTRAINT_CONSTRAINTBASE_HPP_

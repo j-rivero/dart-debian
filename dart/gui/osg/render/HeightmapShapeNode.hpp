@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -203,9 +203,10 @@ HeightmapShapeGeode<S>::HeightmapShapeGeode(
     mDrawable(nullptr)
 {
   getOrCreateStateSet()->setMode(GL_BLEND, ::osg::StateAttribute::ON);
-  getOrCreateStateSet()->setMode(GL_LIGHTING, ::osg::StateAttribute::ON);
+  getOrCreateStateSet()->setRenderingHint(::osg::StateSet::TRANSPARENT_BIN);
   getOrCreateStateSet()->setAttributeAndModes(
       new ::osg::CullFace(::osg::CullFace::BACK));
+  getOrCreateStateSet()->setMode(GL_LIGHTING, ::osg::StateAttribute::ON);
   extractData();
 }
 

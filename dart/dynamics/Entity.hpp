@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -33,13 +33,13 @@
 #ifndef DART_DYNAMICS_ENTITY_HPP_
 #define DART_DYNAMICS_ENTITY_HPP_
 
-#include <Eigen/Core>
 #include <string>
 #include <vector>
+#include <Eigen/Core>
 
-#include "dart/common/Subject.hpp"
-#include "dart/common/Signal.hpp"
 #include "dart/common/Composite.hpp"
+#include "dart/common/Signal.hpp"
+#include "dart/common/Subject.hpp"
 #include "dart/dynamics/Shape.hpp"
 #include "dart/dynamics/SmartPointer.hpp"
 
@@ -56,20 +56,17 @@ class Frame;
 /// may have different policies about how/if their reference frame or name
 /// can be changed. Use the Detachable class to create an Entity whose reference
 /// Frame can be changed arbitrarily.
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_BEGIN
 class Entity : public virtual common::Subject
 {
 public:
   friend class Frame;
 
   using EntitySignal = common::Signal<void(const Entity*)>;
-  using FrameChangedSignal
-      = common::Signal<void(const Entity*,
-                            const Frame* _oldFrame,
-                            const Frame* _newFrame)>;
-  using NameChangedSignal
-      = common::Signal<void(const Entity*,
-                            const std::string& _oldName,
-                            const std::string& _newName)>;
+  using FrameChangedSignal = common::Signal<void(
+      const Entity*, const Frame* _oldFrame, const Frame* _newFrame)>;
+  using NameChangedSignal = common::Signal<void(
+      const Entity*, const std::string& _oldName, const std::string& _newName)>;
 
   /// Constructor for typical usage
   explicit Entity(Frame* _refFrame, bool _quiet);
@@ -153,16 +150,21 @@ public:
   bool needsAccelerationUpdate() const;
 
 protected:
-
   /// Used when constructing a Frame class, because the Frame constructor will
   /// take care of setting up the parameters you pass into it
-  enum ConstructFrameTag { ConstructFrame };
+  enum ConstructFrameTag
+  {
+    ConstructFrame
+  };
 
   explicit Entity(ConstructFrameTag);
 
   /// Used when constructing a pure abstract class, because calling the Entity
   /// constructor is just a formality
-  enum ConstructAbstractTag { ConstructAbstract };
+  enum ConstructAbstractTag
+  {
+    ConstructAbstract
+  };
 
   explicit Entity(ConstructAbstractTag);
 
@@ -170,7 +172,6 @@ protected:
   virtual void changeParentFrame(Frame* _newParentFrame);
 
 protected:
-
   /// Parent frame of this Entity
   Frame* mParentFrame;
 
@@ -228,9 +229,11 @@ private:
   /// Whether or not this Entity is a Frame
   bool mAmFrame;
 };
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_END
 
 /// The Detachable class is a special case of the Entity base class. Detachable
 /// allows the Entity's reference Frame to be changed arbitrarily by the user.
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_BEGIN
 class Detachable : public virtual Entity
 {
 public:
@@ -244,8 +247,8 @@ protected:
   /// Constructor for inheriting classes, so they do not need to fill in the
   /// arguments
   Detachable();
-
 };
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_END
 
 } // namespace dynamics
 } // namespace dart

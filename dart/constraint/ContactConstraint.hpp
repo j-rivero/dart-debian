@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -55,6 +55,12 @@ public:
 
   /// Destructor
   ~ContactConstraint() override = default;
+
+  // Documentation inherited
+  const std::string& getType() const override;
+
+  /// Returns constraint type for this class.
+  static const std::string& getStaticType();
 
   //----------------------------------------------------------------------------
   // Property settings
@@ -132,6 +138,21 @@ protected:
   // Documentation inherited
   bool isActive() const override;
 
+  static double computeFrictionCoefficient(
+      const dynamics::ShapeNode* shapeNode);
+  static double computePrimaryFrictionCoefficient(
+      const dynamics::ShapeNode* shapeNode);
+  static double computeSecondaryFrictionCoefficient(
+      const dynamics::ShapeNode* shapeNode);
+  static double computePrimarySlipCompliance(
+      const dynamics::ShapeNode* shapeNode);
+  static double computeSecondarySlipCompliance(
+      const dynamics::ShapeNode* shapeNode);
+  static Eigen::Vector3d computeWorldFirstFrictionDir(
+      const dynamics::ShapeNode* shapenode);
+  static double computeRestitutionCoefficient(
+      const dynamics::ShapeNode* shapeNode);
+
 private:
   using TangentBasisMatrix = Eigen::Matrix<double, 3, 2>;
 
@@ -145,6 +166,26 @@ private:
 
   ///
   TangentBasisMatrix getTangentBasisMatrixODE(const Eigen::Vector3d& n);
+
+  // The following functions for getting and setting slip compliance and
+  // accessing the contact object are meant to be used by ConstraintSolver to
+  // update the slip compliances based on the number of contacts between the
+  // collision objects.
+  //
+  /// Get primary slip compliance
+  double getPrimarySlipCompliance() const;
+
+  /// Set primary slip compliance
+  void setPrimarySlipCompliance(double slip);
+
+  /// Get secondary slip compliance
+  double getSecondarySlipCompliance() const;
+
+  /// Set secondary slip compliance
+  void setSecondarySlipCompliance(double slip);
+
+  /// Get contact object associated witht this constraint
+  const collision::Contact& getContact() const;
 
 private:
   /// Time step
@@ -162,8 +203,17 @@ private:
   /// First frictional direction
   Eigen::Vector3d mFirstFrictionalDirection;
 
-  /// Coefficient of Friction
-  double mFrictionCoeff;
+  /// Primary Coefficient of Friction
+  double mPrimaryFrictionCoeff;
+
+  /// Primary Coefficient of Friction
+  double mSecondaryFrictionCoeff;
+
+  /// Primary Coefficient of Slip Compliance
+  double mPrimarySlipCompliance;
+
+  /// Secondary Coefficient of Slip Compliance
+  double mSecondarySlipCompliance;
 
   /// Coefficient of restitution
   double mRestitutionCoeff;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -53,6 +53,7 @@ namespace dynamics {
 /// Entity class is inherited by using virtual inheritence to solve the
 /// so-called "diamond problem". Because of that, the Entity's constructor will
 /// be called directly by the most derived class's constructor.
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_BEGIN
 class Frame : public virtual Entity
 {
 public:
@@ -91,8 +92,8 @@ public:
 
   /// Get the transform of this Frame with respect to some other Frame. It can
   /// be expressed in the coordinates of any Frame.
-  Eigen::Isometry3d getTransform(const Frame* withRespectTo,
-                                 const Frame* inCoordinatesOf) const;
+  Eigen::Isometry3d getTransform(
+      const Frame* withRespectTo, const Frame* inCoordinatesOf) const;
 
   //-------------------------------------------------------------------------
   // Velocity
@@ -108,17 +109,18 @@ public:
 
   /// Get the spatial velocity of this Frame relative to some other Frame. It
   /// can be expressed in the coordinates of any Frame.
-  Eigen::Vector6d getSpatialVelocity(const Frame* _relativeTo,
-                                     const Frame* _inCoordinatesOf) const;
+  Eigen::Vector6d getSpatialVelocity(
+      const Frame* _relativeTo, const Frame* _inCoordinatesOf) const;
 
   /// Get the spatial velocity of a fixed point in this Frame. The velocity is
   /// in coordinates of this Frame and is relative to the World Frame.
   Eigen::Vector6d getSpatialVelocity(const Eigen::Vector3d& _offset) const;
 
   /// Get the spatial velocity of a fixed point in this Frame.
-  Eigen::Vector6d getSpatialVelocity(const Eigen::Vector3d& _offset,
-                                     const Frame* _relativeTo,
-                                     const Frame* _inCoordinatesOf) const;
+  Eigen::Vector6d getSpatialVelocity(
+      const Eigen::Vector3d& _offset,
+      const Frame* _relativeTo,
+      const Frame* _inCoordinatesOf) const;
 
   /// Get the linear portion of classical velocity of this Frame relative to
   /// some other Frame. It can be expressed in the coordinates of any Frame.
@@ -152,12 +154,13 @@ public:
   /// acceleration which we refer to as the partial acceleration, accessible
   /// by getPartialAcceleration(). We save operations during our forward
   /// kinematics by computing and storing the partial acceleration separately
-  /// from the rest of the Frame's acceleration. getPrimaryRelativeAcceleration()
-  /// will return the portion of the relative spatial acceleration that is not
-  /// contained in the partial acceleration. To get the full spatial
-  /// acceleration of this Frame relative to its parent Frame, use
-  /// getRelativeSpatialAcceleration(). To get the full spatial acceleration
-  /// of this Frame relative to the World Frame, use getSpatialAcceleration().
+  /// from the rest of the Frame's acceleration.
+  /// getPrimaryRelativeAcceleration() will return the portion of the relative
+  /// spatial acceleration that is not contained in the partial acceleration. To
+  /// get the full spatial acceleration of this Frame relative to its parent
+  /// Frame, use getRelativeSpatialAcceleration(). To get the full spatial
+  /// acceleration of this Frame relative to the World Frame, use
+  /// getSpatialAcceleration().
   virtual const Eigen::Vector6d& getPrimaryRelativeAcceleration() const = 0;
 
   /// The Featherstone ABI algorithm exploits a component of the spatial
@@ -171,8 +174,8 @@ public:
 
   /// Get the spatial acceleration of this Frame relative to some other Frame.
   /// It can be expressed in the coordinates of any Frame.
-  Eigen::Vector6d getSpatialAcceleration(const Frame* _relativeTo,
-                                         const Frame* _inCoordinatesOf) const;
+  Eigen::Vector6d getSpatialAcceleration(
+      const Frame* _relativeTo, const Frame* _inCoordinatesOf) const;
 
   /// Get the spatial acceleration of a fixed point in this Frame. The
   /// acceleration is in coordinates of this Frame and is relative to the World
@@ -180,26 +183,27 @@ public:
   Eigen::Vector6d getSpatialAcceleration(const Eigen::Vector3d& _offset) const;
 
   /// Get the spatial acceleration of a fixed point in this Frame
-  Eigen::Vector6d getSpatialAcceleration(const Eigen::Vector3d& _offset,
-                                         const Frame* _relativeTo,
-                                         const Frame* _inCoordinatesOf) const;
+  Eigen::Vector6d getSpatialAcceleration(
+      const Eigen::Vector3d& _offset,
+      const Frame* _relativeTo,
+      const Frame* _inCoordinatesOf) const;
 
   /// Get the linear portion of classical acceleration of this Frame relative to
   /// some other Frame. It can be expressed in the coordinates of any Frame.
   Eigen::Vector3d getLinearAcceleration(
-      const Frame* _relativeTo=Frame::World(),
-      const Frame* _inCoordinatesOf=Frame::World()) const;
+      const Frame* _relativeTo = Frame::World(),
+      const Frame* _inCoordinatesOf = Frame::World()) const;
 
   Eigen::Vector3d getLinearAcceleration(
       const Eigen::Vector3d& _offset,
-      const Frame* _relativeTo=Frame::World(),
-      const Frame* _inCoordinatesOf=Frame::World()) const;
+      const Frame* _relativeTo = Frame::World(),
+      const Frame* _inCoordinatesOf = Frame::World()) const;
 
   /// Get the angular portion of classical acceleration of this Frame relative
   /// to some other Frame. It can be expressed in the coordinates of any Frame.
   Eigen::Vector3d getAngularAcceleration(
-      const Frame* _relativeTo=Frame::World(),
-      const Frame* _inCoordinatesOf=Frame::World()) const;
+      const Frame* _relativeTo = Frame::World(),
+      const Frame* _inCoordinatesOf = Frame::World()) const;
 
   //--------------------------------------------------------------------------
   // Relationships
@@ -259,10 +263,12 @@ public:
   virtual void dirtyAcceleration() override;
 
 protected:
-
   /// Used when constructing a pure abstract class, because calling the Frame
   /// constructor is just a formality
-  enum ConstructAbstractTag { ConstructAbstract };
+  enum ConstructAbstractTag
+  {
+    ConstructAbstract
+  };
 
   /// Constructor for typical usage
   explicit Frame(Frame* _refFrame);
@@ -286,9 +292,11 @@ protected:
   virtual void processRemovedEntity(Entity* _oldChildEntity);
 
 private:
-
   /// Used when constructing the World
-  enum ConstructWorldTag { ConstructWorld };
+  enum ConstructWorldTag
+  {
+    ConstructWorld
+  };
 
   /// Constructor only to be used by the WorldFrame class
   explicit Frame(ConstructWorldTag);
@@ -371,6 +379,7 @@ public:
   // To get byte-aligned Eigen vectors
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 };
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_END
 
 } // namespace dynamics
 } // namespace dart

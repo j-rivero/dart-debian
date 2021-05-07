@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -523,6 +523,8 @@ void GridVisual::initialize()
   mAxisLineGeom->setDataVariance(::osg::Object::STATIC);
   mAxisLineGeom->getOrCreateStateSet()->setMode(
       GL_BLEND, ::osg::StateAttribute::ON);
+  mAxisLineGeom->getOrCreateStateSet()->setRenderingHint(
+      ::osg::StateSet::TRANSPARENT_BIN);
 
   // Set grid color
   static const ::osg::Vec4 majorLineColor(0.4f, 0.4f, 0.4f, 1.0f);
@@ -544,6 +546,8 @@ void GridVisual::initialize()
   mMajorLineGeom->setColorBinding(::osg::Geometry::BIND_OVERALL);
   mMajorLineGeom->getOrCreateStateSet()->setMode(
       GL_BLEND, ::osg::StateAttribute::ON);
+  mMajorLineGeom->getOrCreateStateSet()->setRenderingHint(
+      ::osg::StateSet::TRANSPARENT_BIN);
 
   mMinorLineColor = new ::osg::Vec4Array;
   mMinorLineColor->resize(1);
@@ -552,6 +556,8 @@ void GridVisual::initialize()
   mMinorLineGeom->setColorBinding(::osg::Geometry::BIND_OVERALL);
   mMinorLineGeom->getOrCreateStateSet()->setMode(
       GL_BLEND, ::osg::StateAttribute::ON);
+  mMinorLineGeom->getOrCreateStateSet()->setRenderingHint(
+      ::osg::StateSet::TRANSPARENT_BIN);
 
   mMinorLineFaces = new ::osg::DrawElementsUInt(::osg::PrimitiveSet::LINES, 0);
   mMinorLineGeom->addPrimitiveSet(mMinorLineFaces);

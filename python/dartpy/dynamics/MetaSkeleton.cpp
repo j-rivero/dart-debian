@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -1201,7 +1201,7 @@ void MetaSkeleton(py::module& m)
       .def(
           "getGravityForces",
           +[](dart::dynamics::MetaSkeleton* self) -> const Eigen::VectorXd& {
-            return self->getCoriolisForces();
+            return self->getGravityForces();
           })
       .def(
           "getCoriolisAndGravityForces",
@@ -1211,7 +1211,7 @@ void MetaSkeleton(py::module& m)
       .def(
           "getExternalForces",
           +[](dart::dynamics::MetaSkeleton* self) -> const Eigen::VectorXd& {
-            return self->getCoriolisAndGravityForces();
+            return self->getExternalForces();
           })
       .def(
           "getConstraintForces",

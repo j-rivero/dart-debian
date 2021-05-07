@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -40,8 +40,16 @@ namespace python {
 
 void Contact(py::module& sm);
 
+void CollisionFilter(py::module& sm);
+void CollisionObject(py::module& sm);
 void CollisionOption(py::module& sm);
 void CollisionResult(py::module& sm);
+
+void DistanceOption(py::module& sm);
+void DistanceResult(py::module& sm);
+
+void RaycastOption(py::module& sm);
+void RaycastResult(py::module& sm);
 
 void CollisionDetector(py::module& sm);
 void FCLCollisionDetector(py::module& sm);
@@ -67,8 +75,16 @@ void dart_collision(py::module& m)
 
   Contact(sm);
 
+  CollisionFilter(sm);
+  CollisionObject(sm);
   CollisionOption(sm);
   CollisionResult(sm);
+
+  DistanceOption(sm);
+  DistanceResult(sm);
+
+  RaycastOption(sm);
+  RaycastResult(sm);
 
   CollisionDetector(sm);
   FCLCollisionDetector(sm);

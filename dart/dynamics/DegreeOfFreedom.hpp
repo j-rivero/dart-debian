@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -33,10 +33,11 @@
 #ifndef DART_DYNAMICS_DEGREEOFFREEDOM_HPP_
 #define DART_DYNAMICS_DEGREEOFFREEDOM_HPP_
 
-#include <string>
 #include <memory>
+#include <string>
 #include <Eigen/Core>
 
+#include "dart/common/ClassWithVirtualBase.hpp"
 #include "dart/common/Subject.hpp"
 #include "dart/dynamics/SmartPointer.hpp"
 
@@ -49,12 +50,13 @@ class BodyNode;
 
 /// DegreeOfFreedom class is a proxy class for accessing single degrees of
 /// freedom (aka generalized coordinates) of the Skeleton.
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_BEGIN
 class DegreeOfFreedom : public virtual common::Subject
 {
 public:
-
   friend class Joint;
-  template<class> friend class GenericJoint;
+  template <class>
+  friend class GenericJoint;
   friend class Skeleton;
 
   DegreeOfFreedom(const DegreeOfFreedom&) = delete;
@@ -65,7 +67,8 @@ public:
   /// function. Set _preserveName to true when customizing the name of the
   /// DegreeOfFreedom; that way the name will not be overwritten if the Joint
   /// name changes.
-  const std::string& setName(const std::string& _name, bool _preserveName=true);
+  const std::string& setName(
+      const std::string& _name, bool _preserveName = true);
 
   /// \brief Get the name of this DegreeOfFreedom
   ///
@@ -134,10 +137,10 @@ public:
   void setPositionLimits(double _lowerLimit, double _upperLimit);
 
   /// Set the position limits of this DegreeOfFreedom
-  void setPositionLimits(const std::pair<double,double>& _limits);
+  void setPositionLimits(const std::pair<double, double>& _limits);
 
   /// Get the position limits of this DegreeOfFreedom
-  std::pair<double,double> getPositionLimits() const;
+  std::pair<double, double> getPositionLimits() const;
 
   /// Set the lower position limit of this DegreeOfFreedom
   void setPositionLowerLimit(double _limit);
@@ -185,10 +188,10 @@ public:
   void setVelocityLimits(double _lowerLimit, double _upperLimit);
 
   /// Set the velocity limtis of this DegreeOfFreedom
-  void setVelocityLimits(const std::pair<double,double>& _limits);
+  void setVelocityLimits(const std::pair<double, double>& _limits);
 
   /// Get the velocity limits of this DegreeOfFreedom
-  std::pair<double,double> getVelocityLimits() const;
+  std::pair<double, double> getVelocityLimits() const;
 
   /// Set the lower velocity limit of this DegreeOfFreedom
   void setVelocityLowerLimit(double _limit);
@@ -230,10 +233,10 @@ public:
   void setAccelerationLimits(double _lowerLimit, double _upperLimit);
 
   /// Set the acceleartion limits of this DegreeOfFreedom
-  void setAccelerationLimits(const std::pair<double,double>& _limits);
+  void setAccelerationLimits(const std::pair<double, double>& _limits);
 
   /// Get the acceleration limits of this DegreeOfFreedom
-  std::pair<double,double> getAccelerationLimits() const;
+  std::pair<double, double> getAccelerationLimits() const;
 
   /// Set the lower acceleration limit of this DegreeOfFreedom
   void setAccelerationLowerLimit(double _limit);
@@ -266,10 +269,10 @@ public:
   void setForceLimits(double _lowerLimit, double _upperLimit);
 
   /// Set the generalized force limits of this DegreeOfFreedom
-  void setForceLimits(const std::pair<double,double>& _limits);
+  void setForceLimits(const std::pair<double, double>& _limits);
 
   /// Get the generalized force limits of this DegreeOfFreedom
-  std::pair<double,double> getForceLimits() const;
+  std::pair<double, double> getForceLimits() const;
 
   /// Set the lower generalized force limit of this DegreeOfFreedom
   void setForceLowerLimit(double _limit);
@@ -401,8 +404,8 @@ protected:
   // whether mJoint is nullptr, because only Joints are allowed to create a
   // DegreeOfFreedom and every DegreeOfFreedom is deleted when its Joint is
   // destructed.
-
 };
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_END
 
 } // namespace dynamics
 } // namespace dart

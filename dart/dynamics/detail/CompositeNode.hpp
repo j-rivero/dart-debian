@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -66,7 +66,7 @@ void CompositePropertiesNode<Base>::setNodeProperties(
     const Node::Properties& otherProperties)
 {
   common::Composite::setCompositeProperties(
-        static_cast<const Properties&>(otherProperties));
+      static_cast<const Properties&>(otherProperties));
 }
 
 //==============================================================================
@@ -75,7 +75,7 @@ std::unique_ptr<Node::Properties>
 CompositePropertiesNode<Base>::getNodeProperties() const
 {
   return std::make_unique<Properties>(
-        common::Composite::getCompositeProperties());
+      common::Composite::getCompositeProperties());
 }
 
 //==============================================================================
@@ -84,7 +84,7 @@ void CompositePropertiesNode<Base>::copyNodePropertiesTo(
     std::unique_ptr<Node::Properties>& outputProperties) const
 {
   common::Composite::copyCompositePropertiesTo(
-        static_cast<Properties&>(*outputProperties));
+      static_cast<Properties&>(*outputProperties));
 }
 
 } // namespace dynamics

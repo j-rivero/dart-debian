@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -96,6 +96,12 @@ void BallJoint(py::module& m)
             return dart::dynamics::BallJoint::getStaticType();
           },
           ::py::return_value_policy::reference_internal)
+      .def_static(
+          "convertToPositions",
+          +[](const Eigen::Matrix3d& _tf) -> Eigen::Vector3d {
+            return dart::dynamics::BallJoint::convertToPositions(_tf);
+          },
+          ::py::arg("tf"))
       .def_static(
           "convertToTransform",
           +[](const Eigen::Vector3d& _positions) -> Eigen::Isometry3d {

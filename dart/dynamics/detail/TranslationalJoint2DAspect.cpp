@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -90,6 +90,32 @@ TranslationalJoint2DUniqueProperties::TranslationalJoint2DUniqueProperties(
       setZXPlane();
       break;
   }
+}
+
+//==============================================================================
+TranslationalJoint2DUniqueProperties& TranslationalJoint2DUniqueProperties::
+operator=(const TranslationalJoint2DUniqueProperties& other)
+{
+  if (this != &other)
+  {
+    switch (other.mPlaneType)
+    {
+      case PlaneType::ARBITRARY:
+        setArbitraryPlane(other.mTransAxes);
+        break;
+      case PlaneType::XY:
+        setXYPlane();
+        break;
+      case PlaneType::YZ:
+        setYZPlane();
+        break;
+      case PlaneType::ZX:
+        setZXPlane();
+        break;
+    }
+  }
+
+  return *this;
 }
 
 //==============================================================================

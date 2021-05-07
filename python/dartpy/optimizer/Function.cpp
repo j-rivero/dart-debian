@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -89,19 +89,7 @@ void Function(py::module& m)
           +[](const dart::optimizer::Function* self) -> const std::string& {
             return self->getName();
           },
-          ::py::return_value_policy::reference_internal)
-      .def(
-          "eval",
-          +[](dart::optimizer::Function* self,
-              const Eigen::VectorXd& x) -> double { return self->eval(x); },
-          ::py::arg("x"))
-      .def(
-          "evalGradient",
-          +[](dart::optimizer::Function* self,
-              const Eigen::VectorXd& _x,
-              Eigen::VectorXd& _grad) { self->evalGradient(_x, _grad); },
-          ::py::arg("x"),
-          ::py::arg("grad"));
+          ::py::return_value_policy::reference_internal);
 
   ::py::class_<
       dart::optimizer::NullFunction,

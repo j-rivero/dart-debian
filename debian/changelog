@@ -1,3 +1,13 @@
+dart (6.10.1-1) experimental; urgency=medium
+
+  * Exclude rc versions from watch file
+  * New upstream version 6.10.1
+  * Update patches
+  * Add CI for salsa
+  * Update debian/gitlab-ci.yml file
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Mon, 10 May 2021 16:28:58 +0000
+
 dart (6.9.5-3) unstable; urgency=medium
 
   * Team upload.

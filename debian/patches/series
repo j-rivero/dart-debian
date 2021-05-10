@@ -1,5 +1,4 @@
 0001-respect-cflags.patch
-0002-fix-wamiktest-ndebug.patch
 0004-fix-pkgconfig.patch
 0006-Fix-find-Flann.patch
 0007-fix-soversion.patch

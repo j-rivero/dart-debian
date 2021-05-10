@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -82,6 +82,12 @@ void ReferentialSkeleton(py::module& m)
           "getNumBodyNodes",
           +[](const dart::dynamics::ReferentialSkeleton* self) -> std::size_t {
             return self->getNumBodyNodes();
+          })
+      .def(
+          "getBodyNodes",
+          +[](dart::dynamics::ReferentialSkeleton* self)
+              -> const std::vector<dart::dynamics::BodyNode*>& {
+            return self->getBodyNodes();
           })
       .def(
           "getBodyNodes",

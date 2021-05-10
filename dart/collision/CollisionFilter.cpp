@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -32,11 +32,17 @@
 
 #include "dart/collision/CollisionFilter.hpp"
 
-#include "dart/dynamics/BodyNode.hpp"
 #include "dart/collision/CollisionObject.hpp"
+#include "dart/dynamics/BodyNode.hpp"
 
 namespace dart {
 namespace collision {
+
+//==============================================================================
+CollisionFilter::~CollisionFilter()
+{
+  // Do nothing
+}
 
 //==============================================================================
 bool CollisionFilter::needCollision(
@@ -57,7 +63,7 @@ void CompositeCollisionFilter::addCollisionFilter(const CollisionFilter* filter)
 
 //==============================================================================
 void CompositeCollisionFilter::removeCollisionFilter(
-const CollisionFilter* filter)
+    const CollisionFilter* filter)
 {
   mFilters.erase(filter);
 }
@@ -132,7 +138,7 @@ bool BodyNodeCollisionFilter::ignoresCollision(
   const auto& skel1 = bodyNode1->getSkeleton();
   const auto& skel2 = bodyNode2->getSkeleton();
 
-  if ( !skel1->isMobile() && !skel2->isMobile() )
+  if (!skel1->isMobile() && !skel2->isMobile())
     return true;
 
   if (skel1 == skel2)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -32,6 +32,8 @@
 
 #include <dart/dart.hpp>
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+
 #include "eigen_geometry_pybind.h"
 #include "eigen_pybind.h"
 
@@ -42,102 +44,141 @@ namespace python {
 
 void Shape(py::module& m)
 {
-  ::py::class_<
-      dart::dynamics::Shape,
-      dart::common::Subject,
-      std::shared_ptr<dart::dynamics::Shape>>(m, "Shape")
-      .def(
-          "getType",
-          +[](const dart::dynamics::Shape* self) -> const std::string& {
-            return self->getType();
-          },
-          ::py::return_value_policy::reference_internal)
-      .def(
-          "getBoundingBox",
-          +[](const dart::dynamics::Shape* self)
-              -> const dart::math::BoundingBox& {
-            return self->getBoundingBox();
-          },
-          ::py::return_value_policy::reference_internal)
-      .def(
-          "computeInertia",
-          +[](const dart::dynamics::Shape* self, double mass)
-              -> Eigen::Matrix3d { return self->computeInertia(mass); },
-          ::py::arg("mass"))
-      .def(
-          "computeInertiaFromDensity",
-          +[](const dart::dynamics::Shape* self,
-              double density) -> Eigen::Matrix3d {
-            return self->computeInertiaFromDensity(density);
-          },
-          ::py::arg("density"))
-      .def(
-          "computeInertiaFromMass",
-          +[](const dart::dynamics::Shape* self, double mass)
-              -> Eigen::Matrix3d { return self->computeInertiaFromMass(mass); },
-          ::py::arg("mass"))
-      .def(
-          "getVolume",
-          +[](const dart::dynamics::Shape* self) -> double {
-            return self->getVolume();
-          })
-      .def(
-          "getID",
-          +[](const dart::dynamics::Shape* self) -> std::size_t {
-            return self->getID();
-          })
-      .def(
-          "setDataVariance",
-          +[](dart::dynamics::Shape* self, unsigned int _variance) {
-            self->setDataVariance(_variance);
-          },
-          ::py::arg("variance"))
-      .def(
-          "addDataVariance",
-          +[](dart::dynamics::Shape* self, unsigned int _variance) {
-            self->addDataVariance(_variance);
-          },
-          ::py::arg("variance"))
-      .def(
-          "removeDataVariance",
-          +[](dart::dynamics::Shape* self, unsigned int _variance) {
-            self->removeDataVariance(_variance);
-          },
-          ::py::arg("variance"))
-      .def(
-          "getDataVariance",
-          +[](const dart::dynamics::Shape* self) -> unsigned int {
-            return self->getDataVariance();
-          })
-      .def(
-          "checkDataVariance",
-          +[](const dart::dynamics::Shape* self,
-              dart::dynamics::Shape::DataVariance type) -> bool {
-            return self->checkDataVariance(type);
-          },
-          ::py::arg("type"))
-      .def(
-          "refreshData",
-          +[](dart::dynamics::Shape* self) { self->refreshData(); })
-      .def(
-          "notifyAlphaUpdated",
-          +[](dart::dynamics::Shape* self, double alpha) {
-            self->notifyAlphaUpdated(alpha);
-          },
-          ::py::arg("alpha"))
-      .def(
-          "notifyColorUpdated",
-          +[](dart::dynamics::Shape* self, const Eigen::Vector4d& color) {
-            self->notifyColorUpdated(color);
-          },
-          ::py::arg("color"))
-      .def(
-          "incrementVersion",
-          +[](dart::dynamics::Shape* self) -> std::size_t {
-            return self->incrementVersion();
-          })
-      .def_readonly(
-          "onVersionChanged", &dart::dynamics::Shape::onVersionChanged);
+  auto shape
+      = ::py::class_<
+            dart::dynamics::Shape,
+            dart::common::Subject,
+            std::shared_ptr<dart::dynamics::Shape>>(m, "Shape")
+            .def(
+                "getType",
+                +[](const dart::dynamics::Shape* self) -> const std::string& {
+                  return self->getType();
+                },
+                ::py::return_value_policy::reference_internal)
+            .def(
+                "getBoundingBox",
+                +[](const dart::dynamics::Shape* self)
+                    -> const dart::math::BoundingBox& {
+                  return self->getBoundingBox();
+                },
+                ::py::return_value_policy::reference_internal)
+            .def(
+                "computeInertia",
+                +[](const dart::dynamics::Shape* self, double mass)
+                    -> Eigen::Matrix3d { return self->computeInertia(mass); },
+                ::py::arg("mass"))
+            .def(
+                "computeInertiaFromDensity",
+                +[](const dart::dynamics::Shape* self,
+                    double density) -> Eigen::Matrix3d {
+                  return self->computeInertiaFromDensity(density);
+                },
+                ::py::arg("density"))
+            .def(
+                "computeInertiaFromMass",
+                +[](const dart::dynamics::Shape* self,
+                    double mass) -> Eigen::Matrix3d {
+                  return self->computeInertiaFromMass(mass);
+                },
+                ::py::arg("mass"))
+            .def(
+                "getVolume",
+                +[](const dart::dynamics::Shape* self) -> double {
+                  return self->getVolume();
+                })
+            .def(
+                "getID",
+                +[](const dart::dynamics::Shape* self) -> std::size_t {
+                  return self->getID();
+                })
+            .def(
+                "setDataVariance",
+                +[](dart::dynamics::Shape* self, unsigned int _variance) {
+                  self->setDataVariance(_variance);
+                },
+                ::py::arg("variance"))
+            .def(
+                "addDataVariance",
+                +[](dart::dynamics::Shape* self, unsigned int _variance) {
+                  self->addDataVariance(_variance);
+                },
+                ::py::arg("variance"))
+            .def(
+                "removeDataVariance",
+                +[](dart::dynamics::Shape* self, unsigned int _variance) {
+                  self->removeDataVariance(_variance);
+                },
+                ::py::arg("variance"))
+            .def(
+                "getDataVariance",
+                +[](const dart::dynamics::Shape* self) -> unsigned int {
+                  return self->getDataVariance();
+                })
+            .def(
+                "checkDataVariance",
+                +[](const dart::dynamics::Shape* self,
+                    dart::dynamics::Shape::DataVariance type) -> bool {
+                  return self->checkDataVariance(type);
+                },
+                ::py::arg("type"))
+            .def(
+                "refreshData",
+                +[](dart::dynamics::Shape* self) { self->refreshData(); })
+            .def(
+                "notifyAlphaUpdated",
+                +[](dart::dynamics::Shape* self, double alpha) {
+                  self->notifyAlphaUpdated(alpha);
+                },
+                ::py::arg("alpha"))
+            .def(
+                "notifyColorUpdated",
+                +[](dart::dynamics::Shape* self, const Eigen::Vector4d& color) {
+                  self->notifyColorUpdated(color);
+                },
+                ::py::arg("color"))
+            .def(
+                "incrementVersion",
+                +[](dart::dynamics::Shape* self) -> std::size_t {
+                  return self->incrementVersion();
+                })
+            .def_readonly(
+                "onVersionChanged", &dart::dynamics::Shape::onVersionChanged);
+
+#define DARTPY_DEFINE_SHAPE_TYPE(val)                                          \
+  .value(#val, dart::dynamics::Shape::ShapeType::val)
+
+  // clang-format off
+  ::py::enum_<dart::dynamics::Shape::ShapeType>(shape, "ShapeType")
+      DARTPY_DEFINE_SHAPE_TYPE(SPHERE)
+      DARTPY_DEFINE_SHAPE_TYPE(BOX)
+      DARTPY_DEFINE_SHAPE_TYPE(ELLIPSOID)
+      DARTPY_DEFINE_SHAPE_TYPE(CYLINDER)
+      DARTPY_DEFINE_SHAPE_TYPE(CAPSULE)
+      DARTPY_DEFINE_SHAPE_TYPE(CONE)
+      DARTPY_DEFINE_SHAPE_TYPE(PLANE)
+      DARTPY_DEFINE_SHAPE_TYPE(MULTISPHERE)
+      DARTPY_DEFINE_SHAPE_TYPE(MESH)
+      DARTPY_DEFINE_SHAPE_TYPE(SOFT_MESH)
+      DARTPY_DEFINE_SHAPE_TYPE(LINE_SEGMENT)
+      DARTPY_DEFINE_SHAPE_TYPE(HEIGHTMAP)
+      DARTPY_DEFINE_SHAPE_TYPE(UNSUPPORTED)
+      .export_values();
+  // clang-format on
+
+#define DARTPY_DEFINE_DATA_VARIANCE(val)                                       \
+  .value(#val, dart::dynamics::Shape::DataVariance::val)
+
+  // clang-format off
+  ::py::enum_<dart::dynamics::Shape::DataVariance>(shape, "DataVariance")
+      DARTPY_DEFINE_DATA_VARIANCE(STATIC           )
+      DARTPY_DEFINE_DATA_VARIANCE(DYNAMIC_TRANSFORM)
+      DARTPY_DEFINE_DATA_VARIANCE(DYNAMIC_PRIMITIVE)
+      DARTPY_DEFINE_DATA_VARIANCE(DYNAMIC_COLOR    )
+      DARTPY_DEFINE_DATA_VARIANCE(DYNAMIC_VERTICES )
+      DARTPY_DEFINE_DATA_VARIANCE(DYNAMIC_ELEMENTS )
+      DARTPY_DEFINE_DATA_VARIANCE(DYNAMIC          )
+      .export_values();
+  // clang-format on
 
   ::py::class_<
       dart::dynamics::BoxShape,
@@ -644,6 +685,164 @@ void Shape(py::module& m)
             return dart::dynamics::PlaneShape::getStaticType();
           },
           ::py::return_value_policy::reference_internal);
+  ::py::class_<
+      dart::dynamics::PointCloudShape,
+      dart::dynamics::Shape,
+      std::shared_ptr<dart::dynamics::PointCloudShape>>
+      pointCloudShape(m, "PointCloudShape");
+
+  pointCloudShape.def(::py::init<double>(), ::py::arg("visualSize") = 0.01)
+      .def(
+          "getType",
+          +[](const dart::dynamics::PointCloudShape* self)
+              -> const std::string& { return self->getType(); },
+          ::py::return_value_policy::reference_internal)
+      .def(
+          "computeInertia",
+          +[](const dart::dynamics::PointCloudShape* self, double mass)
+              -> Eigen::Matrix3d { return self->computeInertia(mass); },
+          ::py::arg("mass"))
+      .def(
+          "reserve",
+          +[](dart::dynamics::PointCloudShape* self, std::size_t size) -> void {
+            return self->reserve(size);
+          },
+          ::py::arg("size"))
+      .def(
+          "addPoint",
+          +[](dart::dynamics::PointCloudShape* self,
+              const Eigen::Vector3d& point) -> void {
+            return self->addPoint(point);
+          },
+          ::py::arg("point"))
+      .def(
+          "addPoint",
+          +[](dart::dynamics::PointCloudShape* self,
+              const std::vector<Eigen::Vector3d>& points) -> void {
+            return self->addPoint(points);
+          },
+          ::py::arg("points"))
+      .def(
+          "setPoint",
+          +[](dart::dynamics::PointCloudShape* self,
+              const std::vector<Eigen::Vector3d>& points) -> void {
+            return self->setPoint(points);
+          },
+          ::py::arg("points"))
+      .def(
+          "getPoints",
+          +[](const dart::dynamics::PointCloudShape* self)
+              -> const std::vector<Eigen::Vector3d>& {
+            return self->getPoints();
+          },
+          ::py::return_value_policy::reference_internal)
+      .def(
+          "getNumPoints",
+          +[](const dart::dynamics::PointCloudShape* self) -> std::size_t {
+            return self->getNumPoints();
+          })
+      .def(
+          "removeAllPoints",
+          +[](dart::dynamics::PointCloudShape* self) -> void {
+            return self->removeAllPoints();
+          })
+      .def(
+          "setPointShapeType",
+          +[](dart::dynamics::PointCloudShape* self,
+              dart::dynamics::PointCloudShape::PointShapeType type) -> void {
+            return self->setPointShapeType(type);
+          },
+          ::py::arg("type"))
+      .def(
+          "getPointShapeType",
+          +[](const dart::dynamics::PointCloudShape* self)
+              -> dart::dynamics::PointCloudShape::PointShapeType {
+            return self->getPointShapeType();
+          })
+      .def(
+          "setColorMode",
+          +[](dart::dynamics::PointCloudShape* self,
+              dart::dynamics::PointCloudShape::ColorMode mode) -> void {
+            return self->setColorMode(mode);
+          },
+          ::py::arg("mode"))
+      .def(
+          "getColorMode",
+          +[](const dart::dynamics::PointCloudShape* self)
+              -> dart::dynamics::PointCloudShape::ColorMode {
+            return self->getColorMode();
+          })
+      .def(
+          "setOverallColor",
+          +[](dart::dynamics::PointCloudShape* self,
+              const Eigen::Vector4d& color) -> void {
+            return self->setOverallColor(color);
+          },
+          ::py::arg("color"))
+      .def(
+          "getOverallColor",
+          +[](const dart::dynamics::PointCloudShape* self) -> Eigen::Vector4d {
+            return self->getOverallColor();
+          })
+      .def(
+          "setColors",
+          +[](dart::dynamics::PointCloudShape* self,
+              const std::vector<
+                  Eigen::Vector4d,
+                  Eigen::aligned_allocator<Eigen::Vector4d>>& colors) -> void {
+            return self->setColors(colors);
+          },
+          ::py::arg("colors"))
+      .def(
+          "getColors",
+          +[](const dart::dynamics::PointCloudShape* self)
+              -> const std::vector<
+                  Eigen::Vector4d,
+                  Eigen::aligned_allocator<Eigen::Vector4d>>& {
+            return self->getColors();
+          })
+      .def(
+          "setVisualSize",
+          +[](dart::dynamics::PointCloudShape* self, double size) -> void {
+            return self->setVisualSize(size);
+          },
+          ::py::arg("size"))
+      .def(
+          "getVisualSize",
+          +[](const dart::dynamics::PointCloudShape* self) -> double {
+            return self->getVisualSize();
+          })
+      .def(
+          "notifyColorUpdated",
+          +[](dart::dynamics::PointCloudShape* self,
+              const Eigen::Vector4d& color) {
+            self->notifyColorUpdated(color);
+          },
+          ::py::arg("color"));
+
+  ::py::enum_<dart::dynamics::PointCloudShape::ColorMode>(
+      pointCloudShape, "ColorMode")
+      .value(
+          "USE_SHAPE_COLOR",
+          dart::dynamics::PointCloudShape::ColorMode::USE_SHAPE_COLOR)
+      .value(
+          "BIND_OVERALL",
+          dart::dynamics::PointCloudShape::ColorMode::BIND_OVERALL)
+      .value(
+          "BIND_PER_POINT",
+          dart::dynamics::PointCloudShape::ColorMode::BIND_PER_POINT)
+      .export_values();
+
+  ::py::enum_<dart::dynamics::PointCloudShape::PointShapeType>(
+      pointCloudShape, "PointShapeType")
+      .value("BOX", dart::dynamics::PointCloudShape::PointShapeType::BOX)
+      .value(
+          "BILLBOARD_SQUARE",
+          dart::dynamics::PointCloudShape::PointShapeType::BILLBOARD_SQUARE)
+      .value(
+          "BILLBOARD_CIRCLE",
+          dart::dynamics::PointCloudShape::PointShapeType::BILLBOARD_CIRCLE)
+      .export_values();
 
   ::py::class_<
       dart::dynamics::SphereShape,

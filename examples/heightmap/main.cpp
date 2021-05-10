@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -68,7 +68,7 @@ dynamics::ShapePtr createHeightmapShape(
   terrainShape->setScale(scale);
   terrainShape->setHeightField(data);
 
-  return std::move(terrainShape);
+  return terrainShape;
 }
 
 template <typename S>

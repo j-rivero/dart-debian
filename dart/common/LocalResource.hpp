@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -33,11 +33,13 @@
 #ifndef DART_COMMON_LOCALRESOURCE_HPP_
 #define DART_COMMON_LOCALRESOURCE_HPP_
 
+#include "dart/common/ClassWithVirtualBase.hpp"
 #include "dart/common/Resource.hpp"
 
 namespace dart {
 namespace common {
 
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_BEGIN
 class LocalResource : public virtual Resource
 {
 public:
@@ -60,11 +62,13 @@ public:
   bool seek(ptrdiff_t _origin, SeekType _mode) override;
 
   // Documentation inherited.
-  std::size_t read(void* _buffer, std::size_t _size, std::size_t _count) override;
+  std::size_t read(
+      void* _buffer, std::size_t _size, std::size_t _count) override;
 
 private:
   std::FILE* mFile;
 };
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_END
 
 } // namespace common
 } // namespace dart

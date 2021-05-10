@@ -3,6 +3,7 @@ dart_add_test("comprehensive" test_Common)
 dart_add_test("comprehensive" test_Concurrency)
 dart_add_test("comprehensive" test_Constraint)
 dart_add_test("comprehensive" test_Frames)
+dart_add_test("comprehensive" test_Friction)
 dart_add_test("comprehensive" test_InverseKinematics)
 dart_add_test("comprehensive" test_NameManagement)
 
@@ -19,6 +20,13 @@ endif()
 dart_add_test("comprehensive" test_Raycast)
 if(TARGET dart-collision-bullet)
   target_link_libraries(test_Raycast dart-collision-bullet)
+endif()
+
+if(TARGET dart-collision-ode)
+  # This test doesn't work with FCL because it converts simple shapes to meshes, which makes
+  # it difficult to come up with correct test expectations.
+  dart_add_test("comprehensive" test_ForceDependentSlip)
+  target_link_libraries(test_ForceDependentSlip dart-collision-ode)
 endif()
 
 if(TARGET dart-utils)
@@ -59,9 +67,3 @@ if(TARGET dart-utils)
   endif()
 
 endif()
-
-dart_format_add(
-  test_InverseKinematics.cpp
-  test_MultiObjectiveOptimization.cpp
-  test_Raycast.cpp
-)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -43,9 +43,12 @@ void SkelParser(py::module& m)
 {
   auto sm = m.def_submodule("SkelParser");
 
-  sm.def("readWorld", +[](const common::Uri& uri) -> simulation::WorldPtr {
-    return utils::SkelParser::readWorld(uri);
-  });
+  sm.def(
+      "readWorld",
+      +[](const common::Uri& uri) -> simulation::WorldPtr {
+        return utils::SkelParser::readWorld(uri);
+      },
+      ::py::arg("uri"));
 }
 
 } // namespace python

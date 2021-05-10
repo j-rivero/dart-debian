@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -33,6 +33,7 @@
 #ifndef DART_COMMON_COMPOSITE_HPP_
 #define DART_COMMON_COMPOSITE_HPP_
 
+#include "dart/common/ClassWithVirtualBase.hpp"
 #include "dart/common/detail/CompositeData.hpp"
 
 namespace dart {
@@ -43,19 +44,18 @@ namespace common {
 ///
 /// The base Composite class is completely agnostic to what kind of Aspects it
 /// is given. Aspects are stored in a std::map, so access to its Aspects happens
-/// on average in log(N) time. Most often, a class that accepts Aspects will have
-/// certain Aspect types that it will need to access frequently, and it would be
-/// beneficial to have constant-time access to those Aspect types. To get
-/// constant-time access to specific Aspect types, you can use the templated
+/// on average in log(N) time. Most often, a class that accepts Aspects will
+/// have certain Aspect types that it will need to access frequently, and it
+/// would be beneficial to have constant-time access to those Aspect types. To
+/// get constant-time access to specific Aspect types, you can use the templated
 /// class SpecializedForAspect.
 class Composite
 {
 public:
-
   using State = detail::CompositeState;
   using Properties = detail::CompositeProperties;
 
-  using AspectMap = std::map< std::type_index, std::unique_ptr<Aspect> >;
+  using AspectMap = std::map<std::type_index, std::unique_ptr<Aspect> >;
   using RequiredAspectSet = std::unordered_set<std::type_index>;
 
   template <typename... Aspects>
@@ -108,7 +108,7 @@ public:
   void set(std::unique_ptr<T>&& aspect);
 
   /// Construct an Aspect inside of this Composite
-  template <class T, typename ...Args>
+  template <class T, typename... Args>
   T* createAspect(Args&&... args);
 
   /// Remove an Aspect from this Composite.
@@ -157,13 +157,12 @@ public:
   /// Give this Composite a copy of each Aspect from otherComposite
   void duplicateAspects(const Composite* fromComposite);
 
-  /// Make the Aspects of this Composite match the Aspects of otherComposite. Any
-  /// Aspects in this Composite which do not exist in otherComposite will be
+  /// Make the Aspects of this Composite match the Aspects of otherComposite.
+  /// Any Aspects in this Composite which do not exist in otherComposite will be
   /// erased.
   void matchAspects(const Composite* otherComposite);
 
 protected:
-
   /// Add this Aspect to the Composite. This allows derived Composite types to
   /// call the protected Aspect::setComposite function.
   void addToComposite(Aspect* aspect);

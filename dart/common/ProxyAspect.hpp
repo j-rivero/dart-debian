@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -41,29 +41,32 @@ namespace common {
 //==============================================================================
 template <class CompositeT, typename StateT>
 using ProxyStateAspect = detail::ProxyStateAspect<
-    common::CompositeTrackingAspect<CompositeT>, CompositeT, StateT>;
+    common::CompositeTrackingAspect<CompositeT>,
+    CompositeT,
+    StateT>;
 
 //==============================================================================
 template <class CompositeT, typename PropertiesT>
 using ProxyPropertiesAspect = detail::ProxyPropertiesAspect<
-    common::CompositeTrackingAspect<CompositeT>, CompositeT, PropertiesT>;
+    common::CompositeTrackingAspect<CompositeT>,
+    CompositeT,
+    PropertiesT>;
 
 //==============================================================================
 template <class CompositeT, typename StateT, typename PropertiesT>
-class ProxyStateAndPropertiesAspect :
-    public detail::ProxyPropertiesAspect<
-        ProxyStateAspect<CompositeT, StateT>,
-        CompositeT, PropertiesT>
+class ProxyStateAndPropertiesAspect : public detail::ProxyPropertiesAspect<
+                                          ProxyStateAspect<CompositeT, StateT>,
+                                          CompositeT,
+                                          PropertiesT>
 {
 public:
-
   using State = StateT;
   using Properties = PropertiesT;
   using CompositeType = CompositeT;
 
   using AspectStateImpl = ProxyStateAspect<CompositeType, State>;
-  using AspectPropertiesImpl = detail::ProxyPropertiesAspect<
-      AspectStateImpl, CompositeType, Properties>;
+  using AspectPropertiesImpl = detail::
+      ProxyPropertiesAspect<AspectStateImpl, CompositeType, Properties>;
 
   using Base = AspectPropertiesImpl;
 
@@ -82,7 +85,6 @@ public:
   {
     return std::make_unique<ProxyStateAndPropertiesAspect>();
   }
-
 };
 
 } // namespace common

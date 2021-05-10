@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -97,6 +97,30 @@ void ConstraintSolver(py::module& m)
             self->removeAllConstraints();
           })
       .def(
+          "getNumConstraints",
+          +[](const dart::constraint::ConstraintSolver* self) -> bool {
+            return self->getNumConstraints();
+          })
+      .def(
+          "getConstraint",
+          +[](dart::constraint::ConstraintSolver* self,
+              std::size_t index) -> constraint::ConstraintBasePtr {
+            return self->getConstraint(index);
+          },
+          ::py::arg("index"))
+      .def(
+          "getNumConstraints",
+          +[](const dart::constraint::ConstraintSolver* self) -> bool {
+            return self->getNumConstraints();
+          })
+      .def(
+          "getConstraint",
+          +[](dart::constraint::ConstraintSolver* self,
+              std::size_t index) -> constraint::ConstraintBasePtr {
+            return self->getConstraint(index);
+          },
+          ::py::arg("index"))
+      .def(
           "clearLastCollisionResult",
           +[](dart::constraint::ConstraintSolver* self) {
             self->clearLastCollisionResult();
@@ -144,6 +168,22 @@ void ConstraintSolver(py::module& m)
               -> dart::collision::ConstCollisionGroupPtr {
             return self->getCollisionGroup();
           })
+      .def(
+          "getCollisionOption",
+          +[](dart::constraint::ConstraintSolver* self)
+              -> dart::collision::CollisionOption& {
+            return self->getCollisionOption();
+          },
+          "Returns collision option that is used for collision checkings in "
+          "this ConstraintSolver to generate contact constraints.")
+      .def(
+          "getCollisionOption",
+          +[](const dart::constraint::ConstraintSolver* self)
+              -> const dart::collision::CollisionOption& {
+            return self->getCollisionOption();
+          },
+          "Returns collision option that is used for collision checkings in "
+          "this ConstraintSolver to generate contact constraints.")
       .def("solve", +[](dart::constraint::ConstraintSolver* self) {
         self->solve();
       });

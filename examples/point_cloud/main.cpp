@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -448,7 +448,7 @@ public:
           }
 
           const char* pointShapeTypeItems[]
-              = {"Box", "Billboard Square", "Billboard Circle"};
+              = {"Box", "Billboard Square", "Billboard Circle", "Point"};
           int pointShapeType = pointCloudShape->getPointShapeType();
           if (ImGui::Combo(
                   "Point Shape Type",
@@ -470,6 +470,11 @@ public:
             {
               pointCloudShape->setPointShapeType(
                   dynamics::PointCloudShape::BILLBOARD_CIRCLE);
+            }
+            else if (pointShapeType == 3)
+            {
+              pointCloudShape->setPointShapeType(
+                  dynamics::PointCloudShape::POINT);
             }
           }
 
@@ -669,7 +674,8 @@ dynamics::SkeletonPtr createGround()
   Eigen::Isometry3d ground_tf
       = ground->getJoint(0)->getTransformFromParentBodyNode();
   ground_tf.pretranslate(Eigen::Vector3d(0, 0, 0.5));
-  ground_tf.rotate(Eigen::AngleAxisd(M_PI / 2, Eigen::Vector3d(1, 0, 0)));
+  ground_tf.rotate(
+      Eigen::AngleAxisd(constantsd::pi() / 2, Eigen::Vector3d(1, 0, 0)));
   ground->getJoint(0)->setTransformFromParentBodyNode(ground_tf);
 
   return ground;
@@ -693,6 +699,7 @@ dynamics::SimpleFramePtr createPointCloudFrame()
 {
   auto pointCloudShape
       = ::std::make_shared<::dart::dynamics::PointCloudShape>();
+  pointCloudShape->setPointShapeType(::dart::dynamics::PointCloudShape::BOX);
   auto pointCloudFrame = ::dart::dynamics::SimpleFrame::createShared(
       dart::dynamics::Frame::World());
   pointCloudFrame->setName("point cloud");

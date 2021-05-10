@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -36,7 +36,7 @@
 #include "dart/dynamics/Shape.hpp"
 
 #if HAVE_OCTOMAP
-#include <octomap/Pointcloud.h>
+#  include <octomap/Pointcloud.h>
 #endif
 
 namespace dart {
@@ -63,6 +63,7 @@ public:
     BOX = 0,          ///< 3D volumetric box
     BILLBOARD_SQUARE, ///< 2D square always facing the screen
     BILLBOARD_CIRCLE, ///< 2D circle always facing the screen
+    POINT,            ///< Vertex
   };
 
   /// Constructor

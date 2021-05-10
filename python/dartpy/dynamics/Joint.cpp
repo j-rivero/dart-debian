@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -256,16 +256,25 @@ void Joint(py::module& m)
           },
           ::py::arg("T"))
       .def(
-          "setPositionLimitEnforced",
-          +[](dart::dynamics::Joint* self,
-              bool isPositionLimitEnforced) -> void {
-            return self->setPositionLimitEnforced(isPositionLimitEnforced);
-          },
-          ::py::arg("isPositionLimitEnforced"))
+          "getTransformFromParentBodyNode",
+          +[](const dart::dynamics::Joint* self) -> const Eigen::Isometry3d& {
+            return self->getTransformFromParentBodyNode();
+          })
       .def(
-          "isPositionLimitEnforced",
+          "getTransformFromChildBodyNode",
+          +[](const dart::dynamics::Joint* self) -> const Eigen::Isometry3d& {
+            return self->getTransformFromChildBodyNode();
+          })
+      .def(
+          "setLimitEnforcement",
+          +[](dart::dynamics::Joint* self, bool enforce) -> void {
+            return self->setLimitEnforcement(enforce);
+          },
+          ::py::arg("enforced"))
+      .def(
+          "areLimitsEnforced",
           +[](const dart::dynamics::Joint* self) -> bool {
-            return self->isPositionLimitEnforced();
+            return self->areLimitsEnforced();
           })
       .def(
           "getIndexInSkeleton",

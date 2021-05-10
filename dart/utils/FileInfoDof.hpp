@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -41,7 +41,7 @@ namespace dart {
 
 namespace dynamics {
 class Skeleton;
-}  // namespace dynamics
+} // namespace dynamics
 
 namespace utils {
 
@@ -60,8 +60,11 @@ public:
 
   /// \brief Save file
   /// \note Down sampling not implemented yet
-  bool saveFile(const char* _fileName, std::size_t _start, std::size_t _end,
-                double _sampleRate = 1.0);
+  bool saveFile(
+      const char* _fileName,
+      std::size_t _start,
+      std::size_t _end,
+      double _sampleRate = 1.0);
 
   /// \brief Add Dof
   void addDof(const Eigen::VectorXd& _dofs);
@@ -101,6 +104,6 @@ protected:
   std::vector<Eigen::VectorXd> mDofs;
 };
 
-}  // namespace utils
-}  // namespace dart
-#endif  // DART_UTILS_FILEINFODOF_HPP_
+} // namespace utils
+} // namespace dart
+#endif // DART_UTILS_FILEINFODOF_HPP_

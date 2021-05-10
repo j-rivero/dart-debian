@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -31,10 +31,10 @@
  */
 
 #ifndef EXAMPLES_HUMANJOINTLIMITS_HUMANLEGJOINTLIMITCONSTRAINT_HPP_
-#define EXAMPLES_HUMANJOINTLIMITS_HUMANARMJOINTLIMITCONSTRAINT_HPP_
+#  define EXAMPLES_HUMANJOINTLIMITS_HUMANARMJOINTLIMITCONSTRAINT_HPP_
 
-#include <dart/dart.hpp>
-#include <tiny_dnn/tiny_dnn.h>
+#  include <dart/dart.hpp>
+#  include <tiny_dnn/tiny_dnn.h>
 
 DART_COMMON_MAKE_SHARED_WEAK(HumanArmJointLimitConstraint)
 
@@ -51,6 +51,12 @@ public:
 
   /// Destructor
   virtual ~HumanArmJointLimitConstraint() = default;
+
+  // Documentation inherited
+  const std::string& getType() const override;
+
+  /// Returns constraint type for this class.
+  static const std::string& getStaticType();
 
   //----------------------------------------------------------------------------
   // Property settings

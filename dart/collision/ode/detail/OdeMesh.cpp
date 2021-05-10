@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -43,8 +43,7 @@ OdeMesh::OdeMesh(
     const OdeCollisionObject* parent,
     const aiScene* scene,
     const Eigen::Vector3d& scale)
-  : OdeGeom(parent),
-    mOdeTriMeshDataId(nullptr)
+  : OdeGeom(parent), mOdeTriMeshDataId(nullptr)
 {
   // Fill vertices, normals, and indices in the ODE friendly data structures.
   fillArrays(scene, scale);
@@ -57,11 +56,11 @@ OdeMesh::OdeMesh(
   dGeomTriMeshDataBuildDouble1(
       mOdeTriMeshDataId,
       mVertices.data(),
-      3*sizeof(double),
-      static_cast<int>(mVertices.size()/3),
+      3 * sizeof(double),
+      static_cast<int>(mVertices.size() / 3),
       mIndices.data(),
       static_cast<int>(mIndices.size()),
-      3*sizeof(int),
+      3 * sizeof(int),
       mNormals.data());
 
   mGeomId = dCreateTriMesh(0, mOdeTriMeshDataId, nullptr, nullptr, nullptr);

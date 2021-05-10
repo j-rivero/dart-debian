@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -35,6 +35,7 @@
 
 #include <unordered_map>
 #include <vector>
+#include "dart/common/ClassWithVirtualBase.hpp"
 #include "dart/common/ResourceRetriever.hpp"
 
 namespace dart {
@@ -44,6 +45,7 @@ namespace utils {
 /// used interchangably by: (1) associating each \ref ResourceRetriever with a
 /// particular URI schema and/or (2) providing a precedence order for trying
 /// multiple retrievers.
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_BEGIN
 class CompositeResourceRetriever : public virtual common::ResourceRetriever
 {
 public:
@@ -55,7 +57,7 @@ public:
   /// multiple times. In that case, the ResourceRetrievers will be queried
   /// in the same order in which they were added.
   void addDefaultRetriever(
-    const common::ResourceRetrieverPtr& _resourceRetriever);
+      const common::ResourceRetrieverPtr& _resourceRetriever);
 
   /// \brief Add a default \ref ResourceRetriever for \a _schema
   /// This \ref ResourceRetriever will be called after URIs that match the
@@ -63,8 +65,8 @@ public:
   /// case, the ResourceRetrievers will be queried in the same order in which
   /// they were added.
   bool addSchemaRetriever(
-    const std::string& _schema,
-    const common::ResourceRetrieverPtr& _resourceRetriever);
+      const std::string& _schema,
+      const common::ResourceRetrieverPtr& _resourceRetriever);
 
   // Documentation inherited.
   bool exists(const common::Uri& _uri) override;
@@ -77,15 +79,16 @@ public:
 
 private:
   std::vector<common::ResourceRetrieverPtr> getRetrievers(
-    const common::Uri& _uri) const;
+      const common::Uri& _uri) const;
 
-  std::unordered_map<std::string,
-    std::vector<common::ResourceRetrieverPtr> > mResourceRetrievers;
+  std::unordered_map<std::string, std::vector<common::ResourceRetrieverPtr> >
+      mResourceRetrievers;
   std::vector<common::ResourceRetrieverPtr> mDefaultResourceRetrievers;
 };
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_END
 
 using CompositeResourceRetrieverPtr
-  = std::shared_ptr<CompositeResourceRetriever>;
+    = std::shared_ptr<CompositeResourceRetriever>;
 
 } // namespace utils
 } // namespace dart

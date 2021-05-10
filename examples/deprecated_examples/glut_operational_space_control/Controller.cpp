@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -55,7 +55,7 @@ Controller::Controller(
 
   // Remove position limits
   for (int i = 0; i < dof; ++i)
-    _robot->getJoint(i)->setPositionLimitEnforced(false);
+    _robot->getJoint(i)->setLimitEnforcement(false);
 
   // Set joint damping
   for (int i = 0; i < dof; ++i)

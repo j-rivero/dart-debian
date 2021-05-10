@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2019, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -35,10 +35,10 @@
 
 #include <memory>
 
-#include "dart/common/Subject.hpp"
 #include "dart/common/Cloneable.hpp"
-#include "dart/common/VersionCounter.hpp"
 #include "dart/common/EmbeddedAspect.hpp"
+#include "dart/common/Subject.hpp"
+#include "dart/common/VersionCounter.hpp"
 
 #include "dart/dynamics/SmartPointer.hpp"
 
@@ -52,7 +52,6 @@ class Node;
 class NodeDestructor final
 {
 public:
-
   /// Constructor
   NodeDestructor(Node* _node);
 
@@ -65,10 +64,8 @@ public:
   Node* getNode() const;
 
 private:
-
   /// Node that this Destructor is responsible for
   Node* mNode;
-
 };
 
 //==============================================================================
@@ -78,17 +75,19 @@ private:
 ///
 /// In most cases, when creating your own custom Node class, you will also want
 /// to inherit from AccessoryNode using CRTP.
-class Node :
-    public virtual common::Subject,
-    public virtual common::VersionCounter
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_BEGIN
+class Node : public virtual common::Subject,
+             public virtual common::VersionCounter
 {
 public:
-
   friend class BodyNode;
   friend class Skeleton;
-  template<class> friend class AccessoryNode;
-  template<class, class> friend class TemplateNodePtr;
-  template<class, class> friend class TemplateWeakNodePtr;
+  template <class>
+  friend class AccessoryNode;
+  template <class, class>
+  friend class TemplateNodePtr;
+  template <class, class>
+  friend class TemplateWeakNodePtr;
 
   /// If your Node has a State class, then that State class should inherit this
   /// Node::State class. This allows us to safely serialize, store, and clone
@@ -102,7 +101,9 @@ public:
   /// get stored in BodyNode::ExtendedProperties. Typically Properties are
   /// values that only change rarely if ever, whereas State contains values that
   /// might change as often as every time step.
-  class State : public common::Cloneable<State> { };
+  class State : public common::Cloneable<State>
+  {
+  };
 
   /// Use the MakeState class to easily create a State extension from an
   /// existing class or struct
@@ -121,7 +122,9 @@ public:
   /// get stored in BodyNode::ExtendedProperties. Typically Properties are
   /// values that only change rarely if ever, whereas State contains values that
   /// might change as often as every time step.
-  class Properties : public common::Cloneable<Properties> { };
+  class Properties : public common::Cloneable<Properties>
+  {
+  };
 
   /// Use the MakeProperties class to easily create a Properties extension
   /// from an existing class or struct.
@@ -181,11 +184,9 @@ public:
   virtual std::shared_ptr<const Skeleton> getSkeleton() const;
 
 private:
-
   std::shared_ptr<NodeDestructor> getOrCreateDestructor();
 
 protected:
-
   /// Allow your Node implementation to be cloned into a new BodyNode
   virtual Node* cloneNode(BodyNode* bn) const = 0;
 
@@ -226,6 +227,7 @@ protected:
   /// Index of this Node within its tree
   std::size_t mIndexInTree;
 };
+DART_DECLARE_CLASS_WITH_VIRTUAL_BASE_END
 
 //==============================================================================
 /// AccessoryNode provides an interface for Nodes to get their index within the
@@ -235,7 +237,6 @@ template <class NodeType>
 class AccessoryNode
 {
 public:
-
   /// Virtual destructor
   virtual ~AccessoryNode() = default;
 
@@ -260,10 +261,8 @@ public:
   void reattach();
 
 protected:
-
   /// Prevent a non-inheriting class from constructing one
   AccessoryNode() = default;
-
 };
 
 } // namespace dynamics

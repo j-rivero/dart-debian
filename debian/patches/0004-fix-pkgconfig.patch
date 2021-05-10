@@ -9,24 +9,20 @@ Forwarded: No
  cmake/dart.pc.in | 2 +-
  2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 18a0f67..5949a45 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -64,7 +64,7 @@ set(DART_MINOR_VERSION "9")
- set(DART_PATCH_VERSION "5")
+@@ -72,7 +72,7 @@
  set(DART_VERSION "${DART_MAJOR_VERSION}.${DART_MINOR_VERSION}.${DART_PATCH_VERSION}")
+ 
  set(DART_PKG_DESC "Dynamic Animation and Robotics Toolkit.")
 -set(DART_PKG_EXTERNAL_DEPS "eigen, ccd, fcl, assimp, boost")
 +set(DART_PKG_EXTERNAL_DEPS "eigen3, ccd, fcl, assimp")
  
  #===============================================================================
  # Build options
-diff --git a/cmake/dart.pc.in b/cmake/dart.pc.in
-index 90f3cde..1cf8eb8 100644
 --- a/cmake/dart.pc.in
 +++ b/cmake/dart.pc.in
-@@ -9,4 +9,4 @@ Description: @DART_PKG_DESC@
+@@ -9,4 +9,4 @@
  Version: @DART_VERSION@
  Requires: @DART_PKG_EXTERNAL_DEPS@
  Libs: -L${libdir} -ldart

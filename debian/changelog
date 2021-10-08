@@ -1,3 +1,9 @@
+dart (6.9.5-4) unstable; urgency=medium
+
+  * Add patch to fix glut_human_joint_limits example compilation
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Fri, 08 Oct 2021 14:08:33 +0000
+
 dart (6.9.5-3) unstable; urgency=medium
 
   * Team upload.

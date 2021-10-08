@@ -4,3 +4,4 @@
 0006-Fix-find-Flann.patch
 0007-fix-soversion.patch
 0006-Reduce-test-result-accuracy-to-fix-i386.patch
+0008-fix-cmake-example.patch

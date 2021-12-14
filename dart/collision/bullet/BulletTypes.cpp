@@ -30,10 +30,9 @@
  *   POSSIBILITY OF SUCH DAMAGE.
  */
 
-// Must be included before any Bullet headers.
-#include "dart/config.hpp"
-
 #include "dart/collision/bullet/BulletTypes.hpp"
+
+#include "dart/collision/bullet/BulletInclude.hpp"
 
 namespace dart {
 namespace collision {

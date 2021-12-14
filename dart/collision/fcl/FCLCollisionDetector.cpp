@@ -1052,21 +1052,21 @@ FCLCollisionDetector::createFCLCollisionGeometry(
 #if HAVE_OCTOMAP
   else if (VoxelGridShape::getStaticType() == shapeType)
   {
-#  if FCL_HAVE_OCTOMAP
+  #if FCL_HAVE_OCTOMAP
     assert(dynamic_cast<const VoxelGridShape*>(shape.get()));
 
     auto octreeShape = static_cast<const VoxelGridShape*>(shape.get());
     auto octree = octreeShape->getOctree();
 
     geom = new fcl::OcTree(octree);
-#  else
+  #else
     dterr << "[FCLCollisionDetector::createFCLCollisionGeometry] "
           << "Attempting to create an collision geometry for VoxelGridShape, "
           << "but the installed FCL isn't built with Octomap support. "
           << "Creating a sphere with 0.1 radius instead.\n";
 
     geom = createEllipsoid<fcl::OBBRSS>(0.1, 0.1, 0.1);
-#  endif // FCL_HAVE_OCTOMAP
+  #endif // FCL_HAVE_OCTOMAP
   }
 #endif // HAVE_OCTOMAP
   else
@@ -1588,17 +1588,17 @@ int FFtest(
     fcl::Vector3* res2)
 {
   float U0[3], U1[3], U2[3], V0[3], V1[3], V2[3], RES1[3], RES2[3];
-  SET(U0, r1);
-  SET(U1, r2);
-  SET(U2, r3);
-  SET(V0, R1);
-  SET(V1, R2);
-  SET(V2, R3);
+  DART_SET(U0, r1);
+  DART_SET(U1, r2);
+  DART_SET(U2, r3);
+  DART_SET(V0, R1);
+  DART_SET(V1, R2);
+  DART_SET(V2, R3);
 
   int contactResult = tri_tri_intersect(V0, V1, V2, U0, U1, U2, RES1, RES2);
 
-  SET((*res1), RES1);
-  SET((*res2), RES2);
+  DART_SET((*res1), RES1);
+  DART_SET((*res2), RES2);
 
   return contactResult;
 }

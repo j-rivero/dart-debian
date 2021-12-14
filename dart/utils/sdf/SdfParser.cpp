@@ -102,7 +102,7 @@ using JointMap = std::map<std::string, SDFJoint>;
 simulation::WorldPtr readWorld(
     tinyxml2::XMLElement* worldElement,
     const common::Uri& baseUri,
-    const common::ResourceRetrieverPtr& retriever);
+    const Options& options);
 
 void readPhysics(
     tinyxml2::XMLElement* physicsElement, simulation::WorldPtr world);
@@ -110,7 +110,7 @@ void readPhysics(
 dynamics::SkeletonPtr readSkeleton(
     tinyxml2::XMLElement* skeletonElement,
     const common::Uri& baseUri,
-    const common::ResourceRetrieverPtr& retriever);
+    const Options& options);
 
 bool createPair(
     dynamics::SkeletonPtr skeleton,
@@ -123,7 +123,7 @@ enum NextResult
   VALID,
   CONTINUE,
   BREAK,
-  CREATE_FREEJOINT_ROOT
+  CREATE_ROOT_JOINT
 };
 
 NextResult getNextJointAndNodePair(
@@ -238,10 +238,22 @@ common::ResourceRetrieverPtr getRetriever(
 } // anonymous namespace
 
 //==============================================================================
+Options::Options(
+    common::ResourceRetrieverPtr resourceRetriever,
+    RootJointType defaultRootJointType)
+  : mResourceRetriever(std::move(resourceRetriever)),
+    mDefaultRootJointType(defaultRootJointType)
+{
+  // Do nothing
+}
+
+//==============================================================================
 simulation::WorldPtr readSdfFile(
     const common::Uri& uri, const common::ResourceRetrieverPtr& nullOrRetriever)
 {
-  return readWorld(uri, nullOrRetriever);
+  Options options;
+  options.mResourceRetriever = nullOrRetriever;
+  return readWorld(uri, options);
 }
 
 //==============================================================================
@@ -263,10 +275,9 @@ bool checkVersion(
 }
 
 //==============================================================================
-simulation::WorldPtr readWorld(
-    const common::Uri& uri, const common::ResourceRetrieverPtr& nullOrRetriever)
+simulation::WorldPtr readWorld(const common::Uri& uri, const Options& options)
 {
-  const auto retriever = getRetriever(nullOrRetriever);
+  const auto retriever = getRetriever(options.mResourceRetriever);
 
   //--------------------------------------------------------------------------
   // Load xml and create Document
@@ -301,14 +312,23 @@ simulation::WorldPtr readWorld(
   if (worldElement == nullptr)
     return nullptr;
 
-  return readWorld(worldElement, uri, retriever);
+  return readWorld(worldElement, uri, options);
+}
+
+//==============================================================================
+simulation::WorldPtr readWorld(
+    const common::Uri& uri, const common::ResourceRetrieverPtr& nullOrRetriever)
+{
+  Options options;
+  options.mResourceRetriever = nullOrRetriever;
+  return readWorld(uri, options);
 }
 
 //==============================================================================
 dynamics::SkeletonPtr readSkeleton(
-    const common::Uri& uri, const common::ResourceRetrieverPtr& nullOrRetriever)
+    const common::Uri& uri, const Options& options)
 {
-  const auto retriever = getRetriever(nullOrRetriever);
+  const auto retriever = getRetriever(options.mResourceRetriever);
 
   //--------------------------------------------------------------------------
   // Load xml and create Document
@@ -348,13 +368,22 @@ dynamics::SkeletonPtr readSkeleton(
   return newSkeleton;
 }
 
+//==============================================================================
+dynamics::SkeletonPtr readSkeleton(
+    const common::Uri& uri, const common::ResourceRetrieverPtr& nullOrRetriever)
+{
+  Options options;
+  options.mResourceRetriever = nullOrRetriever;
+  return readSkeleton(uri, options);
+}
+
 namespace {
 
 //==============================================================================
 simulation::WorldPtr readWorld(
     tinyxml2::XMLElement* worldElement,
     const common::Uri& baseUri,
-    const common::ResourceRetrieverPtr& retriever)
+    const Options& options)
 {
   assert(worldElement != nullptr);
 
@@ -381,7 +410,7 @@ simulation::WorldPtr readWorld(
   while (skeletonElements.next())
   {
     dynamics::SkeletonPtr newSkeleton
-        = readSkeleton(skeletonElements.get(), baseUri, retriever);
+        = readSkeleton(skeletonElements.get(), baseUri, options);
 
     newWorld->addSkeleton(newSkeleton);
   }
@@ -422,7 +451,7 @@ void readPhysics(
 dynamics::SkeletonPtr readSkeleton(
     tinyxml2::XMLElement* skeletonElement,
     const common::Uri& baseUri,
-    const common::ResourceRetrieverPtr& retriever)
+    const Options& options)
 {
   assert(skeletonElement != nullptr);
 
@@ -432,8 +461,8 @@ dynamics::SkeletonPtr readSkeleton(
 
   //--------------------------------------------------------------------------
   // Bodies
-  BodyMap sdfBodyNodes
-      = readAllBodyNodes(skeletonElement, baseUri, retriever, skeletonFrame);
+  BodyMap sdfBodyNodes = readAllBodyNodes(
+      skeletonElement, baseUri, options.mResourceRetriever, skeletonFrame);
 
   //--------------------------------------------------------------------------
   // Joints
@@ -454,14 +483,31 @@ dynamics::SkeletonPtr readSkeleton(
       break;
     else if (CONTINUE == result)
       continue;
-    else if (CREATE_FREEJOINT_ROOT == result)
+    else if (CREATE_ROOT_JOINT == result)
     {
-      // If a root FreeJoint is needed for the parent of the current joint, then
-      // create it
       SDFJoint rootJoint;
-      rootJoint.properties = dynamics::FreeJoint::Properties::createShared(
-          dynamics::Joint::Properties("root", body->second.initTransform));
-      rootJoint.type = "free";
+      if (options.mDefaultRootJointType == RootJointType::FLOATING)
+      {
+        // If a root FreeJoint is needed for the parent of the current joint,
+        // then create it
+        rootJoint.properties = dynamics::FreeJoint::Properties::createShared(
+            dynamics::Joint::Properties("root", body->second.initTransform));
+        rootJoint.type = "free";
+      }
+      else if (options.mDefaultRootJointType == RootJointType::FIXED)
+      {
+        // If a root WeldJoint is needed for the parent of the current joint,
+        // then create it
+        rootJoint.properties = dynamics::WeldJoint::Properties::createShared(
+            dynamics::Joint::Properties("root", body->second.initTransform));
+        rootJoint.type = "fixed";
+      }
+      else
+      {
+        dtwarn << "Unsupported root joint type ["
+               << static_cast<int>(options.mDefaultRootJointType)
+               << "]. Using FLOATING by default.\n";
+      }
 
       if (!createPair(newSkeleton, nullptr, rootJoint, body->second))
         break;
@@ -481,7 +527,8 @@ dynamics::SkeletonPtr readSkeleton(
 
   // Read aspects here since aspects cannot be added if the BodyNodes haven't
   // created yet.
-  readAspects(newSkeleton, skeletonElement, baseUri, retriever);
+  readAspects(
+      newSkeleton, skeletonElement, baseUri, options.mResourceRetriever);
 
   // Set positions to their initial values
   newSkeleton->resetPositions();
@@ -533,7 +580,7 @@ NextResult getNextJointAndNodePair(
   parentJoint = sdfJoints.find(body->first);
   if (parentJoint == sdfJoints.end())
   {
-    return CREATE_FREEJOINT_ROOT;
+    return CREATE_ROOT_JOINT;
   }
 
   const std::string& parentBodyName = parentJoint->second.parentName;
@@ -626,7 +673,7 @@ std::pair<dynamics::Joint*, dynamics::BodyNode*> createJointAndNodePair(
         parent,
         static_cast<const dynamics::ScrewJoint::Properties&>(*joint.properties),
         static_cast<const typename NodeType::Properties&>(*node.properties));
-  else if (std::string("revolute2") == type)
+  else if (std::string("revolute2") == type || std::string("universal") == type)
     return skeleton->createJointAndBodyNodePair<dynamics::UniversalJoint>(
         parent,
         static_cast<const dynamics::UniversalJoint::Properties&>(
@@ -998,7 +1045,6 @@ dynamics::ShapeNode* readShapeNode(
 void readMaterial(
     tinyxml2::XMLElement* materialEle, dynamics::ShapeNode* shapeNode)
 {
-
   auto visualAspect = shapeNode->getVisualAspect();
   if (hasElement(materialEle, "diffuse"))
   {
@@ -1028,10 +1074,21 @@ void readVisualizationShapeNode(
     const common::Uri& baseUri,
     const common::ResourceRetrieverPtr& retriever)
 {
+  std::string visualName = "visual shape";
+  if (hasAttribute(vizShapeNodeEle, "name"))
+  {
+    visualName = getAttributeString(vizShapeNodeEle, "name");
+  }
+  else
+  {
+    dtwarn << "Missing required attribute [name] in <visual> element of "
+           << "<link name = " << bodyNode->getName() << ">.\n";
+  }
+
   dynamics::ShapeNode* newShapeNode = readShapeNode(
       bodyNode,
       vizShapeNodeEle,
-      bodyNode->getName() + " - visual shape",
+      bodyNode->getName() + " - " + visualName,
       baseUri,
       retriever);
 
@@ -1052,10 +1109,21 @@ void readCollisionShapeNode(
     const common::Uri& baseUri,
     const common::ResourceRetrieverPtr& retriever)
 {
+  std::string collName = "collision shape";
+  if (hasAttribute(collShapeNodeEle, "name"))
+  {
+    collName = getAttributeString(collShapeNodeEle, "name");
+  }
+  else
+  {
+    dtwarn << "Missing required attribute [name] in <collision> element of "
+           << "<link name = " << bodyNode->getName() << ">.\n";
+  }
+
   dynamics::ShapeNode* newShapeNode = readShapeNode(
       bodyNode,
       collShapeNodeEle,
-      bodyNode->getName() + " - collision shape",
+      bodyNode->getName() + " - " + collName,
       baseUri,
       retriever);
 
@@ -1224,23 +1292,42 @@ SDFJoint readJoint(
       = (childWorld * childToJoint).inverse() * _skeletonFrame;
 
   if (type == std::string("fixed"))
+  {
     newJoint.properties = dynamics::WeldJoint::Properties::createShared(
         readWeldJoint(_jointElement, parentModelFrame, name));
-  if (type == std::string("prismatic"))
+  }
+  else if (type == std::string("prismatic"))
+  {
     newJoint.properties = dynamics::PrismaticJoint::Properties::createShared(
         readPrismaticJoint(_jointElement, parentModelFrame, name));
-  if (type == std::string("revolute"))
+  }
+  else if (type == std::string("revolute"))
+  {
     newJoint.properties = dynamics::RevoluteJoint::Properties::createShared(
         readRevoluteJoint(_jointElement, parentModelFrame, name));
-  if (type == std::string("screw"))
+  }
+  else if (type == std::string("screw"))
+  {
     newJoint.properties = dynamics::ScrewJoint::Properties::createShared(
         readScrewJoint(_jointElement, parentModelFrame, name));
-  if (type == std::string("revolute2"))
+  }
+  else if (type == std::string("revolute2") || type == std::string("universal"))
+  {
     newJoint.properties = dynamics::UniversalJoint::Properties::createShared(
         readUniversalJoint(_jointElement, parentModelFrame, name));
-  if (type == std::string("ball"))
+  }
+  else if (type == std::string("ball"))
+  {
     newJoint.properties = dynamics::BallJoint::Properties::createShared(
         readBallJoint(_jointElement, parentModelFrame, name));
+  }
+  else
+  {
+    dterr << "Unsupported joint type [" << type
+          << "]. Using [fixed] joint type instead.\n";
+    newJoint.properties = dynamics::WeldJoint::Properties::createShared(
+        readWeldJoint(_jointElement, parentModelFrame, name));
+  }
 
   newJoint.type = type;
 

@@ -38,7 +38,7 @@ Package: libdart-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart6 (= ${binary:Version}),
+         libdart6.12 (= ${binary:Version}),
          libeigen3-dev,
          libassimp-dev,
          libfcl-dev,
@@ -71,21 +71,15 @@ Description: Kinematics Dynamics and Optimization Library - development files
  software created by the Georgia Tech Graphics Lab.
  This package contains main headers and other tools for development.
 
-Package: libkido-dev
-Architecture: all
-Section: oldlibs
-Depends: libdart-dev,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
-Package: libdart6
+Package: libdart6.12
 Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
+Breaks: libdart6 (<< 6.12.0-1~)
+Replaces: libdart6 (<< 6.12.0-1~)
 Description: Kinematics Dynamics and Optimization Library - main library
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -111,23 +105,23 @@ Description: Kinematics Dynamics and Optimization Library - main library
  software created by the Georgia Tech Graphics Lab.
  This package contains the main library of DART.
 
-Package: libkido0
+Package: libdart6
 Architecture: all
 Section: oldlibs
-Depends: libdart6,
+Depends: libdart6.12,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
 
-Package: libdart-collision-bullet6
+Package: libdart-collision-bullet6.12
 Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6-collision-bullet (<< 6.9.5-1)
-Replaces: libdart6-collision-bullet (<< 6.9.5-1)
+Breaks: libdart-collision-bullet6 (<< 6.12.0-1~)
+Replaces: libdart-collision-bullet6 (<< 6.12.0-1~)
 Description: Dynamic Animation and Robotics Toolkit - Bullet Collision Library
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -158,7 +152,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-collision-bullet6 (= ${binary:Version}),
+         libdart-collision-bullet6.12 (= ${binary:Version}),
          libbullet-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: Dynamic Animation and Robotics Toolkit - Bullet Collision Dev
@@ -185,15 +179,24 @@ Description: Dynamic Animation and Robotics Toolkit - Bullet Collision Dev
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libdart-collision-ode6
+Package: libdart-collision-bullet6
+Architecture: all
+Section: oldlibs
+Depends: libdart-collision-bullet6.12,
+         ${misc:Depends}
+Description: transitional package
+ This is a transitional package. It can safely be removed.
+
+Package: libdart-collision-ode6.12
 Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6-collision-ode (<< 6.9.5-1)
-Replaces: libdart6-collision-ode (<< 6.9.5-1)
+# old packages used 6 in this position
+Breaks: libdart6-collision-ode (<< 6.12.0-1)
+Replaces: libdart6-collision-ode (<< 6.12.0-1)
 Description: Dynamic Animation and Robotics Toolkit - ODE Collision Library
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -224,7 +227,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-collision-ode6 (= ${binary:Version}),
+         libdart-collision-ode6.12 (= ${binary:Version}),
          libode-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: Dynamic Animation and Robotics Toolkit - ODE Collision Dev
@@ -252,12 +255,20 @@ Description: Dynamic Animation and Robotics Toolkit - ODE Collision Dev
  Tech Graphics Lab. This package contains the collision ode headers and
  other tools for development.
 
+Package: libdart6-collision-ode
+Architecture: all
+Section: oldlibs
+Depends: libdart-collision-ode6.12,
+         ${misc:Depends}
+Description: transitional package
+ This is a transitional package. It can safely be removed.
+
 Package: libdart-planning-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-planning6 (= ${binary:Version}),
+         libdart-planning6.12 (= ${binary:Version}),
          libflann-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - planning dev files
@@ -285,23 +296,16 @@ Description: Kinematics Dynamics and Optimization Library - planning dev files
  software created by the Georgia Tech Graphics Lab.
  This package contains the planning headers and other tools for development.
 
-Package: libkido-planning-dev
-Architecture: all
-Section: oldlibs
-Depends: libdart-planning-dev,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
-Package: libdart-planning6
+Package: libdart-planning6.12
 Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6-planning (<< 6.9.5-1)
-Replaces: libdart6-planning (<< 6.9.5-1)
+# old packages used 6 in this position
+Breaks: libdart6-planning (<< 6.12.0-1~)
+Replaces: libdart6-planning (<< 6.12.0-1~)
 Description: Kinematics Dynamics and Optimization Library - planning library
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -327,10 +331,10 @@ Description: Kinematics Dynamics and Optimization Library - planning library
  software created by the Georgia Tech Graphics Lab.
  This package contains the DART planning library.
 
-Package: libkido-planning0
+Package: libdart6-planning
 Architecture: all
 Section: oldlibs
-Depends: libdart-planning6,
+Depends: libdart-planning6.12,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -340,7 +344,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-utils6 (= ${binary:Version}),
+         libdart-utils6.12 (= ${binary:Version}),
          libtinyxml-dev,
          libtinyxml2-dev,
          liburdfdom-dev
@@ -370,23 +374,15 @@ Description: Kinematics Dynamics and Optimization Library - utils dev files
  software created by the Georgia Tech Graphics Lab.
  This package contains headers and other useful tools for development.
 
-Package: libkido-utils-dev
-Architecture: all
-Section: oldlibs
-Depends: libdart-utils-dev,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
-Package: libdart-utils6
+Package: libdart-utils6.12
 Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6-utils (<< 6.9.5-1)
-Replaces: libdart6-utils (<< 6.9.5-1)
+Breaks: libdart-utils6 (<< 6.12.0-1~)
+Replaces: libdart-utils6 (<< 6.12.0-1~)
 Description: Kinematics Dynamics and Optimization Library - utils library
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -412,47 +408,13 @@ Description: Kinematics Dynamics and Optimization Library - utils library
  software created by the Georgia Tech Graphics Lab.
  This package contains the DART utils library.
 
-Package: libkido-utils0
+Package: libdart-utils6
 Architecture: all
 Section: oldlibs
-Depends: libdart-utils6,
+Depends: libdart-utils6.12,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
-
-Package: libdart-utils-urdf6
-Architecture: any
-Multi-Arch: same
-Section: libs
-Depends: ${shlibs:Depends},
-         ${misc:Depends}
-Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6-utils-urdf (<< 6.9.5-1)
-Replaces: libdart6-utils-urdf (<< 6.9.5-1)
-Description: Dynamic Animation and Robotics Toolkit - Utils URDF Library
- DART is a collaborative, cross-platform, open source library created by the
- Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
- structures and algorithms for kinematic and dynamic applications in robotics
- and computer animation.
- DART is distinguished by it's accuracy and stability due to its use of
- generalized coordinates to represent articulated rigid body systems and
- computation of Lagrange's equations derived from D.Alembert's principle to
- describe the dynamics of motion.
- For developers, in contrast to many popular physics engines which view the
- simulator as a black box, DART gives full access to internal kinematic and
- dynamic quantities, such as the mass matrix, Coriolis and centrifugal forces,
- transformation matrices and their derivatives. DART also provides efficient
- computation of Jacobian matrices for arbitrary body points and coordinate
- frames. Contact and collision are handled using an implicit time-stepping,
- velocity-based LCP (linear-complementarity problem) to guarantee
- non-penetration, directional friction, and approximated Coulomb friction cone
- conditions. For collision detection, DART uses FCL developed by Willow Garage
- and the UNC Gamma Lab.
- DART has applications in robotics and computer animation because it features a
- multibody dynamic simulator and tools for control and motion planning.
- Multibody dynamic simulation in DART is an extension of RTQL8, an open source
- software created by the Georgia Tech Graphics Lab.
- This package contains the Utils URDF library.
 
 Package: libdart-utils-urdf-dev
 Architecture: any
@@ -460,7 +422,7 @@ Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
          libdart-utils-dev,
-         libdart-utils-urdf6 (= ${binary:Version}),
+         libdart-utils-urdf6.12 (= ${binary:Version}),
          liburdfdom-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: Dynamic Animation and Robotics Toolkit - URDF Component Development Files
@@ -489,13 +451,55 @@ Description: Dynamic Animation and Robotics Toolkit - URDF Component Development
  This package contains urdf utils headers and other useful tools for
  development.
 
+Package: libdart-utils-urdf6.12
+Architecture: any
+Multi-Arch: same
+Section: libs
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Pre-Depends: ${misc:Pre-Depends}
+Breaks: libdart-utils-urdf6 (<< 6.12.0-1~)
+Replaces: libdart-utils-urdf6 (<< 6.12.0-1~)
+Description: Dynamic Animation and Robotics Toolkit - Utils URDF Library
+ DART is a collaborative, cross-platform, open source library created by the
+ Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
+ structures and algorithms for kinematic and dynamic applications in robotics
+ and computer animation.
+ DART is distinguished by it's accuracy and stability due to its use of
+ generalized coordinates to represent articulated rigid body systems and
+ computation of Lagrange's equations derived from D.Alembert's principle to
+ describe the dynamics of motion.
+ For developers, in contrast to many popular physics engines which view the
+ simulator as a black box, DART gives full access to internal kinematic and
+ dynamic quantities, such as the mass matrix, Coriolis and centrifugal forces,
+ transformation matrices and their derivatives. DART also provides efficient
+ computation of Jacobian matrices for arbitrary body points and coordinate
+ frames. Contact and collision are handled using an implicit time-stepping,
+ velocity-based LCP (linear-complementarity problem) to guarantee
+ non-penetration, directional friction, and approximated Coulomb friction cone
+ conditions. For collision detection, DART uses FCL developed by Willow Garage
+ and the UNC Gamma Lab.
+ DART has applications in robotics and computer animation because it features a
+ multibody dynamic simulator and tools for control and motion planning.
+ Multibody dynamic simulation in DART is an extension of RTQL8, an open source
+ software created by the Georgia Tech Graphics Lab.
+ This package contains the Utils URDF library.
+
+Package: libdart-utils-urdf6
+Architecture: all
+Section: oldlibs
+Depends: libdart-utils-urdf6.12,
+         ${misc:Depends}
+Description: transitional package
+ This is a transitional package. It can safely be removed.
+
 Package: libdart-gui-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
          libdart-utils-dev,
-         libdart-gui6 (= ${binary:Version}),
+         libdart-gui6.12 (= ${binary:Version}),
          freeglut3-dev,
          libxi-dev,
          libxmu-dev
@@ -525,23 +529,15 @@ Description: Kinematics Dynamics and Optimization Library - gui dev files
  software created by the Georgia Tech Graphics Lab.
  This package contains GUI headers and other useful tools for GUI development.
 
-Package: libkido-gui-dev
-Architecture: all
-Section: oldlibs
-Depends: libdart-gui-dev,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
-Package: libdart-gui6
+Package: libdart-gui6.12
 Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6-gui (<< 6.9.5-1)
-Replaces: libdart6-gui (<< 6.9.5-1)
+Breaks: libdart-gui6 (<< 6.12.0-1~)
+Replaces: libdart-gui6 (<< 6.12.0-1~)
 Description: Kinematics Dynamics and Optimization Library - gui library
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -567,10 +563,10 @@ Description: Kinematics Dynamics and Optimization Library - gui library
  software created by the Georgia Tech Graphics Lab.
  This package contains the GUI library.
 
-Package: libkido-gui0
+Package: libdart-gui6
 Architecture: all
 Section: oldlibs
-Depends: libdart-gui6,
+Depends: libdart-gui6.12,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -580,7 +576,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-gui-dev,
-         libdart-gui-osg6 (= ${binary:Version}),
+         libdart-gui-osg6.12 (= ${binary:Version}),
          libopenthreads-dev,
          libopenscenegraph-dev
 Pre-Depends: ${misc:Pre-Depends}
@@ -610,23 +606,15 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg dev files
  This package contains GUI OpenSceneGraph headers and other useful tools for
  GUI OpenSceneGraph development.
 
-Package: libkido-gui-osg-dev
-Architecture: all
-Section: oldlibs
-Depends: libdart-gui-osg-dev,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
-Package: libdart-gui-osg6
+Package: libdart-gui-osg6.12
 Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6-gui-osg (<< 6.9.5-1)
-Replaces: libdart6-gui-osg (<< 6.9.5-1)
+Breaks: libdart-gui-osg6 (<< 6.12.0-1~)
+Replaces: libdart-gui-osg6 (<< 6.12.0-1~)
 Description: Kinematics Dynamics and Optimization Library - gui-osg library
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -652,10 +640,10 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg library
  software created by the Georgia Tech Graphics Lab.
  This package contains the GUI OpenSceneGraph optimizer library.
 
-Package: libkido-gui-osg0
+Package: libdart-gui-osg6
 Architecture: all
 Section: oldlibs
-Depends: libdart-gui-osg6,
+Depends: libdart-gui-osrg6.12,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -665,7 +653,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-optimizer-nlopt6 (= ${binary:Version}),
+         libdart-optimizer-nlopt6.12 (= ${binary:Version}),
          libnlopt-cxx-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - nlopt optimizer dev
@@ -694,23 +682,16 @@ Description: Kinematics Dynamics and Optimization Library - nlopt optimizer dev
  This package contains NLOPT optimizer headers and other useful tools for
  development.
 
-Package: libkido-optimizer-nlopt-dev
-Architecture: all
-Section: oldlibs
-Depends: libdart-optimizer-nlopt-dev,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
-Package: libdart-optimizer-nlopt6
+Package: libdart-optimizer-nlopt6.12
 Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6-optimizer-nlopt (<< 6.9.5-1)
-Replaces: libdart6-optimizer-nlopt (<< 6.9.5-1)
+# old package names used 6 after dart
+Breaks: libdart6-optimizer-nlopt (<< 6.12.0-1~)
+Replaces: libdart6-optimizer-nlopt (<< 6.12.0-1~)
 Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -736,10 +717,10 @@ Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
  software created by the Georgia Tech Graphics Lab.
  This package contains the NLOPT optimizer library.
 
-Package: libkido-optimizer-nlopt0
+Package: libdart6-optimizer-nlopt
 Architecture: all
 Section: oldlibs
-Depends: libdart-optimizer-nlopt6,
+Depends: libdart-optimizer-nlopt6.12,
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -749,7 +730,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-optimizer-ipopt6 (= ${binary:Version}),
+         libdart-optimizer-ipopt6.12 (= ${binary:Version}),
          coinor-libipopt-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
@@ -778,14 +759,6 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer dev
  This package contains IPOPT optimizer headers and other useful tools for
  development.
 
-Package: libkido-optimizer-ipopt-dev
-Architecture: all
-Section: oldlibs
-Depends: libdart-optimizer-ipopt-dev,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
 Package: libdart-optimizer-ipopt6
 Architecture: any
 Multi-Arch: same
@@ -793,8 +766,9 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6-optimizer-ipopt (<< 6.9.5-1)
-Replaces: libdart6-optimizer-ipopt (<< 6.9.5-1)
+# old package names used 6 after dart
+Breaks: libdart6-optimizer-ipopt (<< 6.12.0-1~)
+Replaces: libdart6-optimizer-ipopt (<< 6.12.0-1~)
 Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -820,10 +794,10 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
  software created by the Georgia Tech Graphics Lab.
  This package contains the ipopt optimizer library.
 
-Package: libkido-optimizer-ipopt0
+Package: libdart6-optimizer-ipopt
 Architecture: all
 Section: oldlibs
-Depends: libdart-optimizer-ipopt6,
+Depends: libdart-optimizer-ipopt6.12
          ${misc:Depends}
 Description: transitional package
  This is a transitional package. It can safely be removed.
@@ -866,7 +840,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-external-imgui6 (= ${binary:Version})
+         libdart-external-imgui6.12 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - imgui dev
  DART is a collaborative, cross-platform, open source library created by the
@@ -894,15 +868,15 @@ Description: Kinematics Dynamics and Optimization Library - imgui dev
  This package contains imgui headers and other useful tools for
  development.
 
-Package: libdart-external-imgui6
+Package: libdart-external-imgui6.12
 Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6-external-imgui (<< 6.9.5-1)
-Replaces: libdart6-external-imgui (<< 6.9.5-1)
+Breaks: libdart-external-imgui6 (<< 6.12.0-1~)
+Replaces: libdart-external-imgui6 (<< 6.12.0-1~)
 Description: Kinematics Dynamics and Optimization Library - imgui lib
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -928,12 +902,20 @@ Description: Kinematics Dynamics and Optimization Library - imgui lib
  software created by the Georgia Tech Graphics Lab.
  This package contains the imgui library.
 
+Package: libdart-external-imgui6
+Architecture: all
+Section: oldlibs
+Depends: libdart-external-imgui6.12
+         ${misc:Depends}
+Description: transitional package
+ This is a transitional package. It can safely be removed.
+
 Package: libdart-external-lodepng-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-external-lodepng6 (= ${binary:Version})
+         libdart-external-lodepng6.12 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - lodepng dev
  DART is a collaborative, cross-platform, open source library created by the
@@ -968,8 +950,8 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6-external-lodepng (<< 6.9.5-1)
-Replaces: libdart6-external-lodepng (<< 6.9.5-1)
+Breaks: libdart-external-lodepng6 (<< 6.12.0-1~)
+Replaces: libdart-external-lodepng6 (<< 6.12.0-1~)
 Description: Kinematics Dynamics and Optimization Library - lodepng lib
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -995,11 +977,19 @@ Description: Kinematics Dynamics and Optimization Library - lodepng lib
  software created by the Georgia Tech Graphics Lab.
  This package contains the lodepng library.
 
+Package: libdart-external-lodepng6
+Architecture: all
+Section: oldlibs
+Depends: libdart-external-imgui6.12
+         ${misc:Depends}
+Description: transitional package
+ This is a transitional package. It can safely be removed.
+
 Package: libdart-external-odelcpsolver-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-external-odelcpsolver6 (= ${binary:Version})
+         libdart-external-odelcpsolver6.12 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - odelcpsolver dev
  DART is a collaborative, cross-platform, open source library created by the
@@ -1027,15 +1017,15 @@ Description: Kinematics Dynamics and Optimization Library - odelcpsolver dev
  This package contains odelcpsolver headers and other useful tools for
  development.
 
-Package: libdart-external-odelcpsolver6
+Package: libdart-external-odelcpsolver6.12
 Architecture: any
 Multi-Arch: same
 Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6-external-odelcpsolver (<< 6.9.5-1)
-Replaces: libdart6-external-odelcpsolver (<< 6.9.5-1)
+Breaks: libdart-external-odelcpsolver6 (<< 6.12.0-1~)
+Replaces: libdart-external-odelcpsolver6 (<< 6.12.0-1~)
 Description: Kinematics Dynamics and Optimization Library - odelcpsolver lib
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -1060,6 +1050,14 @@ Description: Kinematics Dynamics and Optimization Library - odelcpsolver lib
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
  This package contains the odelcpsolver library.
+
+Package: libdart-external-odelcpsolver6
+Architecture: all
+Section: oldlibs
+Depends: libdart-external-odelcpsolver6.12
+         ${misc:Depends}
+Description: transitional package
+ This is a transitional package. It can safely be removed.
 
 Package: libdart-all-dev
 Architecture: any

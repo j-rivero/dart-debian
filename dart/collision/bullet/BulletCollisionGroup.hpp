@@ -33,12 +33,8 @@
 #ifndef DART_COLLISION_BULLET_BULLETCOLLISIONGROUP_HPP_
 #define DART_COLLISION_BULLET_BULLETCOLLISIONGROUP_HPP_
 
-// Must be included before any Bullet headers.
-#include "dart/config.hpp"
-
-#include <btBulletCollisionCommon.h>
-
 #include "dart/collision/CollisionGroup.hpp"
+#include "dart/collision/bullet/BulletInclude.hpp"
 
 namespace dart {
 namespace collision {

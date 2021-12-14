@@ -32,6 +32,7 @@
 
 #include <dart/dart.hpp>
 #include <pybind11/pybind11.h>
+
 #include "eigen_geometry_pybind.h"
 #include "eigen_pybind.h"
 
@@ -46,7 +47,7 @@ void SimpleFrame(py::module& m)
       dart::dynamics::SimpleFrame,
       dart::dynamics::ShapeFrame,
       dart::dynamics::Detachable,
-      std::shared_ptr<dart::dynamics::SimpleFrame> >(m, "SimpleFrame")
+      std::shared_ptr<dart::dynamics::SimpleFrame>>(m, "SimpleFrame")
       .def(::py::init<>())
       .def(::py::init<dart::dynamics::Frame*>(), ::py::arg("refFrame"))
       .def(

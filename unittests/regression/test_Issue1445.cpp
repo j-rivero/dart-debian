@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2020, The DART development contributors
+ * Copyright (c) 2011-2021, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -31,10 +31,9 @@
  */
 
 #include <TestHelpers.hpp>
-#include <gtest/gtest.h>
-
 #include <dart/dart.hpp>
 #include <dart/utils/sdf/sdf.hpp>
+#include <gtest/gtest.h>
 
 // This test is adapted from @azeey's work here:
 // https://github.com/ignitionrobotics/ign-physics/pull/31

@@ -1,5 +1,80 @@
 ## DART 6
 
+### [DART 6.12.1 (2021-11-04)](https://github.com/dartsim/dart/milestone/71?closed=1)
+
+* Build
+
+  * Fixed bullet header include: [#1620](https://github.com/dartsim/dart/pull/1620)
+
+* dartpy
+
+  * Added Python bindings for Joint::getWrenchTo{Child|Parent}BodyNode: [#1621](https://github.com/dartsim/dart/pull/1621)
+
+### [DART 6.12.0 (2021-11-01)](https://github.com/dartsim/dart/milestone/66?closed=1)
+
+* API Breaking Changes
+
+  * DART 6.12.0 and later require compilers that support C++17: [#1600](https://github.com/dartsim/dart/pull/1600)
+    * Increased minimum CMake version to 3.10.2
+    * Increased minimum compiler versions to GCC 7.3.0, Clang 6.0, MSVC 16.0
+    * Dropped Ubuntu Xenial (16.04 LTS) support
+
+* Build
+
+  * Remove DART_BUILD_DARTPY option: [#1600](https://github.com/dartsim/dart/pull/1600)
+
+* Dynamics
+
+  * Added joint force/torque getter: [#1616](https://github.com/dartsim/dart/pull/1616)
+
+* Parsers
+
+  * Added default options to DartLoader for missing properties in URDF files: [#1605](https://github.com/dartsim/dart/pull/1605)
+  * Allowed SdfParser to set default root joint type: [#1617](https://github.com/dartsim/dart/pull/1617)
+
+* GUI
+
+  * Updated ImGui to 1.84.2: [#1608](https://github.com/dartsim/dart/pull/1608)
+
+* dartpy
+
+  * Added Python bindings for ResourceRetriever and SdfParser: [#1610](https://github.com/dartsim/dart/pull/1610)
+
+### [DART 6.11.2 (2021-10-29)](https://github.com/dartsim/dart/milestone/68?closed=1)
+
+* dartpy
+
+  * Added Python binding for global lighting mode setting: [#1615](https://github.com/dartsim/dart/pull/1615)
+
+### [DART 6.11.1 (2021-08-23)](https://github.com/dartsim/dart/milestone/67?closed=1)
+
+* Dynamics
+
+  * Fixed incorrect LCP construction in JointConstraint for multi-DOFs joints: [#1597](https://github.com/dartsim/dart/pull/1597)
+
+### [DART 6.11.0 (2021-07-15)](https://github.com/dartsim/dart/milestone/64?closed=1)
+
+* Math
+
+  * Added `Mesh`, `TriMesh`, and `Icosphere` classes: [#1579](https://github.com/dartsim/dart/pull/1579)
+
+* Collision
+
+  * Fixed incorrect group-group collision checking for BulletCollisionDetector: [#1585](https://github.com/dartsim/dart/pull/1585), [#717](https://github.com/dartsim/dart/issues/717)
+
+* Dynamics
+
+  * Fixed servo motor doesn't respect joint position limits: [#1587](https://github.com/dartsim/dart/pull/1587)
+
+* GUI
+
+  * Fixed incorrect MultiSphereConvexHull rendering: [#1579](https://github.com/dartsim/dart/pull/1579)
+  * Use GLVND over the legacy OpenGL libraries: [#1584](https://github.com/dartsim/dart/pull/1584)
+
+* Build and testing
+
+  * Add DART_ prefix to macros to avoid potential conflicts: [#1586](https://github.com/dartsim/dart/pull/1586)
+
 ### [DART 6.10.1 (2021-04-19)](https://github.com/dartsim/dart/milestone/65?closed=1)
 
 * Dynamics

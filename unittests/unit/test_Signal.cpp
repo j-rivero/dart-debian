@@ -31,6 +31,7 @@
  */
 
 #include <numeric>
+
 #include <gtest/gtest.h>
 
 #include "dart/dart.hpp"
@@ -139,8 +140,8 @@ TEST(Signal, NonStaticMemberFunction)
   signal2.connect(&Viewer::onSignal2Static);
 
   // Connect non-static member function
-  using placeholders::_1;
-  using placeholders::_2;
+  using std::placeholders::_1;
+  using std::placeholders::_2;
   signal1.connect(bind(&Viewer::onSignal1, &viewer, _1));
   signal2.connect(bind(&Viewer::onSignal2, &viewer, _1, _2));
 

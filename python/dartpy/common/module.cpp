@@ -41,6 +41,8 @@ void Observer(py::module& sm);
 void Subject(py::module& sm);
 void Uri(py::module& sm);
 void Composite(py::module& sm);
+void Resource(py::module& sm);
+void ResourceRetriever(py::module& sm);
 
 void dart_common(py::module& m)
 {
@@ -50,6 +52,8 @@ void dart_common(py::module& m)
   Subject(sm);
   Uri(sm);
   Composite(sm);
+  Resource(sm);
+  ResourceRetriever(sm);
 }
 
 } // namespace python

@@ -31,6 +31,7 @@
  */
 
 #include <iostream>
+
 #include <gtest/gtest.h>
 
 #include "dart/collision/collision.hpp"
@@ -40,13 +41,14 @@
 #include "dart/dynamics/dynamics.hpp"
 #include "dart/math/math.hpp"
 #if HAVE_ODE
-#  include "dart/collision/ode/ode.hpp"
+  #include "dart/collision/ode/ode.hpp"
 #endif
 #if HAVE_BULLET
-#  include "dart/collision/bullet/bullet.hpp"
+  #include "dart/collision/bullet/bullet.hpp"
 #endif
 #include "dart/simulation/simulation.hpp"
 #include "dart/utils/utils.hpp"
+
 #include "TestHelpers.hpp"
 
 using namespace dart;
@@ -375,17 +377,7 @@ void testSimpleFrames(const std::shared_ptr<CollisionDetector>& cd)
   EXPECT_FALSE(group1->collide(group3.get()));
   EXPECT_TRUE(group2->collide(group3.get()));
   EXPECT_TRUE(group23->collide());
-#if HAVE_BULLET
-  if (cd->getType() == BulletCollisionDetector::getStaticType())
-  {
-    dtwarn << "Skipping group-group test for 'bullet' collision detector. "
-           << "Please see Issue #717 for the detail.\n";
-  }
-  else
-#endif
-  {
-    EXPECT_FALSE(group1->collide(group23.get()));
-  }
+  EXPECT_FALSE(group1->collide(group23.get()));
 }
 
 //==============================================================================

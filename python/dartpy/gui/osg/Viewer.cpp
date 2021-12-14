@@ -53,7 +53,7 @@ void Viewer(py::module& m)
           },
           ::py::arg("eventHandler"));
 
-  ::py::class_<
+  auto viewer = ::py::class_<
       dart::gui::osg::Viewer,
       osgViewer::View,
       dart::common::Subject,
@@ -131,6 +131,13 @@ void Viewer(py::module& m)
           +[](const dart::gui::osg::Viewer* self) -> bool {
             return self->checkHeadlights();
           })
+      .def(
+          "setLightingMode",
+          &dart::gui::osg::Viewer::setLightingMode,
+        ::py::arg("lightingMode"))
+      .def(
+          "getLightingMode",
+          &dart::gui::osg::Viewer::getLightingMode)
       .def(
           "addWorldNode",
           +[](dart::gui::osg::Viewer* self,
@@ -327,7 +334,8 @@ void Viewer(py::module& m)
       .def(
           "run",
           +[](dart::gui::osg::Viewer* self) -> int { return self->run(); })
-      .def("frame", +[](dart::gui::osg::Viewer* self) { self->frame(); })
+      .def(
+          "frame", +[](dart::gui::osg::Viewer* self) { self->frame(); })
       .def(
           "frame",
           +[](dart::gui::osg::Viewer* self,
@@ -350,6 +358,11 @@ void Viewer(py::module& m)
 
             self->setCameraManipulator(self->getCameraManipulator());
           });
+
+  ::py::enum_<dart::gui::osg::Viewer::LightingMode>(viewer, "LightingMode")
+      .value("NO_LIGHT", dart::gui::osg::Viewer::NO_LIGHT)
+      .value("HEADLIGHT", dart::gui::osg::Viewer::HEADLIGHT)
+      .value("SKY_LIGHT", dart::gui::osg::Viewer::SKY_LIGHT);
 } // namespace python
 
 } // namespace python

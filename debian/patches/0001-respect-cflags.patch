@@ -8,9 +8,11 @@ Forwarded: No
  CMakeLists.txt | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 100bfb8..29ed906 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -218,7 +218,7 @@
+@@ -213,7 +213,7 @@ elseif(CMAKE_COMPILER_IS_GNUCXX)
    if(DART_FAST_DEBUG)
      set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O1")
    endif()
@@ -19,12 +21,12 @@ Forwarded: No
    set(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS_DEBUG} -pg")
    set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined")
  
-@@ -248,7 +248,7 @@
+@@ -243,7 +243,7 @@ elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
    if(DART_FAST_DEBUG)
      set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O1")
    endif()
 -  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS_DEBUG}")
 +  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
    set(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS_DEBUG} -pg")
-   set(CMAKE_OSX_DEPLOYMENT_TARGET "10.8")
  
+   # Enforce to colorize compilation output

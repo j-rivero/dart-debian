@@ -7,7 +7,7 @@ Subject: Fix find Flann
  1 file changed, 1 insertion(+), 21 deletions(-)
 
 diff --git a/cmake/Findflann.cmake b/cmake/Findflann.cmake
-index 1dad1ac..675a852 100644
+index 5b0a8d7..5bf94f3 100644
 --- a/cmake/Findflann.cmake
 +++ b/cmake/Findflann.cmake
 @@ -20,24 +20,4 @@

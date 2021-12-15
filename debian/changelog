@@ -1,3 +1,16 @@
+dart (6.12.1+dfsg-1) experimental; urgency=medium
+
+  * New upstream version 6.12.1+dfsg
+  * Upstream is not really following SEMVER. Drop patch
+  * Move libraries to 6.12 SOVERSION
+  * Bump standard to 4.6.0
+  * Remove custom gitlab file
+  * Update Excluded files
+  * Update watch file
+  * Rediff patches
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Wed, 15 Dec 2021 15:15:39 +0100
+
 dart (6.10.1-1) experimental; urgency=medium
 
   * Exclude rc versions from watch file

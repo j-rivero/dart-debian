@@ -23,3 +23,23 @@ echo "build: OK"
 [ -x darttest ]
 ./darttest
 echo "run: OK"
+
+# 2. CMAKE
+cat <<EOF > CMakeLists.txt
+cmake_minimum_required(VERSION 3.5)
+
+project(darttest VERSION 1.0.0)
+
+find_package(DART 1.0.0 REQUIRED)
+add_executable(darttest darttest.cpp)
+target_include_directories(darttest \${DART_INCLUDE_DIRS})
+target_link_libraries(darttest \${DART_LIBRARIES})
+EOF
+
+cmake .
+echo "configure cmake: OK"
+make
+echo "build cmake:OK"
+[ -x darttest ]
+./darttest
+echo "run: OK"

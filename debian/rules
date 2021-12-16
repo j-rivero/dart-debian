@@ -3,14 +3,17 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all reproducible=+all future=+lfs
 
 %:
-	dh $@ --buildsystem=cmake
+	dh $@
 
 override_dh_auto_configure:
 	dh_auto_configure --buildsystem=cmake -- \
-		-DCMAKE_SKIP_INSTALL_RPATH=ON
+		-DCMAKE_SKIP_INSTALL_RPATH=ON \
+		-DBUILD_SHARED_LIBS=ON \
+		-DDARTPY_PYTHON_VERSION=3 \
+		-DDART_VERBOSE=ON
 
 execute_before_dh_auto_test:
-	dh_auto_build --buildsystem=cmake -- tests
+	dh_auto_build -- tests
 
 execute_after_dh_auto_install:
 	rm -f debian/tmp/usr/share/doc/dart/data/screencap/.KEEP

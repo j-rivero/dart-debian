@@ -1,0 +1,35 @@
+Description: Support CMAKE_BUILD_TYPE None
+ Upstream does not support CMAKE_BUILD_TYPE None
+Author: Jose Luis Rivero
+Forwarded: no
+Last-Update: 2021-12-16
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -126,7 +126,7 @@
+ # Build type settings
+ #===============================================================================
+ if(NOT CMAKE_BUILD_TYPE)
+-  set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build, options are: Debug | Release | RelWithDebInfo | MinSizeRel" FORCE)
++  set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build, options are: Debug | Release | RelWithDebInfo | MinSizeRel | None" FORCE)
+ endif()
+ string(TOUPPER ${CMAKE_BUILD_TYPE} CMAKE_BUILD_TYPE_UPPERCASE)
+ 
+@@ -134,6 +134,7 @@
+ set(BUILD_TYPE_RELEASE FALSE)
+ set(BUILD_TYPE_RELWITHDEBINFO FALSE)
+ set(BUILD_TYPE_MINSIZEREL FALSE)
++set(BUILD_TYPE_NONE FALSE)
+ 
+ if("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "DEBUG")
+   set(BUILD_TYPE_DEBUG TRUE)
+@@ -143,6 +144,8 @@
+   set(BUILD_TYPE_RELWITHDEBINFO TRUE)
+ elseif("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "MINSIZEREL")
+   set(BUILD_TYPE_MINSIZEREL TRUE)
++elseif("${CMAKE_BUILD_TYPE_UPPERCASE}" STREQUAL "NONE")
++  set(BUILD_TYPE_NONE TRUE)
+ else()
+   message(WARNING "CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} unknown. Valid options are: Debug | Release | RelWithDebInfo | MinSizeRel")
+ endif()

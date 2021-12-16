@@ -29,6 +29,7 @@ Build-Depends: debhelper-compat (= 13),
                libopenscenegraph-dev,
                freeglut3-dev,
                pybind11-dev,
+               python3-all-dev,
                python3-numpy,
                python3-pytest,
                jdupes

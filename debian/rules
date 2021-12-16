@@ -3,7 +3,7 @@
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all reproducible=+all future=+lfs
 
 %:
-	dh $@ --buildsystem=pybuild
+	dh $@
 
 override_dh_auto_configure:
 	dh_auto_configure -- \

@@ -1,3 +1,4 @@
+0003-hlms-missing-includes.patch
 0001-respect-cflags.patch
 0004-fix-pkgconfig.patch
 0006-Fix-find-Flann.patch

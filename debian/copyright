@@ -1,7 +1,16 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: dart
 Source: http://github.com/dartsim/dart
-File-Excluded: .ci/ .github/ .travis.yml .gitignore docs/ extras/ paper/ Brewfile data/screencap/.KEEP
+Files-Excluded: .ci/
+               .github/
+               .travis.yml
+               .gitignore
+               Brewfile
+               data/screencap/.KEEP
+               docs/
+               extras/
+               paper/
+               unittests/gtest
 
 Files: *
 Copyright: 2011, Georgia Tech Graphics Lab

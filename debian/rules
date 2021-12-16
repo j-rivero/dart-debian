@@ -1,9 +1,10 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all reproducible=+all future=+lfs
+export PYBUILD_NAME=dartpy
 
 %:
-	dh $@
+	dh $@ --with python3
 
 override_dh_auto_configure:
 	dh_auto_configure -- \

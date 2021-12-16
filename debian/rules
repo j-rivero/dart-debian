@@ -7,7 +7,6 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all reproducible=+all future=+lfs
 
 override_dh_auto_configure:
 	dh_auto_configure --buildsystem=cmake -- \
-		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_SKIP_INSTALL_RPATH=ON
 
 execute_before_dh_auto_test:

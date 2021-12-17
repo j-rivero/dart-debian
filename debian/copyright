@@ -34,37 +34,7 @@ Files: cmake/CodeCoverage.cmake
        python/dartpy/eigen_geometry_pybind.h
        python/dartpy/eigen_pybind.h
        tools/cpplint.py
-       unittests/gtest/include/gtest/gtest-death-test.h
-       unittests/gtest/include/gtest/gtest-message.h
-       unittests/gtest/include/gtest/gtest-param-test.h
-       unittests/gtest/include/gtest/gtest-param-test.h.pump
-       unittests/gtest/include/gtest/gtest-printers.h
-       unittests/gtest/include/gtest/gtest-spi.h
-       unittests/gtest/include/gtest/gtest-test-part.h
-       unittests/gtest/include/gtest/gtest-typed-test.h
-       unittests/gtest/include/gtest/gtest.h
-       unittests/gtest/include/gtest/gtest_pred_impl.h
-       unittests/gtest/include/gtest/gtest_prod.h
-       unittests/gtest/include/gtest/internal/custom/gtest-port.h
-       unittests/gtest/include/gtest/internal/custom/gtest-printers.h
-       unittests/gtest/include/gtest/internal/custom/gtest.h
-       unittests/gtest/include/gtest/internal/gtest-death-test-internal.h
-       unittests/gtest/include/gtest/internal/gtest-filepath.h
-       unittests/gtest/include/gtest/internal/gtest-internal.h
-       unittests/gtest/include/gtest/internal/gtest-linked_ptr.h
-       unittests/gtest/include/gtest/internal/gtest-param-util-generated.h
-       unittests/gtest/include/gtest/internal/gtest-param-util-generated.h.pump
-       unittests/gtest/include/gtest/internal/gtest-param-util.h
-       unittests/gtest/include/gtest/internal/gtest-port-arch.h
-       unittests/gtest/include/gtest/internal/gtest-port.h
-       unittests/gtest/include/gtest/internal/gtest-string.h
-       unittests/gtest/include/gtest/internal/gtest-tuple.h
-       unittests/gtest/include/gtest/internal/gtest-tuple.h.pump
-       unittests/gtest/include/gtest/internal/gtest-type-util.h
-       unittests/gtest/include/gtest/internal/gtest-type-util.h.pump
-       unittests/gtest/src/*
 Copyright: 2016, Carnegie Mellon University
-           2003-2015, Google Inc
            2013, Humanoid Robotics Lab
            2012-2015, Lars Bilke
            2012-2016, Robot Locomotion <Group@CSAIL>

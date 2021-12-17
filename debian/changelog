@@ -1,10 +1,10 @@
-dart (6.12.1+dfsg1-1) experimental; urgency=medium
+dart (6.12.1+dfsg2-1) experimental; urgency=medium
 
-  * New upstream version 6.12.1+dfsg
-  * Upstream is not really following SEMVER. Drop patch
+  * New upstream version 6.12.1+dfsg2
   * Move libraries to 6.12 SOVERSION
+    * Upstream is not really following SEMVER. Drop patch
   * Bump standard to 4.6.0
-  * Remove custom gitlab file
+  * Remove custom gitlab file, use upstream one in salsa
   * Update Excluded files
   * Update watch file
   * Rediff patches

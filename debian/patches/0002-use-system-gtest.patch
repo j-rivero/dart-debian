@@ -14,7 +14,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 -include_directories(BEFORE SYSTEM ${DART_SOURCE_DIR}/unittests/gtest)
 -add_library(gtest STATIC gtest/src/gtest-all.cc)
 -add_library(gtest_main STATIC gtest/src/gtest_main.cc)
-+include_directories(BEFORE SYSTEM /usr/src/googletest/googletest/include/gtest)
++include_directories(BEFORE SYSTEM /usr/src/googletest/googletest/include)
 +add_library(gtest STATIC /usr/src/googletest/googletest/src/gtest-all.cc)
 +add_library(gtest_main STATIC /usr/src/googletest/googletest/src/gtest_main.cc)
  target_link_libraries(gtest_main gtest)

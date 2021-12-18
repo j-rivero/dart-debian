@@ -1,0 +1,18 @@
+Description: Disable deprecated planning module
+  Planning module is deprecated and the flann detection is buggy.
+Author: Jose Luis Rivero <jrivero@openrobotics.org>
+Forwarded: not-needed
+Last-Update: 2021-12-18
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/dart/CMakeLists.txt
++++ b/dart/CMakeLists.txt
+@@ -84,7 +84,7 @@
+ add_subdirectory(collision)
+ add_subdirectory(constraint)
+ add_subdirectory(simulation)
+-add_subdirectory(planning) # flann
++#add_subdirectory(planning) # flann
+ add_subdirectory(utils) # tinyxml2, bullet
+ add_subdirectory(gui) # opengl, glut, bullet
+ 

@@ -1,5 +1,7 @@
 Description: Disable deprecated planning module
   Planning module is deprecated and the flann detection is buggy.
+  Other packagers have also reported problems with C++ standard in flann
+  versinons: https://aur.archlinux.org/packages/libdart#comment-836245
 Author: Jose Luis Rivero <jrivero@openrobotics.org>
 Forwarded: not-needed
 Last-Update: 2021-12-18

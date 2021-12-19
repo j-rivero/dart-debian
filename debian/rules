@@ -8,10 +8,12 @@ export PYBUILD_NAME=dartpy
 
 override_dh_auto_configure:
 	dh_auto_configure --buildsystem=cmake -- \
-		-DCMAKE_SKIP_INSTALL_RPATH=ON \
 		-DBUILD_SHARED_LIBS=ON \
-		-DDARTPY_PYTHON_VERSION=3 \
-		-DDART_VERBOSE=ON
+		-DCMAKE_SKIP_INSTALL_RPATH=ON \
+		-DDART_SKIP_FLANN=ON \
+		-DDART_SKIP_PAGMO=ON \
+		-DDART_VERBOSE=ON \
+		-DDARTPY_PYTHON_VERSION=3
 
 execute_after_dh_auto_build:
 	dh_auto_build -- dartpy

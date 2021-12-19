@@ -1,0 +1,19 @@
+Description: Do not use postfix d in generated library
+ Upstream assumed a debug library with d postfix if no NDEBUG flag is present.
+Author: Jose Luis Rivero
+Forwarded: no
+Last-Update: 2021-12-19
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/unittests/unit/test_IkFast.cpp
++++ b/unittests/unit/test_IkFast.cpp
+@@ -132,9 +132,6 @@
+   ik->setHierarchyLevel(1);
+   std::stringstream ss;
+   ss << DART_SHARED_LIB_PREFIX << "GeneratedWamIkFast";
+-#if (DART_OS_LINUX || DART_OS_MACOS) && !NDEBUG
+-  ss << "d";
+-#endif
+   ss << "." << DART_SHARED_LIB_EXTENSION;
+   std::string libName = ss.str();
+   std::vector<std::size_t> ikFastDofs{0, 1, 3, 4, 5, 6};

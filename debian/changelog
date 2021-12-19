@@ -1,6 +1,7 @@
 dart (6.12.1+dfsg2-1) experimental; urgency=medium
 
   * New upstream version 6.12.1+dfsg2
+    (Closes: #1001760)
   * Move libraries to 6.12 SOVERSION
     * Upstream is not really following SEMVER. Drop patch
   * Bump standard to 4.6.0

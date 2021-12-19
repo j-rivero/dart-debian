@@ -879,7 +879,6 @@ Architecture: all
 Section: oldlibs
 Depends: libdart-external-imgui6.12,
          ${misc:Depends}
-Multi-Arch: same
 Description: transitional package
  This is a transitional package. It can safely be removed.
 

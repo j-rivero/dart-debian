@@ -1041,7 +1041,7 @@ Depends: ${misc:Depends},
          ${python3:Depends},
          ${shlibs:Depends}
 Multi-Arch: same
-Description: Dynamic Animation and Robotics Toolkit - DART python bindings
+Description: Dynamic Animation and Robotics Toolkit - DART Python bindings
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
  structures and algorithms for kinematic and dynamic applications in robotics
@@ -1066,7 +1066,7 @@ Description: Dynamic Animation and Robotics Toolkit - DART python bindings
  software created by the Georgia Tech Graphics Lab.
  This package does not contain any file but install all development packages
  .
- DART python bindings
+ DART Python bindings
 
 Package: libdart-all-dev
 Architecture: any

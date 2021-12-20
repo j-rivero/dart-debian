@@ -6,6 +6,7 @@ Files-Excluded: .ci
                .gitignore
                Brewfile
                data/screencap/.KEEP
+               data/mjcf/openai/robotics/stls/.get
                docs
                extras
                paper

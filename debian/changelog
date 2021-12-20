@@ -5,6 +5,7 @@ dart (6.12.1+dfsg2-1) experimental; urgency=medium
   * Move libraries to 6.12 SOVERSION
     * Upstream is not really following SEMVER. Drop patch
   * Bump standard to 4.6.0
+  * Remove empty files using Files-Excluded
   * Remove custom gitlab file, use upstream one in salsa
   * Update Excluded files
   * Update watch file
@@ -12,6 +13,7 @@ dart (6.12.1+dfsg2-1) experimental; urgency=medium
     * Remove cflags patch, not needed
     * Add patch to respect ldflags
     * Add patch to use system gtest
+    * Add patch to fix simulation of wheleed vehicles
   * Add convhull-3d new package
   * Declare Multi-Arch in all packages
   * Implement CMake autopkgtest

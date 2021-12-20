@@ -1,2 +1,2 @@
 Tests: build
-Depends: libdart-dev, pkg-config, build-essential
+Depends: @, cmake, pkg-config, build-essential

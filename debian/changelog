@@ -9,10 +9,12 @@ dart (6.12.1+dfsg2-1) experimental; urgency=medium
   * Update Excluded files
   * Update watch file
   * Rediff patches
+    * Remove cflags patch, not needed
+    * Add patch to respect ldflags
+    * Add patch to use system gtest
   * Add convhull-3d new package
   * Declare Multi-Arch in all packages
   * Implement CMake autopkgtest
-  * Add patch to use system gtest
   * Update Files-Excluded to get rid of gtest
   * Add patch to set build type to None
   * Add python bindings

@@ -5,3 +5,4 @@
 0007-fix-ikfast.patch
 0004-fix-pkgconfig.patch
 0006-Reduce-test-result-accuracy-to-fix-i386.patch
+0008-fix-velocity-pisition-integration.diff

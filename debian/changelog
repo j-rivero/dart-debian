@@ -1,4 +1,4 @@
-dart (6.12.1+dfsg3-1) experimental; urgency=medium
+dart (6.12.1+dfsg4-1) experimental; urgency=medium
 
   * New upstream version 6.12.1+dfsg2
     (Closes: #1001760)

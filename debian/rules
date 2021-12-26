@@ -1,10 +1,12 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all reproducible=+all future=+lfs
+export PYBUILD_CONFIGURE_ARGS=-DPYVER={version}
 export PYBUILD_NAME=dartpy
+export PYBUILD_SYSTEM=cmake
 
 %:
-	dh $@ --buildsystem=cmake
+	dh $@ --buildsystem=pybuild
 
 override_dh_auto_configure:
 	dh_auto_configure --buildsystem=cmake -- \

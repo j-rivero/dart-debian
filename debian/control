@@ -112,14 +112,6 @@ Description: Kinematics Dynamics and Optimization Library - main library
  software created by the Georgia Tech Graphics Lab.
  This package contains the main library of DART.
 
-Package: libdart6
-Architecture: all
-Section: oldlibs
-Depends: libdart6.12,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
 Package: libdart-collision-bullet6.12
 Architecture: any
 Section: libs
@@ -186,14 +178,6 @@ Description: Dynamic Animation and Robotics Toolkit - Bullet Collision Dev
  multibody dynamic simulator and tools for control and motion planning.
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
-
-Package: libdart-collision-bullet6
-Architecture: all
-Section: oldlibs
-Depends: libdart-collision-bullet6.12,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
 
 Package: libdart-collision-ode6.12
 Architecture: any
@@ -263,14 +247,6 @@ Description: Dynamic Animation and Robotics Toolkit - ODE Collision Dev
  an extension of RTQL8, an open source software created by the Georgia
  Tech Graphics Lab. This package contains the collision ode headers and
  other tools for development.
-
-Package: libdart6-collision-ode
-Architecture: all
-Section: oldlibs
-Depends: libdart-collision-ode6.12,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
 
 Package: libdart-utils-dev
 Architecture: any
@@ -342,14 +318,6 @@ Description: Kinematics Dynamics and Optimization Library - utils library
  software created by the Georgia Tech Graphics Lab.
  This package contains the DART utils library.
 
-Package: libdart-utils6
-Architecture: all
-Section: oldlibs
-Depends: libdart-utils6.12,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
 Package: libdart-utils-urdf-dev
 Architecture: any
 Section: libdevel
@@ -419,14 +387,6 @@ Description: Dynamic Animation and Robotics Toolkit - Utils URDF Library
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
  This package contains the Utils URDF library.
-
-Package: libdart-utils-urdf6
-Architecture: all
-Section: oldlibs
-Depends: libdart-utils-urdf6.12,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
 
 Package: libdart-gui-dev
 Architecture: any
@@ -499,14 +459,6 @@ Description: Kinematics Dynamics and Optimization Library - gui library
  software created by the Georgia Tech Graphics Lab.
  This package contains the GUI library.
 
-Package: libdart-gui6
-Architecture: all
-Section: oldlibs
-Depends: libdart-gui6.12,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
 Package: libdart-gui-osg-dev
 Architecture: any
 Section: libdevel
@@ -576,14 +528,6 @@ Description: Kinematics Dynamics and Optimization Library - gui-osg library
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
  This package contains the GUI OpenSceneGraph optimizer library.
-
-Package: libdart-gui-osg6
-Architecture: all
-Section: oldlibs
-Depends: libdart-gui-osg6.12,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
 
 Package: libdart-optimizer-nlopt-dev
 Architecture: any
@@ -655,14 +599,6 @@ Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
  software created by the Georgia Tech Graphics Lab.
  This package contains the NLOPT optimizer library.
 
-Package: libdart6-optimizer-nlopt
-Architecture: all
-Section: oldlibs
-Depends: libdart-optimizer-nlopt6.12,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
 Package: libdart-optimizer-ipopt-dev
 Architecture: any
 Section: libdevel
@@ -732,14 +668,6 @@ Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
  This package contains the ipopt optimizer library.
-
-Package: libdart6-optimizer-ipopt
-Architecture: all
-Section: oldlibs
-Depends: libdart-optimizer-ipopt6.12,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
 
 Package: libdart-external-convhull-3d-dev
 Architecture: any
@@ -874,14 +802,6 @@ Description: Kinematics Dynamics and Optimization Library - imgui lib
  software created by the Georgia Tech Graphics Lab.
  This package contains the imgui library.
 
-Package: libdart-external-imgui6
-Architecture: all
-Section: oldlibs
-Depends: libdart-external-imgui6.12,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
 Package: libdart-external-lodepng-dev
 Architecture: any
 Section: libdevel
@@ -950,14 +870,6 @@ Description: Kinematics Dynamics and Optimization Library - lodepng lib
  software created by the Georgia Tech Graphics Lab.
  This package contains the lodepng library.
 
-Package: libdart-external-lodepng6
-Architecture: all
-Section: oldlibs
-Depends: libdart-external-imgui6.12,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
-
 Package: libdart-external-odelcpsolver-dev
 Architecture: any
 Section: libdevel
@@ -1024,14 +936,6 @@ Description: Kinematics Dynamics and Optimization Library - odelcpsolver lib
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
  This package contains the odelcpsolver library.
-
-Package: libdart-external-odelcpsolver6
-Architecture: all
-Section: oldlibs
-Depends: libdart-external-odelcpsolver6.12,
-         ${misc:Depends}
-Description: transitional package
- This is a transitional package. It can safely be removed.
 
 Package: python3-dartpy
 Section: python

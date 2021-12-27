@@ -1,15 +1,10 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all reproducible=+all future=+lfs
-export PYBUILD_CONFIGURE_ARGS=-DPYVER={version}
 export PYBUILD_NAME=dartpy
+# Needed to inject correctly the python versions supported
 export PYBUILD_SYSTEM=cmake
-
-%:
-	dh $@ --buildsystem=pybuild
-
-override_dh_auto_configure:
-	dh_auto_configure --buildsystem=cmake -- \
+export PYBUILD_CONFIGURE_ARGS=-DPYVER={version} \
 		-DBUILD_SHARED_LIBS=ON \
 		-DCMAKE_SKIP_INSTALL_RPATH=ON \
 		-DDART_SKIP_FLANN=ON \
@@ -17,8 +12,11 @@ override_dh_auto_configure:
 		-DDART_VERBOSE=ON \
 		-DDARTPY_PYTHON_VERSION=3
 
-execute_after_dh_auto_build:
-	dh_auto_build -- dartpy
+%:
+	dh $@ --buildsystem=pybuild
+
+#execute_after_dh_auto_build:
+#	dh_auto_build -- dartpy
 
 execute_after_dh_auto_install:
 	rm -f debian/tmp/usr/share/doc/dart/data/screencap/.KEEP

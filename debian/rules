@@ -22,7 +22,7 @@ execute_after_dh_auto_install:
 	rm -f debian/tmp/usr/share/doc/dart/data/screencap/.KEEP
 
 execute_before_dh_auto_test:
-	dh_auto_build -- tests
+	PYBUILD_BUILD_ARGS="tests" dh_auto_build
 
 override_dh_compress:
 	dh_compress \

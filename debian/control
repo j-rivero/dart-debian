@@ -84,8 +84,6 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart6 (<< 6.12.0-1~)
-Replaces: libdart6 (<< 6.12.0-1~)
 Description: Kinematics Dynamics and Optimization Library - main library
  DART is a collaborative, cross-platform, open source library created by the
  Georgia Tech Graphics Lab and Humanoid Robotics Lab. The library provides data
@@ -117,8 +115,6 @@ Section: libs
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart-collision-bullet6 (<< 6.12.0-1~)
-Replaces: libdart-collision-bullet6 (<< 6.12.0-1~)
 Multi-Arch: same
 Description: Dynamic Animation and Robotics Toolkit - Bullet Collision Library
  DART is a collaborative, cross-platform, open source library created by the
@@ -184,9 +180,6 @@ Section: libs
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-# old packages used 6 in this position
-Breaks: libdart6-collision-ode (<< 6.12.0-1)
-Replaces: libdart6-collision-ode (<< 6.12.0-1)
 Multi-Arch: same
 Description: Dynamic Animation and Robotics Toolkit - ODE Collision Library
  DART is a collaborative, cross-platform, open source library created by the
@@ -289,8 +282,6 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart-utils6 (<< 6.12.0-1~)
-Replaces: libdart-utils6 (<< 6.12.0-1~)
 Multi-Arch: same
 Description: Kinematics Dynamics and Optimization Library - utils library
  DART is a collaborative, cross-platform, open source library created by the
@@ -359,8 +350,6 @@ Section: libs
 Depends: ${shlibs:Depends},
          ${misc:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart-utils-urdf6 (<< 6.12.0-1~)
-Replaces: libdart-utils-urdf6 (<< 6.12.0-1~)
 Multi-Arch: same
 Description: Dynamic Animation and Robotics Toolkit - Utils URDF Library
  DART is a collaborative, cross-platform, open source library created by the
@@ -430,8 +419,6 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart-gui6 (<< 6.12.0-1~)
-Replaces: libdart-gui6 (<< 6.12.0-1~)
 Multi-Arch: same
 Description: Kinematics Dynamics and Optimization Library - gui library
  DART is a collaborative, cross-platform, open source library created by the
@@ -500,8 +487,6 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart-gui-osg6 (<< 6.12.0-1~)
-Replaces: libdart-gui-osg6 (<< 6.12.0-1~)
 Multi-Arch: same
 Description: Kinematics Dynamics and Optimization Library - gui-osg library
  DART is a collaborative, cross-platform, open source library created by the
@@ -569,9 +554,6 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-# old package names used 6 after dart
-Breaks: libdart6-optimizer-nlopt (<< 6.12.0-1~)
-Replaces: libdart6-optimizer-nlopt (<< 6.12.0-1~)
 Multi-Arch: same
 Description: Kinematics Dynamics and Optimization Library - nlopt optimizer lib
  DART is a collaborative, cross-platform, open source library created by the
@@ -639,9 +621,6 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-# old package names used 6 after dart
-Breaks: libdart6-optimizer-ipopt (<< 6.12.0-1~)
-Replaces: libdart6-optimizer-ipopt (<< 6.12.0-1~)
 Multi-Arch: same
 Description: Kinematics Dynamics and Optimization Library - ipopt optimizer lib
  DART is a collaborative, cross-platform, open source library created by the
@@ -773,8 +752,6 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart-external-imgui6 (<< 6.12.0-1~)
-Replaces: libdart-external-imgui6 (<< 6.12.0-1~)
 Multi-Arch: same
 Description: Kinematics Dynamics and Optimization Library - imgui lib
  DART is a collaborative, cross-platform, open source library created by the
@@ -841,8 +818,6 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart-external-lodepng6 (<< 6.12.0-1~)
-Replaces: libdart-external-lodepng6 (<< 6.12.0-1~)
 Multi-Arch: same
 Description: Kinematics Dynamics and Optimization Library - lodepng lib
  DART is a collaborative, cross-platform, open source library created by the
@@ -908,8 +883,6 @@ Section: libs
 Depends: ${misc:Depends},
          ${shlibs:Depends}
 Pre-Depends: ${misc:Pre-Depends}
-Breaks: libdart-external-odelcpsolver6 (<< 6.12.0-1~)
-Replaces: libdart-external-odelcpsolver6 (<< 6.12.0-1~)
 Multi-Arch: same
 Description: Kinematics Dynamics and Optimization Library - odelcpsolver lib
  DART is a collaborative, cross-platform, open source library created by the

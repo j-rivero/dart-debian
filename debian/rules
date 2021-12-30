@@ -10,7 +10,7 @@ export PYBUILD_CONFIGURE_ARGS=-DPYVER={version} \
 		-DDART_SKIP_FLANN=ON \
 		-DDART_SKIP_PAGMO=ON \
 		-DDART_VERBOSE=ON \
-		-DDARTPY_PYTHON_VERSION=3
+		-DDARTPY_PYTHON_VERSION={version}
 
 %:
 	dh $@ --buildsystem=pybuild

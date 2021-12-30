@@ -50,6 +50,7 @@ Depends: ${misc:Depends},
          libbullet-dev,
          libboost-all-dev,
          libdart-external-odelcpsolver-dev,
+         libdart-external-convhull-3d-dev
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Description: Kinematics Dynamics and Optimization Library - development files

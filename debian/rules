@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all reproducible=+all future=+lfs
-export PYBUILD_NAME=dartpy
+# export PYBUILD_NAME=dartpy
 # Needed to inject correctly the python versions supported
 export PYBUILD_SYSTEM=cmake
 export PYBUILD_CONFIGURE_ARGS=-DPYVER={version} \

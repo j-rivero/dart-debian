@@ -1,3 +1,16 @@
+dart (6.12.1+dfsg4-2) experimental; urgency=medium
+
+  * Remove B+R from bad transtion. Thanks to Jochen
+  * Remove wrong transitional packages
+  * Remove Superflous dh-python
+  * Missing copyright for openai
+  * Missing licenses for dart/external/imgui/imgui_draw.cpp and
+    dart/external/convhull_3d/convhull_3d.h
+  * Use pybuild with cmake plugin to support new python versions in dartpy
+  * Relocate section
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Tue, 04 Jan 2022 19:05:12 +0000
+
 dart (6.12.1+dfsg4-1) experimental; urgency=medium
 
   * New upstream version 6.12.1+dfsg2

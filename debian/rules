@@ -1,7 +1,6 @@
 #!/usr/bin/make -f
 
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all reproducible=+all future=+lfs
-# export PYBUILD_NAME=dartpy
 # Needed to inject correctly the python versions supported
 export PYBUILD_SYSTEM=cmake
 export PYBUILD_CONFIGURE_ARGS=-DPYVER={version} \
@@ -14,9 +13,6 @@ export PYBUILD_CONFIGURE_ARGS=-DPYVER={version} \
 
 %:
 	dh $@ --buildsystem=pybuild
-
-#execute_after_dh_auto_build:
-#	dh_auto_build -- dartpy
 
 execute_after_dh_auto_install:
 	rm -f debian/tmp/usr/share/doc/dart/data/screencap/.KEEP

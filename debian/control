@@ -910,8 +910,8 @@ Description: Kinematics Dynamics and Optimization Library - odelcpsolver lib
  This package contains the odelcpsolver library.
 
 Package: python3-dartpy
-Section: python
 Architecture: any
+Section: python
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${python3:Depends},

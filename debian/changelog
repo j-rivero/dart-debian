@@ -1,3 +1,16 @@
+dart (6.12.1+dfsg4-3) experimental; urgency=medium
+
+  * Add patches merged upstream
+    (upstream does not ship them in patch releases)
+    Upstream reviewed and merged the following patches that are important
+    for the robotics community:
+     * Fix grouping of contact constraints
+       https://github.com/dartsim/dart/pull/1624
+     * Fix issue with removing skeletons without shapes
+       https://github.com/dartsim/dart/pull/1625
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Mon, 10 Jan 2022 16:54:16 +0000
+
 dart (6.12.1+dfsg4-2) experimental; urgency=medium
 
   * Remove B+R from bad transtion. Thanks to Jochen

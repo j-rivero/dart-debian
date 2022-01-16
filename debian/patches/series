@@ -1,3 +1,4 @@
+fix-test_ForceDependentSlip-armel.patch
 0001-respect-ldflags.patch
 0006-remove-planning-flann.patch
 0005-build-type-none.patch

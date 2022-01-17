@@ -1,3 +1,10 @@
+dart (6.12.1+dfsg4-4) experimental; urgency=medium
+
+  * Fix problems with armel in testing suite
+  * Disable skeltest on ARM
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Mon, 17 Jan 2022 14:43:18 +0000
+
 dart (6.12.1+dfsg4-3) experimental; urgency=medium
 
   * Add patches merged upstream

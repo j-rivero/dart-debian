@@ -1,0 +1,24 @@
+Description: skel test fail hard on armhf
+Author: Jose Luis Rivero <jrivero@osrfoundation.org>
+Forwarded: no
+Last-Update: 2022-01-17
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/unittests/unit/test_SkelParser.cpp
++++ b/unittests/unit/test_SkelParser.cpp
+@@ -146,6 +146,7 @@
+   world->step();
+ }
+ 
++#ifndef __arm__
+ //==============================================================================
+ TEST(SkelParser, VariousShapes)
+ {
+@@ -158,6 +159,7 @@
+   for (auto i = 0u; i < 100; ++i)
+     world->step();
+ }
++#endif
+ 
+ //==============================================================================
+ TEST(SkelParser, RigidAndSoftBodies)

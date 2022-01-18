@@ -11,6 +11,11 @@ export PYBUILD_CONFIGURE_ARGS=-DPYVER={version} \
 		-DDART_VERBOSE=ON \
 		-DDARTPY_PYTHON_VERSION={version}
 
+ifneq (,$(filter $(DEB_BUILD_ARCH),mips mipsel))
+  export DEB_BUILD_OPTIONS += parallel=1
+  export MAKEFLAGS += -j1
+endif
+
 %:
 	dh $@ --buildsystem=pybuild
 

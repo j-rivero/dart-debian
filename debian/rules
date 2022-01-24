@@ -11,13 +11,12 @@ export PYBUILD_CONFIGURE_ARGS=-DPYVER={version} \
 		-DDART_VERBOSE=ON \
 		-DDARTPY_PYTHON_VERSION={version}
 
+ifneq (,$(filter $(DEB_HOST_ARCH),mips mipsel))
+  export DEB_CXXFLAGS_MAINT_APPEND += -g1
+endif
+
 %:
 	dh $@ --buildsystem=pybuild
-
-ifneq (,$(filter $(DEB_BUILD_ARCH),mips mipsel))
-override_dh_auto_build:
-	dh_auto_build -j1 --buildsystem=pybuild
-endif
 
 execute_after_dh_auto_install:
 	rm -f debian/tmp/usr/share/doc/dart/data/screencap/.KEEP

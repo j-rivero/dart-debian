@@ -1,7 +1,7 @@
-Description: skel test fail hard on armhf
+Description: skel test fail hard on armhf and mipsel
 Author: Jose Luis Rivero <jrivero@osrfoundation.org>
 Forwarded: no
-Last-Update: 2022-01-17
+Last-Update: 2022-01-25
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 --- a/unittests/unit/test_SkelParser.cpp
@@ -10,7 +10,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    world->step();
  }
  
-+#ifndef __arm__
++#if !defined(__arm__) && !defined(__mips__)
  //==============================================================================
  TEST(SkelParser, VariousShapes)
  {

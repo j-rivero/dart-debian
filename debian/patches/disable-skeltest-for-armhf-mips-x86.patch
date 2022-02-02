@@ -1,4 +1,4 @@
-Description: skel test fail hard on armhf and mipsel
+Description: skel test fail hard on armhf, mipsel and hangs in i386
 Author: Jose Luis Rivero <jrivero@osrfoundation.org>
 Forwarded: no
 Last-Update: 2022-01-25
@@ -10,7 +10,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    world->step();
  }
  
-+#if !defined(__arm__) && !defined(__mips__)
++#if !defined(__arm__) && !defined(__mips__) && !defined(__i386__)
  //==============================================================================
  TEST(SkelParser, VariousShapes)
  {

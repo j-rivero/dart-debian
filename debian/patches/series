@@ -1,4 +1,4 @@
-disable-skeltest-for-armhf.patch
+disable-skeltest-for-armhf-mips-x86.patch
 fix-test_ForceDependentSlip-armel.patch
 0001-respect-ldflags.patch
 0006-remove-planning-flann.patch

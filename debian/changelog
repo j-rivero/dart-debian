@@ -1,3 +1,9 @@
+dart (6.12.1+dfsg4-10) unstable; urgency=medium
+
+  * Expand skeltest patch to i386
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Wed, 02 Feb 2022 23:36:15 +0000
+
 dart (6.12.1+dfsg4-9) unstable; urgency=medium
 
   * Move to unstable

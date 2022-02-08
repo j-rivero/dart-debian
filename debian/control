@@ -950,7 +950,6 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-planning-dev,
          libdart-utils-dev,
          libdart-utils-urdf-dev,
          libdart-gui-dev,

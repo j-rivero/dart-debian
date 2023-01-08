@@ -315,7 +315,6 @@ Package: libdart-external-convhull-3d-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev
 Pre-Depends: ${misc:Pre-Depends}
 Multi-Arch: same
 Description: ${source:Synopsis} - convhull-3d dev

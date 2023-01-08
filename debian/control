@@ -74,7 +74,6 @@ Depends: ${misc:Depends},
          libboost-all-dev,
          libdart-external-odelcpsolver-dev,
          libdart-external-convhull-3d-dev
-Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - development files
  ${source:Extended-Description}
@@ -113,7 +112,6 @@ Depends: ${misc:Depends},
          libdart-collision-bullet6.12 (= ${binary:Version}),
          libbullet-dev
 Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
 Description: ${source:Synopsis} - Bullet Collision Dev
  ${source:Extended-Description}
 
@@ -137,7 +135,6 @@ Depends: ${misc:Depends},
          libdart-collision-ode6.12 (= ${binary:Version}),
          libode-dev
 Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
 Description: ${source:Synopsis} - ODE Collision Dev
  ${source:Extended-Description}
  .
@@ -154,7 +151,6 @@ Depends: ${misc:Depends},
          libtinyxml2-dev,
          liburdfdom-dev
 Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
 Description: ${source:Synopsis} - utils dev files
  ${source:Extended-Description}
  .
@@ -181,7 +177,6 @@ Depends: ${misc:Depends},
          libdart-utils-urdf6.12 (= ${binary:Version}),
          liburdfdom-dev
 Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
 Description: ${source:Synopsis} - URDF Component Development Files
  ${source:Extended-Description}
  .
@@ -211,7 +206,6 @@ Depends: ${misc:Depends},
          libxi-dev,
          libxmu-dev
 Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
 Description: ${source:Synopsis} - gui dev files
  ${source:Extended-Description}
  .
@@ -238,7 +232,6 @@ Depends: ${misc:Depends},
          libopenthreads-dev,
          libopenscenegraph-dev
 Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
 Description: ${source:Synopsis} - gui-osg dev files
  ${source:Extended-Description}
  .
@@ -265,7 +258,6 @@ Depends: ${misc:Depends},
          libdart-optimizer-nlopt6.12 (= ${binary:Version}),
          libnlopt-cxx-dev
 Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
 Description: ${source:Synopsis} - nlopt optimizer dev
  ${source:Extended-Description}
  .
@@ -292,7 +284,6 @@ Depends: ${misc:Depends},
          libdart-optimizer-ipopt6.12 (= ${binary:Version}),
          coinor-libipopt-dev
 Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
 Description: ${source:Synopsis} - ipopt optimizer dev
  ${source:Extended-Description}
  .
@@ -342,7 +333,6 @@ Depends: ${misc:Depends},
          libdart-dev,
          libdart-external-imgui6.12 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
 Description: ${source:Synopsis} - imgui dev
  ${source:Extended-Description}
  .
@@ -368,7 +358,6 @@ Depends: ${misc:Depends},
          libdart-dev,
          libdart-external-lodepng6.12 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
 Description: ${source:Synopsis} - lodepng dev
  ${source:Extended-Description}
  .
@@ -393,7 +382,6 @@ Section: libdevel
 Depends: ${misc:Depends},
          libdart-external-odelcpsolver6.12 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
 Description: ${source:Synopsis} - odelcpsolver dev
  ${source:Extended-Description}
  .

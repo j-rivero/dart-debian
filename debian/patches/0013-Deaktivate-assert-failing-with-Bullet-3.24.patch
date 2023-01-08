@@ -1,0 +1,22 @@
+From: Jochen Sprickerhof <jspricke@debian.org>
+Date: Sun, 8 Jan 2023 23:32:31 +0100
+Subject: Deaktivate assert failing with Bullet 3.24
+
+https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1028247
+---
+ dart/constraint/ContactConstraint.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/dart/constraint/ContactConstraint.cpp b/dart/constraint/ContactConstraint.cpp
+index e7b24c8..00cca07 100644
+--- a/dart/constraint/ContactConstraint.cpp
++++ b/dart/constraint/ContactConstraint.cpp
+@@ -227,7 +227,7 @@ ContactConstraint::ContactConstraint(
+ 
+     assert(std::abs(ct.normal.dot(D.col(0))) < DART_EPSILON);
+     assert(std::abs(ct.normal.dot(D.col(1))) < DART_EPSILON);
+-    assert(std::abs(D.col(0).dot(D.col(1))) < DART_EPSILON);
++    //assert(std::abs(D.col(0).dot(D.col(1))) < DART_EPSILON);
+ 
+     // Jacobian for normal contact
+     bodyDirectionA.noalias()

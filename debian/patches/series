@@ -10,3 +10,4 @@ fix-test_ForceDependentSlip-armel.patch
 0008-fix-velocity-pisition-integration.diff
 0009-fix-skeleton-wihtout-shapes.patch
 0010-fix-grouping-constraints.patch
+0013-Deaktivate-assert-failing-with-Bullet-3.24.patch

@@ -1,3 +1,13 @@
+dart (6.12.1+dfsg4-12) unstable; urgency=medium
+
+  * Team upload.
+  * Unify descriptions (Closes: #1005866)
+  * Add patch to fix FTBFS with Bullet 1.24 (Closes: #1028247)
+  * Break circular dependency (Closes: #1007208)
+  * Drop MA hints according to the MA hinter
+
+ -- Jochen Sprickerhof <jspricke@debian.org>  Sun, 08 Jan 2023 23:41:40 +0100
+
 dart (6.12.1+dfsg4-11) unstable; urgency=medium
 
   * Remove libdart-planning-dev from dependencies, does not exist anymore

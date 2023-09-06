@@ -1,3 +1,10 @@
+dart (6.12.1+dfsg4-13) unstable; urgency=medium
+
+  * Move jdupes to run on execute_before_dh_link-indep
+    (Closes: #1051081)
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Wed, 06 Sep 2023 16:52:47 +0000
+
 dart (6.12.1+dfsg4-12) unstable; urgency=medium
 
   * Team upload.

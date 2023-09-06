@@ -36,5 +36,5 @@ override_dh_compress:
             -X.sdf -X.skel -X.urdf -X.vsk -X.world \
             -X.c3d -X.changelog -X.dof -X.path -X.tris
 
-execute_before_dh_link:
+execute_before_dh_link-indep:
 	jdupes -rl debian/dart-doc/usr

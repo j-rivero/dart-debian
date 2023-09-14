@@ -1,3 +1,13 @@
+dart (6.13.0+ds-1) unstable; urgency=medium
+
+  * New upstream version 6.13.0+ds
+  * Rename library names to 6.13
+  * Rediff patches
+  * Update dependencies in d/control
+  * Update copyright
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Thu, 14 Sep 2023 12:15:27 +0000
+
 dart (6.12.1+dfsg4-13) unstable; urgency=medium
 
   * Move jdupes to run on execute_before_dh_link-indep

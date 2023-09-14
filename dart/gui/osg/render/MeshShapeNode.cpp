@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -34,14 +34,15 @@
 
 #include <map>
 
-#include <boost/filesystem.hpp>
 #include <osg/CullFace>
+#include <osg/Depth>
 #include <osg/Geode>
 #include <osg/Geometry>
 #include <osg/Texture2D>
 #include <osgDB/ReadFile>
 
 #include "dart/common/Console.hpp"
+#include "dart/common/Filesystem.hpp"
 #include "dart/dynamics/MeshShape.hpp"
 #include "dart/dynamics/SimpleFrame.hpp"
 #include "dart/gui/osg/Utils.hpp"
@@ -53,6 +54,7 @@ namespace render {
 
 namespace {
 
+//==============================================================================
 #define GET_TEXTURE_TYPE_AND_COUNT(MATERIAL, TYPE)                             \
   {                                                                            \
     const auto count = MATERIAL.GetTextureCount(TYPE);                         \
@@ -60,6 +62,7 @@ namespace {
       return std::make_pair(TYPE, count);                                      \
   }
 
+//==============================================================================
 std::pair<aiTextureType, std::size_t> getTextureTypeAndCount(
     const aiMaterial& material)
 {
@@ -82,6 +85,28 @@ std::pair<aiTextureType, std::size_t> getTextureTypeAndCount(
 
   // This shouldn't be reached but put
   return std::make_pair(aiTextureType_UNKNOWN, 0u);
+}
+
+//==============================================================================
+bool isTransparent(const ::osg::Material* material)
+{
+  if (std::abs(material->getAmbient(::osg::Material::FRONT).a())
+      < 1 - getAlphaThreshold<float>())
+    return true;
+
+  if (std::abs(material->getDiffuse(::osg::Material::FRONT).a())
+      < 1 - getAlphaThreshold<float>())
+    return true;
+
+  if (std::abs(material->getSpecular(::osg::Material::FRONT).a())
+      < 1 - getAlphaThreshold<float>())
+    return true;
+
+  if (std::abs(material->getEmission(::osg::Material::FRONT).a())
+      < 1 - getAlphaThreshold<float>())
+    return true;
+
+  return false;
 }
 
 } // namespace
@@ -203,8 +228,6 @@ bool checkSpecularSanity(const aiColor4D& c)
 //==============================================================================
 void MeshShapeNode::extractData(bool firstTime)
 {
-  namespace bf = boost::filesystem;
-
   const aiScene* scene = mMeshShape->getMesh();
   const aiNode* root = scene->mRootNode;
 
@@ -277,7 +300,7 @@ void MeshShapeNode::extractData(bool firstTime)
       textureImageArray.reserve(count);
 
       aiString imagePath;
-      boost::system::error_code ec;
+      std::error_code ec;
       for (auto j = 0u; j < count; ++j)
       {
         if ((textureTypeAndCount.first == aiTextureType_NONE)
@@ -288,10 +311,11 @@ void MeshShapeNode::extractData(bool firstTime)
         else
         {
           aiMat->GetTexture(type, j, &imagePath);
-          const bf::path meshPath = mMeshShape->getMeshPath();
-          const bf::path relativeImagePath = imagePath.C_Str();
-          const bf::path absoluteImagePath
-              = bf::canonical(relativeImagePath, meshPath.parent_path(), ec);
+          const common::filesystem::path meshPath = mMeshShape->getMeshPath();
+          const common::filesystem::path relativeImagePath = imagePath.C_Str();
+          const common::filesystem::path absoluteImagePath
+              = common::filesystem::canonical(
+                  meshPath.parent_path() / relativeImagePath, ec);
 
           if (ec)
           {
@@ -505,8 +529,6 @@ MeshShapeGeode::MeshShapeGeode(
     mAiNode(node),
     mMainNode(parentNode)
 {
-  getOrCreateStateSet()->setMode(GL_BLEND, ::osg::StateAttribute::ON);
-  getOrCreateStateSet()->setRenderingHint(::osg::StateSet::TRANSPARENT_BIN);
   getOrCreateStateSet()->setAttributeAndModes(
       new ::osg::CullFace(::osg::CullFace::BACK));
   extractData(true);
@@ -710,6 +732,7 @@ void MeshShapeGeometry::extractData(bool firstTime)
       || firstTime)
   {
     bool isColored = false;
+    ::osg::StateSet* ss = getOrCreateStateSet();
 
     if (mMeshShape->getColorMode() == dart::dynamics::MeshShape::COLOR_INDEX)
     {
@@ -755,6 +778,14 @@ void MeshShapeGeometry::extractData(bool firstTime)
 
         setColorArray(mColors);
         setColorBinding(::osg::Geometry::BIND_PER_VERTEX);
+
+        // Set as a transparent object by default
+        // TODO(JS): Revisit if this doesn't make sense
+        ss->setMode(GL_BLEND, ::osg::StateAttribute::ON);
+        ss->setRenderingHint(::osg::StateSet::TRANSPARENT_BIN);
+        ::osg::ref_ptr<::osg::Depth> depth = new ::osg::Depth;
+        depth->setWriteMask(false);
+        ss->setAttributeAndModes(depth, ::osg::StateAttribute::ON);
       }
     }
 
@@ -766,37 +797,104 @@ void MeshShapeGeometry::extractData(bool firstTime)
               -1)) // -1 is being used by us to indicate no material
       {
         isColored = true;
-        auto material = mMainNode->getMaterial(matIndex);
+        ::osg::Material* material = mMainNode->getMaterial(matIndex);
         if (mMeshShape->getAlphaMode() == dynamics::MeshShape::SHAPE_ALPHA)
         {
+          const float shapeAlpha
+              = static_cast<float>(mVisualAspect->getAlpha());
+
           ::osg::ref_ptr<::osg::Material> newMaterial
               = new ::osg::Material(*material);
           newMaterial->setAlpha(
-              ::osg::Material::Face::FRONT_AND_BACK,
-              static_cast<float>(mVisualAspect->getAlpha()));
-          getOrCreateStateSet()->setAttributeAndModes(newMaterial);
+              ::osg::Material::Face::FRONT_AND_BACK, shapeAlpha);
+          ss->setAttributeAndModes(newMaterial);
+
+          // Set alpha specific properties
+          if (std::abs(shapeAlpha) > 1 - getAlphaThreshold<float>())
+          {
+            ss->setMode(GL_BLEND, ::osg::StateAttribute::OFF);
+            ss->setRenderingHint(::osg::StateSet::OPAQUE_BIN);
+            ::osg::ref_ptr<::osg::Depth> depth = new ::osg::Depth;
+            depth->setWriteMask(true);
+            ss->setAttributeAndModes(depth, ::osg::StateAttribute::ON);
+          }
+          else
+          {
+            ss->setMode(GL_BLEND, ::osg::StateAttribute::ON);
+            ss->setRenderingHint(::osg::StateSet::TRANSPARENT_BIN);
+            ::osg::ref_ptr<::osg::Depth> depth = new ::osg::Depth;
+            depth->setWriteMask(false);
+            ss->setAttributeAndModes(depth, ::osg::StateAttribute::ON);
+          }
         }
         else if (mMeshShape->getAlphaMode() == dynamics::MeshShape::BLEND)
         {
-          const auto shapeAlpha = static_cast<float>(mVisualAspect->getAlpha());
+          float shapeAlpha = static_cast<float>(mVisualAspect->getAlpha());
           ::osg::ref_ptr<::osg::Material> newMaterial
               = new ::osg::Material(*material);
           blendMaterialAlpha(newMaterial, shapeAlpha);
-          getOrCreateStateSet()->setAttributeAndModes(newMaterial);
+          ss->setAttributeAndModes(newMaterial);
+
+          // Set alpha specific properties
+          if (std::abs(shapeAlpha) > 1 - getAlphaThreshold<float>()
+              && !isTransparent(material))
+          {
+            ss->setMode(GL_BLEND, ::osg::StateAttribute::OFF);
+            ss->setRenderingHint(::osg::StateSet::OPAQUE_BIN);
+            ::osg::ref_ptr<::osg::Depth> depth = new ::osg::Depth;
+            depth->setWriteMask(true);
+            ss->setAttributeAndModes(depth, ::osg::StateAttribute::ON);
+          }
+          else
+          {
+            ss->setMode(GL_BLEND, ::osg::StateAttribute::ON);
+            ss->setRenderingHint(::osg::StateSet::TRANSPARENT_BIN);
+            ::osg::ref_ptr<::osg::Depth> depth = new ::osg::Depth;
+            depth->setWriteMask(false);
+            ss->setAttributeAndModes(depth, ::osg::StateAttribute::ON);
+          }
         }
         else
         {
-          getOrCreateStateSet()->setAttributeAndModes(material);
+          ss->setAttributeAndModes(material);
+
+          // Set alpha specific properties
+          if (!isTransparent(material))
+          {
+            ss->setMode(GL_BLEND, ::osg::StateAttribute::OFF);
+            ss->setRenderingHint(::osg::StateSet::OPAQUE_BIN);
+            ::osg::ref_ptr<::osg::Depth> depth = new ::osg::Depth;
+            depth->setWriteMask(true);
+            ss->setAttributeAndModes(depth, ::osg::StateAttribute::ON);
+          }
+          else
+          {
+            ss->setMode(GL_BLEND, ::osg::StateAttribute::ON);
+            ss->setRenderingHint(::osg::StateSet::TRANSPARENT_BIN);
+            ::osg::ref_ptr<::osg::Depth> depth = new ::osg::Depth;
+            depth->setWriteMask(false);
+            ss->setAttributeAndModes(depth, ::osg::StateAttribute::ON);
+          }
         }
       }
       else
       {
-        getOrCreateStateSet()->removeAttribute(::osg::StateAttribute::MATERIAL);
+        ss->removeAttribute(::osg::StateAttribute::MATERIAL);
+        ss->setMode(GL_BLEND, ::osg::StateAttribute::OFF);
+        ss->setRenderingHint(::osg::StateSet::OPAQUE_BIN);
+        ::osg::ref_ptr<::osg::Depth> depth = new ::osg::Depth;
+        depth->setWriteMask(true);
+        ss->setAttributeAndModes(depth, ::osg::StateAttribute::ON);
       }
     }
     else
     {
-      getOrCreateStateSet()->removeAttribute(::osg::StateAttribute::MATERIAL);
+      ss->removeAttribute(::osg::StateAttribute::MATERIAL);
+      ss->setMode(GL_BLEND, ::osg::StateAttribute::OFF);
+      ss->setRenderingHint(::osg::StateSet::OPAQUE_BIN);
+      ::osg::ref_ptr<::osg::Depth> depth = new ::osg::Depth;
+      depth->setWriteMask(true);
+      ss->setAttributeAndModes(depth, ::osg::StateAttribute::ON);
     }
 
     const aiVector3D* aiTexCoords = mAiMesh->mTextureCoords[0];
@@ -806,22 +904,38 @@ void MeshShapeGeometry::extractData(bool firstTime)
     if (!isColored
         || mMeshShape->getColorMode() == dart::dynamics::MeshShape::SHAPE_COLOR)
     {
+      // Set color
       const Eigen::Vector4f& c = mVisualAspect->getRGBA().cast<float>();
-
-      if (mColors->size() != 1)
-        mColors->resize(1);
-
+      mColors->resize(1);
       (*mColors)[0] = ::osg::Vec4(c[0], c[1], c[2], c[3]);
-
       setColorArray(mColors);
       setColorBinding(::osg::Geometry::BIND_OVERALL);
+
+      // Set alpha specific properties
+      ::osg::StateSet* ss = getOrCreateStateSet();
+      if (std::abs(c[3]) > 1 - getAlphaThreshold<float>())
+      {
+        ss->setMode(GL_BLEND, ::osg::StateAttribute::OFF);
+        ss->setRenderingHint(::osg::StateSet::OPAQUE_BIN);
+        ::osg::ref_ptr<::osg::Depth> depth = new ::osg::Depth;
+        depth->setWriteMask(true);
+        ss->setAttributeAndModes(depth, ::osg::StateAttribute::ON);
+      }
+      else
+      {
+        ss->setMode(GL_BLEND, ::osg::StateAttribute::ON);
+        ss->setRenderingHint(::osg::StateSet::TRANSPARENT_BIN);
+        ::osg::ref_ptr<::osg::Depth> depth = new ::osg::Depth;
+        depth->setWriteMask(false);
+        ss->setAttributeAndModes(depth, ::osg::StateAttribute::ON);
+      }
     }
   }
 
   // Load textures on the first pass through
   if (firstTime)
   {
-    uint unit = 0;
+    unsigned int unit = 0;
     const aiVector3D* aiTexCoords = mAiMesh->mTextureCoords[unit];
 
     while (nullptr != aiTexCoords)

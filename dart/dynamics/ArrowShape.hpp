@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -67,6 +67,9 @@ public:
     bool mDoubleArrow;
   };
 
+  /// Empty constructor (for copying)
+  ArrowShape();
+
   /// This will produce an arrow that reaches from _tail to _head with the given
   /// properties.
   ArrowShape(
@@ -99,6 +102,9 @@ public:
       const Eigen::Vector3d& _tail,
       const Eigen::Vector3d& _head,
       const Properties& _properties);
+
+  // Documentation inherited.
+  ShapePtr clone() const override;
 
 protected:
   void instantiate(std::size_t resolution);

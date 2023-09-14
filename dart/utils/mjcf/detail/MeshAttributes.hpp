@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -49,9 +49,9 @@ namespace detail {
 struct MeshAttributes final
 {
   /// Name of the Asset
-  common::optional<std::string> mName;
+  std::optional<std::string> mName;
 
-  common::optional<std::string> mFile;
+  std::optional<std::string> mFile;
 
   Eigen::Vector3d mScale{Eigen::Vector3d::Ones()};
 };

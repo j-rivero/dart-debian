@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -121,6 +121,9 @@ public:
 
   /// Set the spatial tensor
   void setSpatialTensor(const Eigen::Matrix6d& _spatial);
+
+  /// Set the spatial tensor, with option to silence warnings.
+  void setSpatialTensor(const Eigen::Matrix6d& _spatial, bool _printWarnings);
 
   /// Get the spatial inertia tensor
   const Eigen::Matrix6d& getSpatialTensor() const;

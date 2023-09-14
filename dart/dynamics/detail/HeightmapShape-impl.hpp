@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -182,6 +182,17 @@ template <typename S>
 void HeightmapShape<S>::notifyColorUpdated(const Eigen::Vector4d& /*color*/)
 {
   incrementVersion();
+}
+
+//==============================================================================
+template <typename S>
+ShapePtr HeightmapShape<S>::clone() const
+{
+  auto new_mesh = std::make_shared<HeightmapShape<S>>();
+  new_mesh->mScale = mScale;
+  new_mesh->setHeightField(mHeights);
+
+  return new_mesh;
 }
 
 //==============================================================================

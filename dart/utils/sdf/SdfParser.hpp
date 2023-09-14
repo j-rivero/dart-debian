@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -79,16 +79,14 @@ simulation::WorldPtr readWorld(
 
 DART_DEPRECATED(6.12)
 simulation::WorldPtr readWorld(
-    const common::Uri& uri,
-    const common::ResourceRetrieverPtr& retriever);
+    const common::Uri& uri, const common::ResourceRetrieverPtr& retriever);
 
 dynamics::SkeletonPtr readSkeleton(
     const common::Uri& uri, const Options& options = Options());
 
 DART_DEPRECATED(6.12)
 dynamics::SkeletonPtr readSkeleton(
-    const common::Uri& uri,
-    const common::ResourceRetrieverPtr& retrievers);
+    const common::Uri& uri, const common::ResourceRetrieverPtr& retrievers);
 
 } // namespace SdfParser
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -64,7 +64,7 @@ namespace osg {
 // and dart::gui::osg, we need to explicitly specify the root namespace osg as
 // ::osg
 
-class OSGGA_EXPORT TrackballManipulator : public ::osgGA::OrbitManipulator
+class TrackballManipulator : public ::osgGA::OrbitManipulator
 {
 public:
   /// Constructor

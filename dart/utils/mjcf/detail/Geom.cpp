@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -92,7 +92,7 @@ Errors Geom::read(
 
 //==============================================================================
 static bool canUseFromTo(
-    GeomType type, const common::optional<Eigen::Vector6d>& fromto)
+    GeomType type, const std::optional<Eigen::Vector6d>& fromto)
 {
   if (!fromto)
     return false;
@@ -110,13 +110,18 @@ static bool canUseFromTo(
 }
 
 //==============================================================================
-Errors Geom::preprocess(const Compiler& compiler)
+Errors Geom::preprocess(const Compiler& compiler, bool autoName)
 {
   Errors errors;
 
   if (mAttributes.mName)
   {
     mName = *mAttributes.mName;
+  }
+  else if (autoName)
+  {
+    static unsigned int index = 0;
+    mName = "geom (" + std::to_string(index++) + ")";
   }
 
   mType = mAttributes.mType;

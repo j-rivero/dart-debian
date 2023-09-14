@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -56,7 +56,7 @@ public:
 
   /// Constructs from a octomap::OcTree.
   /// \param[in] octree Octree.
-  explicit VoxelGridShape(fcl_shared_ptr<octomap::OcTree> octree);
+  explicit VoxelGridShape(std::shared_ptr<octomap::OcTree> octree);
 
   /// Destructor.
   ~VoxelGridShape() override = default;
@@ -68,13 +68,13 @@ public:
   static const std::string& getStaticType();
 
   /// Sets octree.
-  void setOctree(fcl_shared_ptr<octomap::OcTree> octree);
+  void setOctree(std::shared_ptr<octomap::OcTree> octree);
 
   /// Returns octree.
-  fcl_shared_ptr<octomap::OcTree> getOctree();
+  std::shared_ptr<octomap::OcTree> getOctree();
 
   /// Returns octree.
-  fcl_shared_ptr<const octomap::OcTree> getOctree() const;
+  std::shared_ptr<const octomap::OcTree> getOctree() const;
 
   /// Updates the occupancy probability of the voxels where \c point is located.
   ///
@@ -147,6 +147,9 @@ public:
   // Documentation inherited.
   void notifyColorUpdated(const Eigen::Vector4d& color) override;
 
+  // Documentation inherited.
+  ShapePtr clone() const override;
+
 protected:
   // Documentation inherited.
   void updateBoundingBox() const override;
@@ -155,7 +158,7 @@ protected:
   void updateVolume() const override;
 
   /// Octree.
-  fcl_shared_ptr<octomap::OcTree> mOctree;
+  std::shared_ptr<octomap::OcTree> mOctree;
   // TODO(JS): Use std::shared_ptr once we drop supporting FCL (< 0.5)
 };
 

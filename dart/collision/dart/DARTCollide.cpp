@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -50,11 +50,6 @@ namespace collision {
 // penetration : real positive means penetration
 
 #define DART_COLLISION_EPS 1E-6
-static const int MAX_CYLBOX_CLIP_POINTS = 16;
-static const int nCYLINDER_AXIS = 2;
-// Number of segment of cylinder base circle.
-// Must be divisible by 4.
-static const int nCYLINDER_SEGMENT = 8;
 
 typedef double dVector3[4];
 typedef double dVector3[4];
@@ -1484,15 +1479,17 @@ int collideCylinderPlane(
 
   // four corners c0 = ( -h/2, -r ), c1 = ( +h/2, -r ), c2 = ( +h/2, +r ), c3 =
   // ( -h/2, +r )
-  Eigen::Vector3d c[4] = {Eigen::Vector3d(-half_height, -cyl_rad, 0.0),
-                          Eigen::Vector3d(+half_height, -cyl_rad, 0.0),
-                          Eigen::Vector3d(+half_height, +cyl_rad, 0.0),
-                          Eigen::Vector3d(-half_height, +cyl_rad, 0.0)};
+  Eigen::Vector3d c[4]
+      = {Eigen::Vector3d(-half_height, -cyl_rad, 0.0),
+         Eigen::Vector3d(+half_height, -cyl_rad, 0.0),
+         Eigen::Vector3d(+half_height, +cyl_rad, 0.0),
+         Eigen::Vector3d(-half_height, +cyl_rad, 0.0)};
 
-  double depth[4] = {(pn - c[0]).dot(nn),
-                     (pn - c[1]).dot(nn),
-                     (pn - c[2]).dot(nn),
-                     (pn - c[3]).dot(nn)};
+  double depth[4]
+      = {(pn - c[0]).dot(nn),
+         (pn - c[1]).dot(nn),
+         (pn - c[2]).dot(nn),
+         (pn - c[3]).dot(nn)};
 
   double penetration = -1.0;
   int found = -1;

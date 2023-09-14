@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -84,11 +84,10 @@ void CollisionGroup::addShapeFramesOf(
 {
   assert(bodyNode);
 
-  auto collisionShapeNodes
-      = bodyNode->getShapeNodesWith<dynamics::CollisionAspect>();
-
-  for (auto& shapeNode : collisionShapeNodes)
-    addShapeFrame(shapeNode);
+  bodyNode->eachShapeNodeWith<dynamics::CollisionAspect>(
+      [this](const dynamics::ShapeNode* shapeNode) {
+        addShapeFrame(shapeNode);
+      });
 
   addShapeFramesOf(others...);
 }
@@ -118,15 +117,11 @@ void CollisionGroup::subscribeTo(
   if (inserted.second)
   {
     const BodyNodeSources::iterator& entry = inserted.first;
-
-    const auto collisionShapeNodes
-        = bodyNode->getShapeNodesWith<dynamics::CollisionAspect>();
-
-    for (const auto& shapeNode : collisionShapeNodes)
-    {
-      entry->second.mObjects.insert(
-          {shapeNode, addShapeFrameImpl(shapeNode, bodyNode.get())});
-    }
+    bodyNode->eachShapeNodeWith<dynamics::CollisionAspect>(
+        [&](const dynamics::ShapeNode* shapeNode) {
+          entry->second.mObjects.insert(
+              {shapeNode, addShapeFrameImpl(shapeNode, bodyNode.get())});
+        });
   }
 
   subscribeTo(others...);
@@ -149,21 +144,18 @@ void CollisionGroup::subscribeTo(
     {
       const dynamics::BodyNode* bn = skeleton->getBodyNode(i);
 
-      const auto& collisionShapeNodes
-          = bn->getShapeNodesWith<dynamics::CollisionAspect>();
-
       auto& childInfo
           = entry.mChildren
                 .insert(std::make_pair(
                     bn, SkeletonSource::ChildInfo(bn->getVersion())))
                 .first->second;
 
-      for (const auto& shapeNode : collisionShapeNodes)
-      {
-        entry.mObjects.insert(
-            {shapeNode, addShapeFrameImpl(shapeNode, skeleton.get())});
-        childInfo.mFrames.insert(shapeNode);
-      }
+      bn->eachShapeNodeWith<dynamics::CollisionAspect>(
+          [&](const dynamics::ShapeNode* shapeNode) {
+            entry.mObjects.insert(
+                {shapeNode, addShapeFrameImpl(shapeNode, skeleton.get())});
+            childInfo.mFrames.insert(shapeNode);
+          });
     }
   }
 
@@ -220,11 +212,10 @@ void CollisionGroup::removeShapeFramesOf(
 {
   assert(bodyNode);
 
-  auto collisionShapeNodes
-      = bodyNode->getShapeNodesWith<dynamics::CollisionAspect>();
-
-  for (auto& shapeNode : collisionShapeNodes)
-    removeShapeFrame(shapeNode);
+  bodyNode->eachShapeNodeWith<dynamics::CollisionAspect>(
+      [&](const dynamics::ShapeNode* shapeNode) {
+        removeShapeFrame(shapeNode);
+      });
 
   removeShapeFramesOf(others...);
 }
@@ -278,6 +269,24 @@ void CollisionGroup::unsubscribeFrom(
   }
 
   unsubscribeFrom(others...);
+}
+
+//==============================================================================
+template <typename... Others>
+bool CollisionGroup::isSubscribedTo(
+    const dynamics::BodyNode* bodyNode, const Others*... others)
+{
+  auto it = mBodyNodeSources.find(bodyNode);
+  return (it != mBodyNodeSources.end()) && isSubscribedTo(others...);
+}
+
+//==============================================================================
+template <typename... Others>
+bool CollisionGroup::isSubscribedTo(
+    const dynamics::Skeleton* skeleton, const Others*... others)
+{
+  auto it = mSkeletonSources.find(skeleton);
+  return (it != mSkeletonSources.end()) && isSubscribedTo(others...);
 }
 
 } // namespace collision

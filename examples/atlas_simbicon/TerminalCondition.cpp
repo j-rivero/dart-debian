@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -90,14 +90,14 @@ bool BodyContactCondition::isSatisfied()
     for (std::size_t i = 0; i < soft->getNumPointMasses(); ++i)
     {
       PointMass* pm = soft->getPointMass(i);
-      if (pm->isColliding() > 0)
+      if (pm->isColliding())
         return true;
     }
   }
 
   // TODO(JS): Need more elegant condition check method
   DART_SUPPRESS_DEPRECATED_BEGIN
-  if (mBodyNode->isColliding() > 0)
+  if (mBodyNode->isColliding())
     DART_SUPPRESS_DEPRECATED_END
     {
       //    dtmsg << "BodyNode [" << mBodyNode->getName() << "] is in contact."

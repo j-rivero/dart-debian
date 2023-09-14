@@ -1,7 +1,11 @@
 #===============================================================================
 # CMake settings
 #===============================================================================
-cmake_minimum_required(VERSION 3.10.2)
+if(WIN32)
+  cmake_minimum_required(VERSION 3.11)
+else()
+  cmake_minimum_required(VERSION 3.10.2)
+endif()
 
 project(dart)
 
@@ -68,7 +72,7 @@ string(REGEX REPLACE "^<version>([0-9]+)\\.([0-9]+)\\.([0-9]+)</version>$" "\\3"
 set(DART_VERSION "${DART_MAJOR_VERSION}.${DART_MINOR_VERSION}.${DART_PATCH_VERSION}")
 
 set(DART_PKG_DESC "Dynamic Animation and Robotics Toolkit.")
-set(DART_PKG_EXTERNAL_DEPS "eigen, ccd, fcl, assimp, boost")
+set(DART_PKG_EXTERNAL_DEPS "eigen, ccd, fcl, assimp")
 
 #===============================================================================
 # Build options
@@ -92,10 +96,10 @@ option(DART_ENABLE_SIMD
   "Build DART with all SIMD instructions on the current local machine" OFF)
 option(DART_BUILD_GUI_OSG "Build osgDart library" ON)
 option(DART_BUILD_EXTRAS "Build extra projects" OFF)
+option(DART_BUILD_DARTPY "Build dartpy" ON)
 option(DART_CODECOV "Turn on codecov support" OFF)
-option(DART_TREAT_WARNINGS_AS_ERRORS "Treat warnings as errors" OFF)
 option(DART_FAST_DEBUG "Add -O1 option for DEBUG mode build" OFF)
-# GCC and Clang add ANSI-formatted colors when they detect the output medium is a 
+# GCC and Clang add ANSI-formatted colors when they detect the output medium is a
 # terminal. However, this doesn't work in some cases such as when the makefile is
 # invoked by Ninja. DART_FORCE_COLORED_OUTPUT can be used in this case to enforce
 # to always generate ANSI-formatted colors regardless of the output medium types.
@@ -110,6 +114,13 @@ message(STATUS "")
 message(STATUS "============================================")
 message(STATUS "                DART ${DART_VERSION}")
 message(STATUS "============================================")
+message(STATUS "")
+
+# Print build tool information
+message(STATUS "[ Build Tools ]")
+message(STATUS "- CMake: ${CMAKE_VERSION}")
+message(STATUS "- C++  : ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+message(STATUS "")
 
 #===============================================================================
 # CodeCov settings
@@ -147,6 +158,28 @@ else()
   message(WARNING "CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE} unknown. Valid options are: Debug | Release | RelWithDebInfo | MinSizeRel")
 endif()
 
+# Active log level:
+#
+# - TRACE: To enable log with DART_TRACE() and below
+# - DEBUG: To enable log with DART_DEBUG() and below
+# - INFO: To enable log with DART_INFO() and below
+# - WARN: To enable log with DART_WARN() and below
+# - ERROR: To enable log with DART_ERROR() and below
+# - FATAL: To enable log with DART_FATAL()
+# - OFF: To turn off all the logs
+if(BUILD_TYPE_DEBUG)
+  set(DART_ACTIVE_LOG_LEVEL "DEBUG" CACHE STRING "Compile time active log level to enable")
+else()
+  set(DART_ACTIVE_LOG_LEVEL "INFO" CACHE STRING "Compile time active log level to enable")
+endif()
+set_property(CACHE DART_ACTIVE_LOG_LEVEL PROPERTY STRINGS TRACE DEBUG INFO WARN ERROR FATAL OFF)
+
+if(BUILD_TYPE_DEBUG)
+  option(DART_TREAT_WARNINGS_AS_ERRORS "Treat warnings as errors" OFF)
+else()
+  option(DART_TREAT_WARNINGS_AS_ERRORS "Treat warnings as errors" ON)
+endif()
+
 #===============================================================================
 # Find dependencies
 #===============================================================================
@@ -177,10 +210,10 @@ if(MSVC)
   endif()
 
   if(DART_TREAT_WARNINGS_AS_ERRORS)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /WX")
+    add_compile_options(/WX)
   endif()
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /permissive- /Zc:twoPhase-")
-  set(CMAKE_EXE_LINKER_FLAGS_RELEASE "/LTCG /INCREMENTAL:NO")
+  set(CMAKE_EXE_LINKER_FLAGS_RELEASE "/INCREMENTAL:NO")
   if(NOT DART_MSVC_DEFAULT_OPTIONS)
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${DART_RUNTIME_LIBRARY}d /Zi /Gy /W1 /EHsc")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${DART_RUNTIME_LIBRARY} /Zi /GL /Gy /W1 /EHsc")
@@ -188,6 +221,7 @@ if(MSVC)
   add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_ENABLE_EXTENDED_ALIGNED_STORAGE)
   add_compile_options(/wd4005)
   add_compile_options(/wd4099)
+  add_compile_options(/wd4146)  # for FCL warnings: https://github.com/dartsim/dart/runs/4568423649?check_suite_focus=true#step:5:407
   add_compile_options(/wd4244)
   add_compile_options(/wd4250)
   add_compile_options(/wd4267)
@@ -199,10 +233,10 @@ if(MSVC)
 
 elseif(CMAKE_COMPILER_IS_GNUCXX)
 
+  add_compile_options(-Wall -Wextra -fPIC)
   if(DART_TREAT_WARNINGS_AS_ERRORS)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
+    add_compile_options(-Werror)
   endif()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -fPIC")
   execute_process(
     COMMAND ${CMAKE_CXX_COMPILER} -dumpfullversion -dumpversion OUTPUT_VARIABLE GCC_VERSION)
   if(GCC_VERSION VERSION_LESS 7.3.0)
@@ -224,12 +258,10 @@ elseif(CMAKE_COMPILER_IS_GNUCXX)
 
 elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
 
+  add_compile_options(-Wall -Wextra -fPIC)
   if(DART_TREAT_WARNINGS_AS_ERRORS)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wno-error=deprecated-declarations")
-    # Turn warning "deprecated-declarations" into an warning even if -Werror is
-    # specified until we abandon glut.
+    add_compile_options(-Werror)
   endif()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
   execute_process(
     COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE CLANG_VERSION)
   if(CLANG_VERSION VERSION_LESS 6.0)
@@ -304,7 +336,7 @@ if(TARGET dart)
 
   # Add example subdirectories and an "examples" target.
   if(MSVC)
-    # add_subdirectory(examples)
+    add_subdirectory(examples)
   else()
     add_subdirectory(examples EXCLUDE_FROM_ALL)
     get_property(examples GLOBAL PROPERTY DART_EXAMPLES)
@@ -324,7 +356,7 @@ if(TARGET dart)
 
   # Add a "tutorials" target to build tutorials.
   if(MSVC)
-    # add_subdirectory(tutorials)
+    add_subdirectory(tutorials)
   else()
     add_subdirectory(tutorials EXCLUDE_FROM_ALL)
     get_property(tutorials GLOBAL PROPERTY DART_TUTORIALS)
@@ -479,7 +511,7 @@ endif()
 
 find_program(
   CLANG_FORMAT_EXECUTABLE
-  NAMES clang-format-9
+  NAMES clang-format-12
 )
 
 get_property(formatting_files GLOBAL PROPERTY DART_FORMAT_FILES)

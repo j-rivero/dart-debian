@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -35,6 +35,7 @@
 #include <algorithm>
 
 #include "dart/common/Console.hpp"
+#include "dart/dynamics/BodyNode.hpp"
 #include "dart/dynamics/DegreeOfFreedom.hpp"
 #include "dart/dynamics/JacobianNode.hpp"
 
@@ -1111,6 +1112,24 @@ double MetaSkeleton::getKineticEnergy() const
 double MetaSkeleton::getPotentialEnergy() const
 {
   return computePotentialEnergy();
+}
+
+//==============================================================================
+void MetaSkeleton::setColor(const Eigen::Vector3d& color)
+{
+  eachBodyNode([&](BodyNode* bodyNode) { bodyNode->setColor(color); });
+}
+
+//==============================================================================
+void MetaSkeleton::setColor(const Eigen::Vector4d& color)
+{
+  eachBodyNode([&](BodyNode* bodyNode) { bodyNode->setColor(color); });
+}
+
+//==============================================================================
+void MetaSkeleton::setAlpha(double alpha)
+{
+  eachBodyNode([&](BodyNode* bodyNode) { bodyNode->setAlpha(alpha); });
 }
 
 //==============================================================================

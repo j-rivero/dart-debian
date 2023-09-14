@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -196,7 +196,14 @@ Eigen::Matrix3d Inertia::getMoment() const
 //==============================================================================
 void Inertia::setSpatialTensor(const Eigen::Matrix6d& _spatial)
 {
-  if (!verifySpatialTensor(_spatial, true))
+  setSpatialTensor(_spatial, true);
+}
+
+//==============================================================================
+void Inertia::setSpatialTensor(
+    const Eigen::Matrix6d& _spatial, bool _printWarnings)
+{
+  if (!verifySpatialTensor(_spatial, _printWarnings))
     dtwarn << "[Inertia::setSpatialTensor] Passing in an invalid spatial "
            << "inertia tensor. Results might not be physically accurate or "
            << "meaningful.\n";

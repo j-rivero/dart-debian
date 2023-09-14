@@ -1,5 +1,57 @@
 ## DART 6
 
+### [DART 6.13.0 (2022-12-31)](https://github.com/dartsim/dart/milestone/69?closed=1)
+
+* Supported Platforms
+
+  * Ubuntu Focal on amd64 / GCC 9.3 / amd64
+  * Ubuntu Jammy on amd64 / GCC 11.2 / amd64
+  * macOS 12 (Monterey) / Clang 13 / amd64
+  * Windows / Microsoft Visual Studio 2019 / amd64
+
+* Dependency
+
+  * Added required dependencies: fmt
+  * Added optional dependencies: spdlog
+  * Removed required dependencies: Boost
+
+* Build
+
+  * Dropped supporting FCL < 0.5: [#1647](https://github.com/dartsim/dart/pull/1647)
+
+* Common
+
+  * Added Castable class: [#1634](https://github.com/dartsim/dart/pull/1634)
+  * Added spdlog support as underlying logging framework: [#1633](https://github.com/dartsim/dart/pull/1633)
+  * Added custom memory allocators: [#1636](https://github.com/dartsim/dart/pull/1636), [#1637](https://github.com/dartsim/dart/pull/1637), [#1639](https://github.com/dartsim/dart/pull/1639), [#1645](https://github.com/dartsim/dart/pull/1645), [#1646](https://github.com/dartsim/dart/pull/1646)
+  * Added Stopwatch class to replace Timer: [#1638](https://github.com/dartsim/dart/pull/1638)
+  * Removed Boost dependency: [#1648](https://github.com/dartsim/dart/pull/1648), [#1651](https://github.com/dartsim/dart/pull/1651)
+
+* Collision Detection
+
+  * Updated to use convex mesh of Bullet when possible: [#1664](https://github.com/dartsim/dart/pull/1664), [#1667](https://github.com/dartsim/dart/pull/1667)
+
+* Dynamics
+
+  * Fixed setResitutionCoeff() calling setFrictionCoeff(): [#1677](https://github.com/dartsim/dart/pull/1677)
+  * Made inertial warnings optional when setting tensor: [#1672](https://github.com/dartsim/dart/pull/1672)
+  * Added deep copy for shapes: [#1612](https://github.com/dartsim/dart/pull/1612)
+  * Added iterator methods to container-like classes: [#1644](https://github.com/dartsim/dart/pull/1644)
+  * Fixed grouping of constraints: [#1624](https://github.com/dartsim/dart/pull/1624), [#1628](https://github.com/dartsim/dart/pull/1628)
+  * Fixed issue with removing skeletons without shapes: [#1625](https://github.com/dartsim/dart/pull/1625)
+  * Added support for custom contact surface handlers: [#1626](https://github.com/dartsim/dart/pull/1626)
+
+* GUI
+
+  * Fixed depth testing for transparent objects: [#1643](https://github.com/dartsim/dart/pull/1643)
+  * Added depth rendering mode: [#1652](https://github.com/dartsim/dart/pull/1652)
+
+### [DART 6.12.2 (2022-07-31)](https://github.com/dartsim/dart/milestone/72?closed=1)
+
+* Build
+
+  * Fixed build with urdfdom 3.1.0 on Windows: [#1675](https://github.com/dartsim/dart/pull/1675)
+
 ### [DART 6.12.1 (2021-11-04)](https://github.com/dartsim/dart/milestone/71?closed=1)
 
 * Build

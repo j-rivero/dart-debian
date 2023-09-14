@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -178,7 +178,7 @@ Errors Site::read(tinyxml2::XMLElement* element)
 
 //==============================================================================
 static bool canUseFromTo(
-    GeomType type, const common::optional<Eigen::Vector6d>& fromto)
+    GeomType type, const std::optional<Eigen::Vector6d>& fromto)
 {
   if (!fromto)
     return false;

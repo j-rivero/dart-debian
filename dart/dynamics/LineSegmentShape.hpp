@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -107,6 +107,9 @@ public:
   /// The returned inertia matrix will be like a very thin cylinder. The _mass
   /// will be evenly distributed across all lines.
   Eigen::Matrix3d computeInertia(double mass) const override;
+
+  // Documentation inherited.
+  ShapePtr clone() const override;
 
   // TODO(MXG): Consider supporting colors-per-vertex
 

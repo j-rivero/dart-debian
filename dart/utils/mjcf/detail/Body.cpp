@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -46,7 +46,7 @@ namespace detail {
 //==============================================================================
 Errors Body::read(
     tinyxml2::XMLElement* element,
-    const common::optional<Size>& size,
+    const std::optional<Size>& size,
     const Defaults& defaults,
     const Default* currentDefault)
 {
@@ -157,7 +157,7 @@ Errors Body::preprocess(const Compiler& compiler)
 
   for (Geom& geom : mGeoms)
   {
-    const Errors geomErrors = geom.preprocess(compiler);
+    const Errors geomErrors = geom.preprocess(compiler, true);
     errors.insert(errors.end(), geomErrors.begin(), geomErrors.end());
   }
 

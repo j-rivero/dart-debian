@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -117,7 +117,7 @@ private:
       const GeomAttributes& defaultAttributes);
 
   /// Updates attributes and elements that doesn't require any other elements.
-  Errors preprocess(const Compiler& compiler);
+  Errors preprocess(const Compiler& compiler, bool autoName = false);
 
   /// Updates attributes and elements that require the preprocessed child
   /// elements of this <geom>.

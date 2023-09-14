@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -51,7 +51,8 @@ void ImGuiViewer(py::module& m)
       .def(::py::init<>())
       .def(
           ::py::init([](const Eigen::Vector4d& clearColor) {
-            return new ::dart::gui::osg::ImGuiViewer(eigToOsgVec4f(clearColor));
+            return new ::dart::gui::osg::ImGuiViewer(
+                gui::osg::eigToOsgVec4f(clearColor));
           }),
           ::py::arg("clearColor"))
       .def(::py::init<const osg::Vec4&>(), ::py::arg("clearColor"))

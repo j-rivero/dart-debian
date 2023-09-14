@@ -1,4 +1,4 @@
-# Copyright (c) 2011-2021, The DART development contributors
+# Copyright (c) 2011-2022, The DART development contributors
 # All rights reserved.
 #
 # The list of contributors can be found at:
@@ -13,31 +13,25 @@ endif()
 # Find pybind11, including PythonInterp and PythonLibs
 # Needs to set PYBIND11_PYTHON_VERSION before finding pybind11
 set(PYBIND11_PYTHON_VERSION ${DARTPY_PYTHON_VERSION})
+if(WIN32)
+  set(PYBIND11_FINDPYTHON TRUE)
+endif()
 find_package(pybind11 2.2.0 QUIET)
 if(NOT pybind11_FOUND)
   message(WARNING "Disabling [dartpy] due to missing pybind11 >= 2.2.0.")
   return()
 endif()
 
-if(NOT PythonInterp_FOUND AND NOT PYTHONINTERP_FOUND)
-  message(WARNING "Disabling [dartpy] due to missing [PythonInterp].")
-  return()
-endif()
-
-if(NOT PythonLibs_FOUND AND NOT PYTHONLIBS_FOUND)
-  message(WARNING "Disabling [dartpy] due to missing [PythonLibs].")
-  return()
-endif()
-
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c
   "from distutils.sysconfig import get_python_lib;\
-  print(get_python_lib(plat_specific=True, prefix=''))"
+  print(get_python_lib(plat_specific=True))"
   OUTPUT_VARIABLE PYTHON_SITE_PACKAGES
   OUTPUT_STRIP_TRAILING_WHITESPACE
 )
-if(NOT IS_ABSOLUTE PYTHON_SITE_PACKAGES)
+if(NOT IS_ABSOLUTE ${PYTHON_SITE_PACKAGES})
   set(PYTHON_SITE_PACKAGES "${CMAKE_INSTALL_PREFIX}/${PYTHON_SITE_PACKAGES}")
 endif()
+set(PYTHON_SITE_PACKAGES ${PYTHON_SITE_PACKAGES} PARENT_SCOPE)
 
 file(GLOB_RECURSE dartpy_headers "*.h" "*.hpp")
 file(GLOB_RECURSE dartpy_sources "*.cpp")

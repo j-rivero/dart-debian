@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -37,24 +37,9 @@
 #include <string>
 #include <unordered_map>
 
-#include <boost/filesystem.hpp>
-#include <boost/functional/hash.hpp>
-
 #include "dart/common/Deprecated.hpp"
+#include "dart/common/Filesystem.hpp"
 #include "dart/common/Singleton.hpp"
-
-namespace std {
-
-template <>
-struct hash<boost::filesystem::path>
-{
-  size_t operator()(const boost::filesystem::path& p) const
-  {
-    return boost::filesystem::hash_value(p);
-  }
-};
-
-} // namespace std
 
 namespace dart {
 namespace common {
@@ -77,7 +62,7 @@ public:
   /// \deprecated Deprecated in 6.10. Please use load(const std::string&)
   /// instead.
   DART_DEPRECATED(6.10)
-  std::shared_ptr<SharedLibrary> load(const boost::filesystem::path& path);
+  std::shared_ptr<SharedLibrary> load(const common::filesystem::path& path);
 
   /// Loads the shared library with the specified path.
   ///
@@ -93,8 +78,19 @@ protected:
   friend class Singleton<SharedLibraryManager>;
 
 protected:
+  struct FileSystemHash
+  {
+    size_t operator()(const ::dart::common::filesystem::path& p) const
+    {
+      return ::dart::common::filesystem::hash_value(p);
+    }
+  };
+
   /// Map from library path to the library instances.
-  std::unordered_map<boost::filesystem::path, std::weak_ptr<SharedLibrary>>
+  std::unordered_map<
+      common::filesystem::path,
+      std::weak_ptr<SharedLibrary>,
+      FileSystemHash>
       mLibraries;
   // TODO(JS): Remove this in DART 7.
 

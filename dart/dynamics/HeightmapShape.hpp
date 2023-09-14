@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -148,6 +148,9 @@ public:
 
   /// Set the color of this arrow
   void notifyColorUpdated(const Eigen::Vector4d& color) override;
+
+  // Documentation inherited.
+  ShapePtr clone() const override;
 
 protected:
   // Documentation inherited.

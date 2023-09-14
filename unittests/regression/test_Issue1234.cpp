@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -112,12 +112,13 @@ void runIssue1234Test(
   {
     for (const double offset : {-0.1, 0.0, 0.1})
     {
-      for (const auto& normal : {Eigen::Vector3d(0.0, 0.0, 1.0),
-                                 Eigen::Vector3d(0.0, 0.0, -1.0),
-                                 Eigen::Vector3d(0.0, 1.0, 0.0),
-                                 Eigen::Vector3d(0.0, -1.0, 0.0),
-                                 Eigen::Vector3d(1.0, 0.0, 0.0),
-                                 Eigen::Vector3d(-1.0, 0.0, 0.0)})
+      for (const auto& normal :
+           {Eigen::Vector3d(0.0, 0.0, 1.0),
+            Eigen::Vector3d(0.0, 0.0, -1.0),
+            Eigen::Vector3d(0.0, 1.0, 0.0),
+            Eigen::Vector3d(0.0, -1.0, 0.0),
+            Eigen::Vector3d(1.0, 0.0, 0.0),
+            Eigen::Vector3d(-1.0, 0.0, 0.0)})
       {
         if (offset < 0.0)
         {

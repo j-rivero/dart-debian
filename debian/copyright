@@ -21,7 +21,7 @@ Copyright: 2011, Georgia Tech Graphics Lab
            2016-2017, Personal Robotics Lab, Carnegie Mellon University
            2017-2019, Personal Robotics Lab, University of Washington
            2001-2004, Russell L. Smith
-           2011-2020, The DART development contributors
+           2011-2022, The DART development contributors
            2004-2005, Tristan Grimmer
 License: BSD-2-clause
 
@@ -78,7 +78,7 @@ Comment: contains The ProggyClean.ttf, some parts are covered by CC-BY-SA-2.1-JP
  of English translation)
 
 Files: debian/*
-Copyright: 2016-2021, Jose Luis Rivero <jrivero@osrfoundation.org>
+Copyright: 2016-2023, Jose Luis Rivero <jrivero@osrfoundation.org>
 License: BSD-2-clause
 
 License: Apache-2

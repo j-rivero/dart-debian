@@ -1,12 +1,20 @@
-Description: Reduce level of precission for test in armel
-Author: Jose Luis Rivero <jrivero@openrobotics.org>
+From: Jose Luis Rivero <jrivero@openrobotics.org>
+Date: Thu, 14 Sep 2023 11:55:37 +0000
+Subject: Reduce level of precission for test in armel
+
 Forwarded: No
 Last-Update: 2022-01-16
+
+Last-Update: 2022-01-16
 ---
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/unittests/comprehensive/test_ForceDependentSlip.cpp
-+++ b/unittests/comprehensive/test_ForceDependentSlip.cpp
-@@ -146,7 +146,7 @@
+ unittests/integration/test_ForceDependentSlip.cpp | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/unittests/integration/test_ForceDependentSlip.cpp b/unittests/integration/test_ForceDependentSlip.cpp
+index 3f95e0b..dd42c1b 100644
+--- a/unittests/integration/test_ForceDependentSlip.cpp
++++ b/unittests/integration/test_ForceDependentSlip.cpp
+@@ -146,7 +146,7 @@ TEST(ForceDependentSlip, BoxSlipVelocity)
      if (i > 1000)
      {
        // The velocity of body1 should stabilize at F_ext * slip = 0.2 m/s
@@ -15,7 +23,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
        EXPECT_NEAR(0.0, body1->getLinearVelocity().y(), 2e-5);
  
        // The second box should remain at rest because of friction
-@@ -186,7 +186,7 @@
+@@ -186,7 +186,7 @@ TEST(ForceDependentSlip, BoxSlipVelocity)
      {
        // The velocity of body1 should stabilize at F_ext * slip2 = 0.3 m/s
        EXPECT_NEAR(0.0, body1->getLinearVelocity().x(), 2e-5);
@@ -24,7 +32,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
        // The second box should remain at rest because of friction
        EXPECT_NEAR(0.0, body2->getLinearVelocity().x(), 2e-5);
-@@ -276,8 +276,8 @@
+@@ -276,8 +276,8 @@ TEST(ForceDependentSlip, CylinderSlipVelocity)
        // of the body using (BodyNode::getLinearAcceleration), so we compute it
        // here via finite difference.
        auto accel = (body2->getLinearVelocity() - lastVel) / dt;

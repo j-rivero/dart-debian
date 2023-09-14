@@ -7,7 +7,7 @@ Subject: Reduce test result accuracy to fix i386
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/unittests/regression/test_Issue1445.cpp b/unittests/regression/test_Issue1445.cpp
-index 3f8d612..db0b350 100644
+index dba1940..e0738d8 100644
 --- a/unittests/regression/test_Issue1445.cpp
 +++ b/unittests/regression/test_Issue1445.cpp
 @@ -162,7 +162,7 @@ TEST(Issue1445, Collision)

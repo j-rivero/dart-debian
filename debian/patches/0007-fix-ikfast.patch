@@ -1,13 +1,22 @@
-Description: Do not use postfix d in generated library
- Upstream assumed a debug library with d postfix if no NDEBUG flag is present.
-Author: Jose Luis Rivero
+From: Debian Science Maintainers
+ <debian-science-maintainers@lists.alioth.debian.org>
+Date: Thu, 14 Sep 2023 11:55:38 +0000
+Subject: Do not use postfix d in generated library
+
 Forwarded: no
 Last-Update: 2021-12-19
+
+Upstream assumed a debug library with d postfix if no NDEBUG flag is present.
+Last-Update: 2021-12-19
 ---
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/unittests/unit/test_IkFast.cpp
-+++ b/unittests/unit/test_IkFast.cpp
-@@ -132,9 +132,6 @@
+ unittests/integration/test_IkFast.cpp | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/unittests/integration/test_IkFast.cpp b/unittests/integration/test_IkFast.cpp
+index 943d760..fdd16d5 100644
+--- a/unittests/integration/test_IkFast.cpp
++++ b/unittests/integration/test_IkFast.cpp
+@@ -132,9 +132,6 @@ TEST(IkFast, LoadWamArmIk)
    ik->setHierarchyLevel(1);
    std::stringstream ss;
    ss << DART_SHARED_LIB_PREFIX << "GeneratedWamIkFast";

@@ -1,13 +1,22 @@
-Description: Replace LDFLAGS
- Inject LDFLAGS into compiler linker option in CMakeLists.txt
-Author: Jose Luis Rivero
+From: Debian Science Maintainers
+ <debian-science-maintainers@lists.alioth.debian.org>
+Date: Thu, 14 Sep 2023 11:55:37 +0000
+Subject: Replace LDFLAGS
+
 Forwarded: no
 Last-Update: 2021-12-20
+
+Inject LDFLAGS into compiler linker option in CMakeLists.txt
+Last-Update: 2021-12-20
 ---
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a3389d8..a4cdb80 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -215,7 +215,7 @@
+@@ -249,7 +249,7 @@ elseif(CMAKE_COMPILER_IS_GNUCXX)
    endif()
    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS_DEBUG}")
    set(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS_DEBUG} -pg")

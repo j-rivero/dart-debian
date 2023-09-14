@@ -1,9 +1,18 @@
-Description: Use system gtest
-Author: Jose Luis Rivero
+From: Debian Science Maintainers
+ <debian-science-maintainers@lists.alioth.debian.org>
+Date: Thu, 14 Sep 2023 11:55:38 +0000
+Subject: Use system gtest
+
 Forwarded: not-needed
 Last-Update: 2021-12-16
+
+Last-Update: 2021-12-16
 ---
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+ unittests/CMakeLists.txt | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/unittests/CMakeLists.txt b/unittests/CMakeLists.txt
+index a495f25..06b1eca 100644
 --- a/unittests/CMakeLists.txt
 +++ b/unittests/CMakeLists.txt
 @@ -31,10 +31,11 @@

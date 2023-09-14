@@ -1,12 +1,20 @@
-Description: skel test fail hard on armhf, mipsel and hangs in i386
-Author: Jose Luis Rivero <jrivero@osrfoundation.org>
+From: Jose Luis Rivero <jrivero@osrfoundation.org>
+Date: Thu, 14 Sep 2023 11:55:37 +0000
+Subject: skel test fail hard on armhf, mipsel and hangs in i386
+
 Forwarded: no
 Last-Update: 2022-01-25
+
+Last-Update: 2022-01-25
 ---
-This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
---- a/unittests/unit/test_SkelParser.cpp
-+++ b/unittests/unit/test_SkelParser.cpp
-@@ -146,6 +146,7 @@
+ unittests/integration/test_SkelParser.cpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/unittests/integration/test_SkelParser.cpp b/unittests/integration/test_SkelParser.cpp
+index adba5eb..5a36f9e 100644
+--- a/unittests/integration/test_SkelParser.cpp
++++ b/unittests/integration/test_SkelParser.cpp
+@@ -146,6 +146,7 @@ TEST(SkelParser, SerialChain)
    world->step();
  }
  
@@ -14,7 +22,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  //==============================================================================
  TEST(SkelParser, VariousShapes)
  {
-@@ -158,6 +159,7 @@
+@@ -158,6 +159,7 @@ TEST(SkelParser, VariousShapes)
    for (auto i = 0u; i < 100; ++i)
      world->step();
  }

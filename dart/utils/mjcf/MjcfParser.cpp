@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -306,7 +306,7 @@ createJointAndBodyNodePairForMultipleJoints(
 
       // Limits
       props.mIsPositionLimitEnforced
-          = mjcfJoint0.isLimited() & mjcfJoint1.isLimited();
+          = mjcfJoint0.isLimited() && mjcfJoint1.isLimited();
       props.mPositionLowerLimits[0] = mjcfJoint0.getRange()[0];
       props.mPositionLowerLimits[1] = mjcfJoint1.getRange()[0];
       props.mPositionUpperLimits[0] = mjcfJoint0.getRange()[1];
@@ -365,7 +365,7 @@ createJointAndBodyNodePairForMultipleJoints(
 
       // Limits
       props.mIsPositionLimitEnforced
-          = mjcfJoint0.isLimited() & mjcfJoint1.isLimited();
+          = mjcfJoint0.isLimited() && mjcfJoint1.isLimited();
       props.mPositionLowerLimits[0] = mjcfJoint0.getRange()[0];
       props.mPositionLowerLimits[1] = mjcfJoint1.getRange()[0];
       props.mPositionLowerLimits[2] = mjcfJoint2.getRange()[0];
@@ -539,7 +539,7 @@ bool createShapeNodes(
     // Create ShapeNode with the shape created above
     dynamics::ShapeNode* shapeNode
         = bodyNode->createShapeNodeWith<dynamics::VisualAspect>(
-            shape, site.getName());
+            shape, "site:" + site.getName());
 
     // RGBA
     dynamics::VisualAspect* visualAspect = shapeNode->getVisualAspect();

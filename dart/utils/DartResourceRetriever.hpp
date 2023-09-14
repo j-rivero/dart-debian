@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -45,13 +45,13 @@ namespace utils {
 /// and authority should be "file" and "sample", respectively.
 ///
 /// Example of a sample data URI:
-/// @code
+/// \code
 /// "dart://sample/skel/shapes.skel"
 ///                \______________/
 ///                       |
 ///            file path with respect to
 ///            the sample data directory
-/// @endcode
+/// \endcode
 ///
 /// DartResourceRetriever searches files in the following order:
 /// 1) Preprocessor, DART_DATA_LOCAL_PATH: Path to the data directory in the

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -167,10 +167,8 @@ int main()
   auto robot = world->getSkeleton("robot0:base_link");
   assert(robot);
   robot->getJoint(0)->setActuatorType(dynamics::Joint::ActuatorType::LOCKED);
-  for (auto i = 0u; i < robot->getNumDofs(); ++i)
-  {
-    robot->getDof(i)->setSpringStiffness(1e+3);
-  }
+  robot->eachDof(
+      [](dynamics::DegreeOfFreedom* dof) { dof->setSpringStiffness(1e+3); });
   robot->getJoint("robot0:torso_lift_joint")->setSpringStiffness(0, 1e+7);
 
   // Set initial base positions

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -36,21 +36,12 @@
 #include <string>
 
 #ifdef _WIN32
-  #ifdef NOMINMAX
-    #include <windows.h>
-  #else
-    #define NOMINMAX
-    #include <windows.h>
-    #undef NOMINMAX
-  #endif
-typedef struct
-{
-  LARGE_INTEGER start;
-  LARGE_INTEGER stop;
-} stopWatch;
+  #include "dart/common/IncludeWindows.hpp"
 #else
   #include <sys/time.h>
 #endif
+
+#include "dart/common/Deprecated.hpp"
 
 namespace dart {
 namespace common {
@@ -59,7 +50,9 @@ namespace common {
 ///
 /// This is a definition of mTimer class.
 /// For measure the time, gettimeofday() api is used
-class Timer
+///
+/// \deprecated Use Stopwatch instead.
+class DART_DEPRECATED(6.13) Timer
 {
 public:
   /// \brief Default constructor
@@ -97,7 +90,12 @@ private:
   int mCount;
 
 #ifdef _WIN32
-  stopWatch mTimer;
+  struct StopWatch
+  {
+    LARGE_INTEGER start;
+    LARGE_INTEGER stop;
+  };
+  StopWatch mTimer;
 #else
   timeval mTimeVal;
   double mStartedTime;

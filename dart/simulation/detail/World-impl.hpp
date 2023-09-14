@@ -51,6 +51,98 @@ WorldPtr World::create(Args&&... args)
   return std::make_shared<World>(std::forward<Args>(args)...);
 }
 
+//==============================================================================
+template <typename Func>
+void World::eachSkeleton(Func func) const
+{
+  if constexpr (std::is_same_v<
+                    std::invoke_result_t<Func, const dynamics::Skeleton*>,
+                    bool>)
+  {
+    for (auto skel : mSkeletons)
+    {
+      if (!func(skel.get()))
+        return;
+    }
+  }
+  else
+  {
+    for (auto skel : mSkeletons)
+    {
+      func(skel.get());
+    }
+  }
+}
+
+//==============================================================================
+template <typename Func>
+void World::eachSkeleton(Func func)
+{
+  if constexpr (std::is_same_v<
+                    std::invoke_result_t<Func, dynamics::Skeleton*>,
+                    bool>)
+  {
+    for (auto skel : mSkeletons)
+    {
+      if (!func(skel.get()))
+        return;
+    }
+  }
+  else
+  {
+    for (auto skel : mSkeletons)
+    {
+      func(skel.get());
+    }
+  }
+}
+
+//==============================================================================
+template <typename Func>
+void World::eachSimpleFrame(Func func) const
+{
+  if constexpr (std::is_same_v<
+                    std::invoke_result_t<Func, const dynamics::SimpleFrame*>,
+                    bool>)
+  {
+    for (auto simpleFrame : mSimpleFrames)
+    {
+      if (!func(simpleFrame.get()))
+        return;
+    }
+  }
+  else
+  {
+    for (auto simpleFrame : mSimpleFrames)
+    {
+      func(simpleFrame.get());
+    }
+  }
+}
+
+//==============================================================================
+template <typename Func>
+void World::eachSimpleFrame(Func func)
+{
+  if constexpr (std::is_same_v<
+                    std::invoke_result_t<Func, dynamics::SimpleFrame*>,
+                    bool>)
+  {
+    for (auto simpleFrame : mSimpleFrames)
+    {
+      if (!func(simpleFrame.get()))
+        return;
+    }
+  }
+  else
+  {
+    for (auto simpleFrame : mSimpleFrames)
+    {
+      func(simpleFrame.get());
+    }
+  }
+}
+
 } // namespace simulation
 } // namespace dart
 

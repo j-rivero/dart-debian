@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -35,6 +35,7 @@
 
 #include <Eigen/Dense>
 
+#include "dart/common/Deprecated.hpp"
 #include "dart/config.hpp"
 
 // clang-format off
@@ -52,29 +53,27 @@
 
 #if FCL_VERSION_AT_LEAST(0, 6, 0)
 
-  #include <fcl/math/geometry.h>
-
   #include <fcl/geometry/bvh/BVH_model.h>
   #include <fcl/geometry/geometric_shape_to_BVH_model.h>
   #include <fcl/math/bv/OBBRSS.h>
   #include <fcl/math/bv/utility.h>
+  #include <fcl/math/geometry.h>
   #include <fcl/narrowphase/collision.h>
   #include <fcl/narrowphase/collision_object.h>
   #include <fcl/narrowphase/distance.h>
 
 #else
 
-  #include <fcl/math/matrix_3f.h>
-  #include <fcl/math/transform.h>
-  #include <fcl/math/vec_3f.h>
-
   #include <fcl/BV/OBBRSS.h>
   #include <fcl/BVH/BVH_model.h>
-  #include <fcl/shape/geometric_shape_to_BVH_model.h>
   #include <fcl/collision.h>
   #include <fcl/collision_data.h>
   #include <fcl/collision_object.h>
   #include <fcl/distance.h>
+  #include <fcl/math/matrix_3f.h>
+  #include <fcl/math/transform.h>
+  #include <fcl/math/vec_3f.h>
+  #include <fcl/shape/geometric_shape_to_BVH_model.h>
 
 #endif // FCL_VERSION_AT_LEAST(0,6,0)
 
@@ -88,30 +87,23 @@
   #endif // FCL_VERSION_AT_LEAST(0,6,0)
 #endif   // HAVE_OCTOMAP && FCL_HAVE_OCTOMAP
 
-#if FCL_VERSION_AT_LEAST(0, 5, 0)
-  #include <memory>
+#include <memory>
+
+/// \deprecated Use std::shared_ptr() instead
 template <class T>
 using fcl_shared_ptr = std::shared_ptr<T>;
+
+/// \deprecated Use std::weak_ptr() instead
 template <class T>
 using fcl_weak_ptr = std::weak_ptr<T>;
+
+/// \deprecated Use std::make_shared() instead
 template <class T, class... Args>
-fcl_shared_ptr<T> fcl_make_shared(Args&&... args)
+DART_DEPRECATED(6.13)
+std::shared_ptr<T> fcl_make_shared(Args&&... args)
 {
   return std::make_shared<T>(std::forward<Args>(args)...);
 }
-#else
-  #include <boost/make_shared.hpp>
-  #include <boost/weak_ptr.hpp>
-template <class T>
-using fcl_shared_ptr = boost::shared_ptr<T>;
-template <class T>
-using fcl_weak_ptr = boost::weak_ptr<T>;
-template <class T, class... Args>
-fcl_shared_ptr<T> fcl_make_shared(Args&&... args)
-{
-  return boost::make_shared<T>(std::forward<Args>(args)...);
-}
-#endif // FCL_VERSION_AT_LEAST(0,5,0)
 
 namespace dart {
 namespace collision {
@@ -169,7 +161,7 @@ using DistanceResult = ::fcl::DistanceResult;
 using Contact = ::fcl::Contact;
 #endif
 
-#if FCL_VERSION_AT_LEAST(0, 4, 0) && !FCL_VERSION_AT_LEAST(0, 6, 0)
+#if !FCL_VERSION_AT_LEAST(0, 6, 0)
 using Ellipsoid = ::fcl::Ellipsoid;
 #endif
 

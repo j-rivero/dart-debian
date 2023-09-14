@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -629,24 +629,25 @@ void readAspects(
 
       if (!hasElement(inertiaElement, "moment_of_inertia"))
       {
-        for (auto& shapeNode : bodyNode->getShapeNodes())
-        {
-          const auto& shapeType = shapeNode->getShape()->getType();
-          if (dynamics::SoftMeshShape::getStaticType() == shapeType)
-            continue;
+        bodyNode->eachShapeNode(
+            [bodyNode](dynamics::ShapeNode* shapeNode) -> bool {
+              const auto& shapeType = shapeNode->getShape()->getType();
+              if (dynamics::SoftMeshShape::getStaticType() == shapeType)
+                return true;
 
-          auto mass = bodyNode->getMass();
-          Eigen::Matrix3d Ic = shapeNode->getShape()->computeInertia(mass);
-          auto inertia = bodyNode->getInertia();
-          inertia.setMoment(Ic);
-          bodyNode->setInertia(inertia);
+              auto mass = bodyNode->getMass();
+              const Eigen::Matrix3d Ic
+                  = shapeNode->getShape()->computeInertia(mass);
+              auto inertia = bodyNode->getInertia();
+              inertia.setMoment(Ic);
+              bodyNode->setInertia(inertia);
 
-          // TODO(JS): We use the inertia of the first non-soft mesh shape in
-          // a body for the body's inertia when not specified. We might want to
-          // use the summation of all the shapes' inertia instead.
+              // TODO(JS): We use the inertia of the first non-soft mesh shape
+              // in a body for the body's inertia when not specified. We might
+              // want to use the summation of all the shapes' inertia instead.
 
-          break;
-        }
+              return false;
+            });
       }
     }
   }

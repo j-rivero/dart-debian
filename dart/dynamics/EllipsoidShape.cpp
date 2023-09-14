@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -137,6 +137,12 @@ Eigen::Matrix3d EllipsoidShape::computeInertia(
   inertia(2, 2) = coeff * (AA + BB);
 
   return inertia;
+}
+
+//==============================================================================
+ShapePtr EllipsoidShape::clone() const
+{
+  return std::make_shared<EllipsoidShape>(mDiameters);
 }
 
 //==============================================================================

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -236,6 +236,18 @@ double PointCloudShape::getVisualSize() const
 void PointCloudShape::notifyColorUpdated(const Eigen::Vector4d& /*color*/)
 {
   incrementVersion();
+}
+
+//==============================================================================
+ShapePtr PointCloudShape::clone() const
+{
+  auto new_shape = std::make_shared<PointCloudShape>(mVisualSize);
+  new_shape->mPoints = mPoints;
+  new_shape->mPointShapeType = mPointShapeType;
+  new_shape->mColorMode = mColorMode;
+  new_shape->mColors = mColors;
+
+  return new_shape;
 }
 
 //==============================================================================

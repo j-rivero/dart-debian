@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -54,10 +54,10 @@ Errors checkOrientationValidity(const tinyxml2::XMLElement* element);
 /// compiler settings
 Eigen::Matrix3d compileRotation(
     const Eigen::Quaterniond& quat,
-    const common::optional<Eigen::Vector4d>& axisAngle,
-    const common::optional<Eigen::Vector3d>& euler,
-    const common::optional<Eigen::Vector6d>& xyAxes,
-    const common::optional<Eigen::Vector3d>& zAxis,
+    const std::optional<Eigen::Vector4d>& axisAngle,
+    const std::optional<Eigen::Vector3d>& euler,
+    const std::optional<Eigen::Vector6d>& xyAxes,
+    const std::optional<Eigen::Vector3d>& zAxis,
     const Compiler& compiler);
 
 /// Includes other MJCF model file into \c element

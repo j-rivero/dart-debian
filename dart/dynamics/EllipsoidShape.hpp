@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -90,6 +90,9 @@ public:
 
   // Documentation inherited.
   Eigen::Matrix3d computeInertia(double mass) const override;
+
+  // Documentation inherited.
+  ShapePtr clone() const override;
 
   /// \brief True if all the radii are exactly eqaul.
   bool isSphere(void) const;

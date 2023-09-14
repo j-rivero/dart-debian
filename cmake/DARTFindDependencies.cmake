@@ -2,12 +2,16 @@
 # dependency in package.xml.
 
 #======================================
-# Mandatory dependencies for DART core
+# Required dependencies for DART core
 #======================================
 if(DART_VERBOSE)
   message(STATUS "")
-  message(STATUS "[ Mandatory dependencies for DART core ]")
+  message(STATUS "[ Required dependencies for DART core ]")
 endif()
+
+# fmt
+dart_find_package(fmt)
+dart_check_required_package(fmt "libfmt")
 
 # Eigen
 dart_find_package(Eigen3)
@@ -85,39 +89,34 @@ if(ASSIMP_FOUND)
   unset(CMAKE_REQUIRED_LIBRARIES)
 endif()
 
-# Boost
-dart_find_package(Boost)
-
 # octomap
 dart_find_package(octomap)
-if(MSVC)
-  # Supporting Octomap on Windows is disabled for the following issue:
-  # https://github.com/OctoMap/octomap/pull/213
-  message(WARNING "Octomap ${octomap_VERSION} is found, but Octomap "
-      "is not supported on Windows until "
-      "'https://github.com/OctoMap/octomap/pull/213' "
-      "is resolved.")
-  set(HAVE_OCTOMAP FALSE CACHE BOOL "Check if octomap found." FORCE)
-else()
-  if(OCTOMAP_FOUND OR octomap_FOUND)
-    if(NOT DEFINED octomap_VERSION)
-      set(HAVE_OCTOMAP FALSE CACHE BOOL "Check if octomap found." FORCE)
-      message(WARNING "Looking for octomap - octomap_VERSION is not defined, "
-          "please install octomap with version information"
-      )
-    else()
-      set(HAVE_OCTOMAP TRUE CACHE BOOL "Check if octomap found." FORCE)
-      if(DART_VERBOSE)
-        message(STATUS "Looking for octomap - version ${octomap_VERSION} found")
-      endif()
-    endif()
-  else()
+if(OCTOMAP_FOUND OR octomap_FOUND)
+  if(NOT DEFINED octomap_VERSION)
     set(HAVE_OCTOMAP FALSE CACHE BOOL "Check if octomap found." FORCE)
-    message(WARNING "Looking for octomap - NOT found, to use VoxelGridShape, "
-        "please install octomap"
+    message(WARNING "Looking for octomap - octomap_VERSION is not defined, "
+        "please install octomap with version information"
     )
+  else()
+    set(HAVE_OCTOMAP TRUE CACHE BOOL "Check if octomap found." FORCE)
+    if(DART_VERBOSE)
+      message(STATUS "Looking for octomap - version ${octomap_VERSION} found")
+    endif()
   endif()
+else()
+  set(HAVE_OCTOMAP FALSE CACHE BOOL "Check if octomap found." FORCE)
+  message(WARNING "Looking for octomap - NOT found, to use VoxelGridShape, "
+      "please install octomap"
+  )
 endif()
+
+#=======================
+# Optional dependencies
+#=======================
+
+option(DART_SKIP_spdlog "If ON, do not use spdlog even if it is found." OFF)
+mark_as_advanced(DART_SKIP_spdlog)
+dart_find_package(spdlog)
 
 #--------------------
 # Misc. dependencies
@@ -126,3 +125,4 @@ endif()
 # Doxygen
 find_package(Doxygen QUIET)
 dart_check_optional_package(DOXYGEN "generating API documentation" "doxygen")
+

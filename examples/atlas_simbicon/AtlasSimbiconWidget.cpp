@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -143,6 +143,15 @@ void AtlasSimbiconWidget::render()
         mNode->showShadow();
       else
         mNode->hideShadow();
+    }
+
+    // Depth
+    if (ImGui::Checkbox("Depth mode", &mDepthMode))
+    {
+      if (mDepthMode)
+        mViewer->setCameraMode(dart::gui::osg::CameraMode::DEPTH);
+      else
+        mViewer->setCameraMode(dart::gui::osg::CameraMode::RGBA);
     }
   }
 

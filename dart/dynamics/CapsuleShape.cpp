@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -130,6 +130,12 @@ Eigen::Matrix3d CapsuleShape::computeInertia(
       = massCylinder * (radius2 / 2.0) + massSphere * ((2.0 / 5.0) * radius2);
 
   return Eigen::Vector3d(Ixx, Ixx, Izz).asDiagonal();
+}
+
+//==============================================================================
+ShapePtr CapsuleShape::clone() const
+{
+  return std::make_shared<CapsuleShape>(mRadius, mHeight);
 }
 
 //==============================================================================

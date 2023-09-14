@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -163,12 +163,17 @@ public:
   // Documentation inherited.
   Eigen::Matrix3d computeInertia(double mass) const override;
 
+  // Documentation inherited.
+  virtual ShapePtr clone() const override;
+
 protected:
   // Documentation inherited.
   void updateBoundingBox() const override;
 
   // Documentation inherited.
   void updateVolume() const override;
+
+  aiScene* cloneMesh() const;
 
   const aiScene* mMesh;
 

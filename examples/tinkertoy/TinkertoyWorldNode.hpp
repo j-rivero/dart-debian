@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -82,16 +82,8 @@ public:
 
   void setAllBodyColors(const Eigen::Vector4d& color)
   {
-    for (size_t i = 0; i < getWorld()->getNumSkeletons(); ++i)
-    {
-      const dart::dynamics::SkeletonPtr& skel = getWorld()->getSkeleton(i);
-      for (size_t j = 0; j < skel->getNumBodyNodes(); ++j)
-      {
-        dart::dynamics::BodyNode* bn = skel->getBodyNode(j);
-        for (size_t k = 0; k < bn->getNumShapeNodes(); ++k)
-          bn->getShapeNode(k)->getVisualAspect()->setColor(color);
-      }
-    }
+    getWorld()->eachSkeleton(
+        [&](dart::dynamics::Skeleton* skel) { skel->setColor(color); });
   }
 
   void setPickedNodeColor(const Eigen::Vector4d& color)
@@ -99,8 +91,7 @@ public:
     if (!mPickedNode)
       return;
 
-    for (size_t i = 0; i < mPickedNode->getNumShapeNodes(); ++i)
-      mPickedNode->getShapeNode(i)->getVisualAspect()->setColor(color);
+    mPickedNode->setColor(color);
   }
 
   void resetForceLine()

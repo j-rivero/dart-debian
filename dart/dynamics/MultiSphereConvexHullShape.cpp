@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -125,6 +125,12 @@ Eigen::Matrix3d MultiSphereConvexHullShape::computeInertia(double mass) const
 {
   // Use bounding box to represent the mesh
   return BoxShape::computeInertia(getBoundingBox().computeFullExtents(), mass);
+}
+
+//==============================================================================
+ShapePtr MultiSphereConvexHullShape::clone() const
+{
+  return std::make_shared<MultiSphereConvexHullShape>(mSpheres);
 }
 
 //==============================================================================

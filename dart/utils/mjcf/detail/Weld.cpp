@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -76,7 +76,7 @@ const std::string& Weld::getBody2() const
 }
 
 //==============================================================================
-const common::optional<Eigen::Isometry3d>& Weld::getRelativeTransform() const
+const std::optional<Eigen::Isometry3d>& Weld::getRelativeTransform() const
 {
   return mRelativeTransfrom;
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -358,6 +358,16 @@ Eigen::Matrix3d LineSegmentShape::computeInertia(double _mass) const
   }
 
   return inertia;
+}
+
+//==============================================================================
+ShapePtr LineSegmentShape::clone() const
+{
+  auto new_shape = std::make_shared<LineSegmentShape>(mThickness);
+  new_shape->mVertices = mVertices;
+  new_shape->mConnections = mConnections;
+
+  return new_shape;
 }
 
 //==============================================================================

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -112,6 +112,12 @@ Eigen::Matrix3d CylinderShape::computeInertia(
   inertia(2, 2) = 0.5 * mass * radius * radius;
 
   return inertia;
+}
+
+//==============================================================================
+ShapePtr CylinderShape::clone() const
+{
+  return std::make_shared<CylinderShape>(mRadius, mHeight);
 }
 
 //==============================================================================

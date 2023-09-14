@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -47,7 +47,7 @@ namespace detail {
 
 struct JointAttributes final
 {
-  common::optional<std::string> mName;
+  std::optional<std::string> mName;
 
   JointType mType{JointType::HINGE};
 

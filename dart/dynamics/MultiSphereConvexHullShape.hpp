@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -83,6 +83,9 @@ public:
   /// \note The return value is an approximated inertia that is the inertia of
   /// the axis-alinged bounding box of this MultiSphereConvexHullShape.
   Eigen::Matrix3d computeInertia(double mass) const override;
+
+  // Documentation inherited.
+  ShapePtr clone() const override;
 
 protected:
   // Documentation inherited.

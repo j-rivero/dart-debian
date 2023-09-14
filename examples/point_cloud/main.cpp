@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -185,13 +185,15 @@ protected:
       const auto bodyIndex
           = math::Random::uniform<std::size_t>(0, numBodies - 1);
       auto body = mRobot->getBodyNode(bodyIndex);
-      auto shapeNodes = body->getShapeNodesWith<dynamics::VisualAspect>();
-      if (shapeNodes.empty())
+      const auto numShapeNodes
+          = body->getNumShapeNodesWith<dynamics::VisualAspect>();
+      if (numShapeNodes == 0)
         continue;
 
       const auto shapeIndex
-          = math::Random::uniform<std::size_t>(0, shapeNodes.size() - 1);
-      auto shapeNode = shapeNodes[shapeIndex];
+          = math::Random::uniform<std::size_t>(0, numShapeNodes - 1);
+      auto shapeNode
+          = body->getShapeNodeWith<dynamics::VisualAspect>(shapeIndex);
       auto shape = shapeNode->getShape();
       assert(shape);
 

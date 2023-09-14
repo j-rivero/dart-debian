@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -94,13 +94,13 @@ auto UriComponent::operator*() const -> reference_const_type
 }
 
 //==============================================================================
-auto UriComponent::operator-> () -> pointer_type
+auto UriComponent::operator->() -> pointer_type
 {
   return &get();
 }
 
 //==============================================================================
-auto UriComponent::operator-> () const -> pointer_const_type
+auto UriComponent::operator->() const -> pointer_const_type
 {
   return &get();
 }

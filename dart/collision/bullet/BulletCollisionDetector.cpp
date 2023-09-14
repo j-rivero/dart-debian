@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -94,6 +94,8 @@ std::unique_ptr<btCollisionShape> createBulletCollisionShapeFromAssimpMesh(
 template <typename HeightmapShapeT>
 std::unique_ptr<BulletCollisionShape> createBulletCollisionShapeFromHeightmap(
     const HeightmapShapeT* heightMap);
+
+bool isConvex(const aiMesh* mesh, float threshold = 0.001);
 
 } // anonymous namespace
 
@@ -495,11 +497,8 @@ BulletCollisionDetector::createBulletCollisionShape(
   using dynamics::SoftMeshShape;
   using dynamics::SphereShape;
 
-  if (shape->is<SphereShape>())
+  if (const auto sphere = shape->as<SphereShape>())
   {
-    assert(dynamic_cast<const SphereShape*>(shape.get()));
-
-    const auto sphere = static_cast<const SphereShape*>(shape.get());
     const auto radius = sphere->getRadius();
 
     auto bulletCollisionShape = std::make_unique<btSphereShape>(radius);
@@ -507,11 +506,8 @@ BulletCollisionDetector::createBulletCollisionShape(
     return std::make_unique<BulletCollisionShape>(
         std::move(bulletCollisionShape));
   }
-  else if (shape->is<BoxShape>())
+  else if (const auto box = shape->as<BoxShape>())
   {
-    assert(dynamic_cast<const BoxShape*>(shape.get()));
-
-    const auto box = static_cast<const BoxShape*>(shape.get());
     const Eigen::Vector3d& size = box->getSize();
 
     auto bulletCollisionShape
@@ -520,11 +516,8 @@ BulletCollisionDetector::createBulletCollisionShape(
     return std::make_unique<BulletCollisionShape>(
         std::move(bulletCollisionShape));
   }
-  else if (shape->is<EllipsoidShape>())
+  else if (const auto ellipsoid = shape->as<EllipsoidShape>())
   {
-    assert(dynamic_cast<const EllipsoidShape*>(shape.get()));
-
-    const auto ellipsoid = static_cast<const EllipsoidShape*>(shape.get());
     const Eigen::Vector3d& radii = ellipsoid->getRadii();
 
     auto bulletCollisionShape = createBulletEllipsoidMesh(
@@ -533,11 +526,8 @@ BulletCollisionDetector::createBulletCollisionShape(
     return std::make_unique<BulletCollisionShape>(
         std::move(bulletCollisionShape));
   }
-  else if (shape->is<CylinderShape>())
+  else if (const auto cylinder = shape->as<CylinderShape>())
   {
-    assert(dynamic_cast<const CylinderShape*>(shape.get()));
-
-    const auto cylinder = static_cast<const CylinderShape*>(shape.get());
     const auto radius = cylinder->getRadius();
     const auto height = cylinder->getHeight();
     const auto size = btVector3(radius, radius, height * 0.5);
@@ -547,11 +537,8 @@ BulletCollisionDetector::createBulletCollisionShape(
     return std::make_unique<BulletCollisionShape>(
         std::move(bulletCollisionShape));
   }
-  else if (shape->is<CapsuleShape>())
+  else if (const auto capsule = shape->as<CapsuleShape>())
   {
-    assert(dynamic_cast<const CapsuleShape*>(shape.get()));
-
-    const auto capsule = static_cast<const CapsuleShape*>(shape.get());
     const auto radius = capsule->getRadius();
     const auto height = capsule->getHeight();
 
@@ -561,11 +548,8 @@ BulletCollisionDetector::createBulletCollisionShape(
     return std::make_unique<BulletCollisionShape>(
         std::move(bulletCollisionShape));
   }
-  else if (shape->is<ConeShape>())
+  else if (const auto cone = shape->as<ConeShape>())
   {
-    assert(dynamic_cast<const ConeShape*>(shape.get()));
-
-    const auto cone = static_cast<const ConeShape*>(shape.get());
     const auto radius = cone->getRadius();
     const auto height = cone->getHeight();
 
@@ -579,11 +563,8 @@ BulletCollisionDetector::createBulletCollisionShape(
     return std::make_unique<BulletCollisionShape>(
         std::move(bulletCollisionShape));
   }
-  else if (shape->is<PlaneShape>())
+  else if (const auto plane = shape->as<PlaneShape>())
   {
-    assert(dynamic_cast<const PlaneShape*>(shape.get()));
-
-    const auto plane = static_cast<const PlaneShape*>(shape.get());
     const Eigen::Vector3d normal = plane->getNormal();
     const double offset = plane->getOffset();
 
@@ -593,12 +574,8 @@ BulletCollisionDetector::createBulletCollisionShape(
     return std::make_unique<BulletCollisionShape>(
         std::move(bulletCollisionShape));
   }
-  else if (shape->is<MultiSphereConvexHullShape>())
+  else if (const auto multiSphere = shape->as<MultiSphereConvexHullShape>())
   {
-    assert(dynamic_cast<const MultiSphereConvexHullShape*>(shape.get()));
-
-    const auto multiSphere
-        = static_cast<const MultiSphereConvexHullShape*>(shape.get());
     const auto numSpheres = multiSphere->getNumSpheres();
     const auto& spheres = multiSphere->getSpheres();
 
@@ -617,11 +594,8 @@ BulletCollisionDetector::createBulletCollisionShape(
     return std::make_unique<BulletCollisionShape>(
         std::move(bulletCollisionShape));
   }
-  else if (shape->is<MeshShape>())
+  else if (const auto shapeMesh = shape->as<MeshShape>())
   {
-    assert(dynamic_cast<const MeshShape*>(shape.get()));
-
-    const auto shapeMesh = static_cast<const MeshShape*>(shape.get());
     const auto scale = shapeMesh->getScale();
     const auto mesh = shapeMesh->getMesh();
 
@@ -631,11 +605,8 @@ BulletCollisionDetector::createBulletCollisionShape(
     return std::make_unique<BulletCollisionShape>(
         std::move(bulletCollisionShape));
   }
-  else if (shape->is<SoftMeshShape>())
+  else if (const auto softMeshShape = shape->as<SoftMeshShape>())
   {
-    assert(dynamic_cast<const SoftMeshShape*>(shape.get()));
-
-    const auto softMeshShape = static_cast<const SoftMeshShape*>(shape.get());
     const auto mesh = softMeshShape->getAssimpMesh();
 
     auto bulletCollisionShape = createBulletCollisionShapeFromAssimpMesh(mesh);
@@ -643,12 +614,8 @@ BulletCollisionDetector::createBulletCollisionShape(
     return std::make_unique<BulletCollisionShape>(
         std::move(bulletCollisionShape));
   }
-  else if (shape->is<HeightmapShapef>())
+  else if (const auto heightMap = shape->as<HeightmapShapef>())
   {
-    assert(dynamic_cast<const HeightmapShapef*>(shape.get()));
-
-    const auto heightMap = static_cast<const HeightmapShapef*>(shape.get());
-
     return createBulletCollisionShapeFromHeightmap(heightMap);
   }
   else if (shape->is<HeightmapShaped>())
@@ -849,65 +816,66 @@ void reportRayHits(
 std::unique_ptr<btCollisionShape> createBulletEllipsoidMesh(
     float sizeX, float sizeY, float sizeZ)
 {
-  float v[59][3] = {{0, 0, 0},
-                    {0.135299, -0.461940, -0.135299},
-                    {0.000000, -0.461940, -0.191342},
-                    {-0.135299, -0.461940, -0.135299},
-                    {-0.191342, -0.461940, 0.000000},
-                    {-0.135299, -0.461940, 0.135299},
-                    {0.000000, -0.461940, 0.191342},
-                    {0.135299, -0.461940, 0.135299},
-                    {0.191342, -0.461940, 0.000000},
-                    {0.250000, -0.353553, -0.250000},
-                    {0.000000, -0.353553, -0.353553},
-                    {-0.250000, -0.353553, -0.250000},
-                    {-0.353553, -0.353553, 0.000000},
-                    {-0.250000, -0.353553, 0.250000},
-                    {0.000000, -0.353553, 0.353553},
-                    {0.250000, -0.353553, 0.250000},
-                    {0.353553, -0.353553, 0.000000},
-                    {0.326641, -0.191342, -0.326641},
-                    {0.000000, -0.191342, -0.461940},
-                    {-0.326641, -0.191342, -0.326641},
-                    {-0.461940, -0.191342, 0.000000},
-                    {-0.326641, -0.191342, 0.326641},
-                    {0.000000, -0.191342, 0.461940},
-                    {0.326641, -0.191342, 0.326641},
-                    {0.461940, -0.191342, 0.000000},
-                    {0.353553, 0.000000, -0.353553},
-                    {0.000000, 0.000000, -0.500000},
-                    {-0.353553, 0.000000, -0.353553},
-                    {-0.500000, 0.000000, 0.000000},
-                    {-0.353553, 0.000000, 0.353553},
-                    {0.000000, 0.000000, 0.500000},
-                    {0.353553, 0.000000, 0.353553},
-                    {0.500000, 0.000000, 0.000000},
-                    {0.326641, 0.191342, -0.326641},
-                    {0.000000, 0.191342, -0.461940},
-                    {-0.326641, 0.191342, -0.326641},
-                    {-0.461940, 0.191342, 0.000000},
-                    {-0.326641, 0.191342, 0.326641},
-                    {0.000000, 0.191342, 0.461940},
-                    {0.326641, 0.191342, 0.326641},
-                    {0.461940, 0.191342, 0.000000},
-                    {0.250000, 0.353553, -0.250000},
-                    {0.000000, 0.353553, -0.353553},
-                    {-0.250000, 0.353553, -0.250000},
-                    {-0.353553, 0.353553, 0.000000},
-                    {-0.250000, 0.353553, 0.250000},
-                    {0.000000, 0.353553, 0.353553},
-                    {0.250000, 0.353553, 0.250000},
-                    {0.353553, 0.353553, 0.000000},
-                    {0.135299, 0.461940, -0.135299},
-                    {0.000000, 0.461940, -0.191342},
-                    {-0.135299, 0.461940, -0.135299},
-                    {-0.191342, 0.461940, 0.000000},
-                    {-0.135299, 0.461940, 0.135299},
-                    {0.000000, 0.461940, 0.191342},
-                    {0.135299, 0.461940, 0.135299},
-                    {0.191342, 0.461940, 0.000000},
-                    {0.000000, -0.500000, 0.000000},
-                    {0.000000, 0.500000, 0.000000}};
+  float v[59][3]
+      = {{0, 0, 0},
+         {0.135299, -0.461940, -0.135299},
+         {0.000000, -0.461940, -0.191342},
+         {-0.135299, -0.461940, -0.135299},
+         {-0.191342, -0.461940, 0.000000},
+         {-0.135299, -0.461940, 0.135299},
+         {0.000000, -0.461940, 0.191342},
+         {0.135299, -0.461940, 0.135299},
+         {0.191342, -0.461940, 0.000000},
+         {0.250000, -0.353553, -0.250000},
+         {0.000000, -0.353553, -0.353553},
+         {-0.250000, -0.353553, -0.250000},
+         {-0.353553, -0.353553, 0.000000},
+         {-0.250000, -0.353553, 0.250000},
+         {0.000000, -0.353553, 0.353553},
+         {0.250000, -0.353553, 0.250000},
+         {0.353553, -0.353553, 0.000000},
+         {0.326641, -0.191342, -0.326641},
+         {0.000000, -0.191342, -0.461940},
+         {-0.326641, -0.191342, -0.326641},
+         {-0.461940, -0.191342, 0.000000},
+         {-0.326641, -0.191342, 0.326641},
+         {0.000000, -0.191342, 0.461940},
+         {0.326641, -0.191342, 0.326641},
+         {0.461940, -0.191342, 0.000000},
+         {0.353553, 0.000000, -0.353553},
+         {0.000000, 0.000000, -0.500000},
+         {-0.353553, 0.000000, -0.353553},
+         {-0.500000, 0.000000, 0.000000},
+         {-0.353553, 0.000000, 0.353553},
+         {0.000000, 0.000000, 0.500000},
+         {0.353553, 0.000000, 0.353553},
+         {0.500000, 0.000000, 0.000000},
+         {0.326641, 0.191342, -0.326641},
+         {0.000000, 0.191342, -0.461940},
+         {-0.326641, 0.191342, -0.326641},
+         {-0.461940, 0.191342, 0.000000},
+         {-0.326641, 0.191342, 0.326641},
+         {0.000000, 0.191342, 0.461940},
+         {0.326641, 0.191342, 0.326641},
+         {0.461940, 0.191342, 0.000000},
+         {0.250000, 0.353553, -0.250000},
+         {0.000000, 0.353553, -0.353553},
+         {-0.250000, 0.353553, -0.250000},
+         {-0.353553, 0.353553, 0.000000},
+         {-0.250000, 0.353553, 0.250000},
+         {0.000000, 0.353553, 0.353553},
+         {0.250000, 0.353553, 0.250000},
+         {0.353553, 0.353553, 0.000000},
+         {0.135299, 0.461940, -0.135299},
+         {0.000000, 0.461940, -0.191342},
+         {-0.135299, 0.461940, -0.135299},
+         {-0.191342, 0.461940, 0.000000},
+         {-0.135299, 0.461940, 0.135299},
+         {0.000000, 0.461940, 0.191342},
+         {0.135299, 0.461940, 0.135299},
+         {0.191342, 0.461940, 0.000000},
+         {0.000000, -0.500000, 0.000000},
+         {0.000000, 0.500000, 0.000000}};
 
   int f[112][3]
       = {{1, 2, 9},    {9, 2, 10},   {2, 3, 10},   {10, 3, 11},  {3, 4, 11},
@@ -983,12 +951,22 @@ std::unique_ptr<btCollisionShape> createBulletCollisionShapeFromAssimpScene(
       triMesh->addTriangle(vertices[0], vertices[1], vertices[2]);
     }
   }
-
-  auto gimpactMeshShape = std::make_unique<btGImpactMeshShape>(triMesh);
-  gimpactMeshShape->updateBound();
-  gimpactMeshShape->setUserPointer(triMesh);
-
-  return gimpactMeshShape;
+  const bool makeConvexMesh
+      = scene->mNumMeshes == 1 && isConvex(scene->mMeshes[0]);
+  if (makeConvexMesh)
+  {
+    auto convexMeshShape = std::make_unique<btConvexTriangleMeshShape>(triMesh);
+    convexMeshShape->setMargin(0.0f);
+    convexMeshShape->setUserPointer(triMesh);
+    return convexMeshShape;
+  }
+  else
+  {
+    auto gimpactMeshShape = std::make_unique<btGImpactMeshShape>(triMesh);
+    gimpactMeshShape->updateBound();
+    gimpactMeshShape->setUserPointer(triMesh);
+    return gimpactMeshShape;
+  }
 }
 
 //==============================================================================
@@ -1008,10 +986,19 @@ std::unique_ptr<btCollisionShape> createBulletCollisionShapeFromAssimpMesh(
     triMesh->addTriangle(vertices[0], vertices[1], vertices[2]);
   }
 
-  auto gimpactMeshShape = std::make_unique<btGImpactMeshShape>(triMesh);
-  gimpactMeshShape->updateBound();
-
-  return gimpactMeshShape;
+  const bool makeConvexMesh = isConvex(mesh);
+  if (makeConvexMesh)
+  {
+    auto convexMeshShape = std::make_unique<btConvexTriangleMeshShape>(triMesh);
+    convexMeshShape->setMargin(0.0f);
+    return convexMeshShape;
+  }
+  else
+  {
+    auto gimpactMeshShape = std::make_unique<btGImpactMeshShape>(triMesh);
+    gimpactMeshShape->updateBound();
+    return gimpactMeshShape;
+  }
 }
 
 //==============================================================================
@@ -1075,6 +1062,51 @@ std::unique_ptr<BulletCollisionShape> createBulletCollisionShapeFromHeightmap(
 
   return std::make_unique<BulletCollisionShape>(
       std::move(heightFieldShape), relativeShapeTransform);
+}
+
+//==============================================================================
+bool isConvex(const aiMesh* mesh, float threshold)
+{
+  // Check whether all the other vertices on the mesh is on the internal side of
+  // the face, assuming that the direction of the normal of the face is pointing
+  // external side.
+  //
+  // Reference: https://stackoverflow.com/a/40056279/3122234
+
+  const auto points = mesh->mVertices;
+  btVector3 vertices[3];
+  for (auto i = 0u; i < mesh->mNumFaces; ++i)
+  {
+    for (auto j = 0u; j < 3; ++j)
+    {
+      const aiVector3D& vertex = mesh->mVertices[mesh->mFaces[i].mIndices[j]];
+      vertices[j] = btVector3(vertex.x, vertex.y, vertex.z);
+    }
+    const btVector3& A = vertices[0];
+    const btVector3 B = vertices[1] - A;
+    const btVector3 C = vertices[2] - A;
+
+    const btVector3 BCNorm = B.cross(C).normalized();
+
+    const float checkPoint
+        = btVector3(
+              points[0].x - A.x(), points[0].y - A.y(), points[0].z - A.z())
+              .dot(BCNorm);
+
+    for (auto j = 0u; j < mesh->mNumVertices; ++j)
+    {
+      float dist
+          = btVector3(
+                points[j].x - A.x(), points[j].y - A.y(), points[j].z - A.z())
+                .dot(BCNorm);
+      if ((std::abs(checkPoint) > threshold) && (std::abs(dist) > threshold)
+          && (checkPoint * dist < 0.0f))
+      {
+        return false;
+      }
+    }
+  }
+  return true;
 }
 
 } // anonymous namespace

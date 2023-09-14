@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -264,8 +264,7 @@ public:
     if (mForceCountDown > 0)
     {
       BodyNode* bn = mWorld->getSkeleton("biped")->getBodyNode("h_abdomen");
-      auto shapeNodes = bn->getShapeNodesWith<VisualAspect>();
-      shapeNodes[0]->getVisualAspect()->setColor(dart::Color::Red());
+      bn->setColor(dart::Color::Red());
 
       if (mPositiveSign)
         bn->addExtForce(

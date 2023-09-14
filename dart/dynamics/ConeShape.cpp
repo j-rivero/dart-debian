@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -115,6 +115,12 @@ Eigen::Matrix3d ConeShape::computeInertia(
   const auto Izz = (3.0 / 10.0) * mass * radius2;
 
   return Eigen::Vector3d(Ixx, Ixx, Izz).asDiagonal();
+}
+
+//==============================================================================
+ShapePtr ConeShape::clone() const
+{
+  return std::make_shared<ConeShape>(mRadius, mHeight);
 }
 
 //==============================================================================

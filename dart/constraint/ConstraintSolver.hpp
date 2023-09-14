@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011-2021, The DART development contributors
+ * Copyright (c) 2011-2022, The DART development contributors
  * All rights reserved.
  *
  * The list of contributors can be found at:
@@ -117,10 +117,40 @@ public:
   constraint::ConstConstraintBasePtr getConstraint(std::size_t index) const;
 
   /// Returns all the constraints added to this ConstraintSolver.
+  ///
+  /// \deprecated Use eachConstraint() instead
+  DART_DEPRECATED(6.13)
   std::vector<constraint::ConstraintBasePtr> getConstraints();
 
   /// Returns all the constraints added to this ConstraintSolver.
+  ///
+  /// \deprecated Use eachConstraint() instead
+  DART_DEPRECATED(6.13)
   std::vector<constraint::ConstConstraintBasePtr> getConstraints() const;
+
+  /// Iterates all the constraints and invokes the callback function.
+  ///
+  /// \tparam Func: The callback function type. The function signature should be
+  /// equivalent to \c void(const ConstraintBase*) or \c bool(const
+  /// ConstraintBase*). If you want to conditionally iterate, use \c bool(const
+  /// ConstraintBase*) and return false when to stop iterating.
+  ///
+  /// \param[in] func: The callback function to be called for each
+  /// ConstraintBase.
+  template <typename Func>
+  void eachConstraint(Func func) const;
+
+  /// Iterates all the constraints and invokes the callback function.
+  ///
+  /// \tparam Func: The callback function type. The function signature should be
+  /// equivalent to \c void(ConstraintBase*) or \c bool(ConstraintBase*). If
+  /// you want to conditionally iterate, use \c bool(ConstraintBase*) and
+  /// return false when to stop iterating.
+  ///
+  /// \param[in] func: The callback function to be called for each
+  /// ConstraintBase.
+  template <typename Func>
+  void eachConstraint(Func func);
 
   /// Clears the last collision result
   void clearLastCollisionResult();
@@ -184,12 +214,36 @@ public:
   /// properties and registered skeletons and constraints will be copied over.
   virtual void setFromOtherConstraintSolver(const ConstraintSolver& other);
 
+  /// Get the handler used for computing contact surface parameters based on
+  /// the contact properties of the two colliding bodies.
+  ContactSurfaceHandlerPtr getLastContactSurfaceHandler() const;
+
+  /// Set the handler used for computing contact surface parameters based on
+  /// the contact properties of the two colliding bodies. This function
+  /// automatically sets the previous handler as parent of the given handler.
+  void addContactSurfaceHandler(ContactSurfaceHandlerPtr handler);
+
+  /// Remove the given contact surface handler. If it is not the last in the
+  /// chain of handlers, the neighbor handlers are automatically connected
+  /// when the given handler is removed. This function returns true when the
+  /// given handler was found. It returns false when the handler is not found.
+  /// The search procedure utilizes pointer equality (i.e. the shared pointers
+  /// have to point to the same address to be treated equal). Take special care
+  /// to make sure at least one handler is always available.
+  bool removeContactSurfaceHandler(const ContactSurfaceHandlerPtr& handler);
+
 protected:
   // TODO(JS): Docstring
   virtual void solveConstrainedGroup(ConstrainedGroup& group) = 0;
 
-  /// Check if the skeleton is contained in this solver
+  /// Checks if the skeleton is contained in this solver
+  ///
+  /// \deprecated Use hasSkeleton() instead.
+  DART_DEPRECATED(6.13)
   bool containSkeleton(const dynamics::ConstSkeletonPtr& skeleton) const;
+
+  /// Checks if the skeleton is contained in this solver
+  bool hasSkeleton(const dynamics::ConstSkeletonPtr& skeleton) const;
 
   /// Add skeleton if the constraint is not contained in this solver
   bool checkAndAddSkeleton(const dynamics::SkeletonPtr& skeleton);
@@ -256,9 +310,14 @@ protected:
 
   /// Constraint group list
   std::vector<ConstrainedGroup> mConstrainedGroups;
+
+  /// Factory for ContactSurfaceParams for each contact
+  ContactSurfaceHandlerPtr mContactSurfaceHandler;
 };
 
 } // namespace constraint
 } // namespace dart
+
+#include "dart/constraint/detail/ConstraintSolver-impl.hpp"
 
 #endif // DART_CONSTRAINT_CONSTRAINTSOVER_HPP_

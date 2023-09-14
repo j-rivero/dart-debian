@@ -66,7 +66,7 @@ Package: libdart-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart6.12 (= ${binary:Version}),
+         libdart6.13 (= ${binary:Version}),
          libeigen3-dev,
          libassimp-dev,
          libfcl-dev,
@@ -80,7 +80,7 @@ Description: ${source:Synopsis} - development files
  .
  This package contains main headers and other tools for development.
 
-Package: libdart6.12
+Package: libdart6.13
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -92,7 +92,7 @@ Description: ${source:Synopsis} - main library
  .
  This package contains the main library of DART.
 
-Package: libdart-collision-bullet6.12
+Package: libdart-collision-bullet6.13
 Architecture: any
 Section: libs
 Depends: ${shlibs:Depends},
@@ -109,13 +109,13 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-collision-bullet6.12 (= ${binary:Version}),
+         libdart-collision-bullet6.13 (= ${binary:Version}),
          libbullet-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - Bullet Collision Dev
  ${source:Extended-Description}
 
-Package: libdart-collision-ode6.12
+Package: libdart-collision-ode6.13
 Architecture: any
 Section: libs
 Depends: ${shlibs:Depends},
@@ -132,7 +132,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-collision-ode6.12 (= ${binary:Version}),
+         libdart-collision-ode6.13 (= ${binary:Version}),
          libode-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - ODE Collision Dev
@@ -146,7 +146,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-utils6.12 (= ${binary:Version}),
+         libdart-utils6.13 (= ${binary:Version}),
          libtinyxml-dev,
          libtinyxml2-dev,
          liburdfdom-dev
@@ -156,7 +156,7 @@ Description: ${source:Synopsis} - utils dev files
  .
  This package contains headers and other useful tools for development.
 
-Package: libdart-utils6.12
+Package: libdart-utils6.13
 Architecture: any
 Section: libs
 Depends: ${misc:Depends},
@@ -174,7 +174,7 @@ Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
          libdart-utils-dev,
-         libdart-utils-urdf6.12 (= ${binary:Version}),
+         libdart-utils-urdf6.13 (= ${binary:Version}),
          liburdfdom-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - URDF Component Development Files
@@ -183,7 +183,7 @@ Description: ${source:Synopsis} - URDF Component Development Files
  This package contains urdf utils headers and other useful tools for
  development.
 
-Package: libdart-utils-urdf6.12
+Package: libdart-utils-urdf6.13
 Architecture: any
 Section: libs
 Depends: ${shlibs:Depends},
@@ -201,7 +201,7 @@ Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
          libdart-utils-dev,
-         libdart-gui6.12 (= ${binary:Version}),
+         libdart-gui6.13 (= ${binary:Version}),
          freeglut3-dev,
          libxi-dev,
          libxmu-dev
@@ -211,7 +211,7 @@ Description: ${source:Synopsis} - gui dev files
  .
  This package contains GUI headers and other useful tools for GUI development.
 
-Package: libdart-gui6.12
+Package: libdart-gui6.13
 Architecture: any
 Section: libs
 Depends: ${misc:Depends},
@@ -228,7 +228,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-gui-dev,
-         libdart-gui-osg6.12 (= ${binary:Version}),
+         libdart-gui-osg6.13 (= ${binary:Version}),
          libopenthreads-dev,
          libopenscenegraph-dev
 Pre-Depends: ${misc:Pre-Depends}
@@ -238,7 +238,7 @@ Description: ${source:Synopsis} - gui-osg dev files
  This package contains GUI OpenSceneGraph headers and other useful tools for
  GUI OpenSceneGraph development.
 
-Package: libdart-gui-osg6.12
+Package: libdart-gui-osg6.13
 Architecture: any
 Section: libs
 Depends: ${misc:Depends},
@@ -255,7 +255,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-optimizer-nlopt6.12 (= ${binary:Version}),
+         libdart-optimizer-nlopt6.13 (= ${binary:Version}),
          libnlopt-cxx-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - nlopt optimizer dev
@@ -264,7 +264,7 @@ Description: ${source:Synopsis} - nlopt optimizer dev
  This package contains NLOPT optimizer headers and other useful tools for
  development.
 
-Package: libdart-optimizer-nlopt6.12
+Package: libdart-optimizer-nlopt6.13
 Architecture: any
 Section: libs
 Depends: ${misc:Depends},
@@ -281,7 +281,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-optimizer-ipopt6.12 (= ${binary:Version}),
+         libdart-optimizer-ipopt6.13 (= ${binary:Version}),
          coinor-libipopt-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - ipopt optimizer dev
@@ -290,7 +290,7 @@ Description: ${source:Synopsis} - ipopt optimizer dev
  This package contains IPOPT optimizer headers and other useful tools for
  development.
 
-Package: libdart-optimizer-ipopt6.12
+Package: libdart-optimizer-ipopt6.13
 Architecture: any
 Section: libs
 Depends: ${misc:Depends},
@@ -331,7 +331,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-external-imgui6.12 (= ${binary:Version})
+         libdart-external-imgui6.13 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - imgui dev
  ${source:Extended-Description}
@@ -339,7 +339,7 @@ Description: ${source:Synopsis} - imgui dev
  This package contains imgui headers and other useful tools for
  development.
 
-Package: libdart-external-imgui6.12
+Package: libdart-external-imgui6.13
 Architecture: any
 Section: libs
 Depends: ${misc:Depends},
@@ -356,7 +356,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-external-lodepng6.12 (= ${binary:Version})
+         libdart-external-lodepng6.13 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - lodepng dev
  ${source:Extended-Description}
@@ -364,7 +364,7 @@ Description: ${source:Synopsis} - lodepng dev
  This package contains lodepng headers and other useful tools for
  development.
 
-Package: libdart-external-lodepng6.12
+Package: libdart-external-lodepng6.13
 Architecture: any
 Section: libs
 Depends: ${misc:Depends},
@@ -380,7 +380,7 @@ Package: libdart-external-odelcpsolver-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-external-odelcpsolver6.12 (= ${binary:Version})
+         libdart-external-odelcpsolver6.13 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - odelcpsolver dev
  ${source:Extended-Description}
@@ -388,7 +388,7 @@ Description: ${source:Synopsis} - odelcpsolver dev
  This package contains odelcpsolver headers and other useful tools for
  development.
 
-Package: libdart-external-odelcpsolver6.12
+Package: libdart-external-odelcpsolver6.13
 Architecture: any
 Section: libs
 Depends: ${misc:Depends},

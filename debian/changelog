@@ -1,3 +1,10 @@
+dart (6.13.0+ds-1~osrf8) jammy; urgency=medium
+
+  * Rename all -dev files to 6.13
+  * Define B+R in all -dev files
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Wed, 20 Sep 2023 19:17:14 +0200
+
 dart (6.13.0+ds-1~osrf7) jammy; urgency=medium
 
   * Include file in utils

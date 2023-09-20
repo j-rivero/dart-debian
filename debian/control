@@ -60,7 +60,7 @@ Description: Kinematics Dynamics and Optimization Library
  Multibody dynamic simulation in DART is an extension of RTQL8, an open source
  software created by the Georgia Tech Graphics Lab.
 
-Package: libdart-dev
+Package: libdart6.13-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
@@ -92,22 +92,22 @@ Description: ${source:Synopsis} - main library
  for ode and bullet and the external odelcpsolver library. See
  https://github.com/gazebosim/gz-physics/issues/541 for more information.
 
-Package: libdart-collision-bullet-dev
+Package: libdart6.13-collision-bullet-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev,
+         libdart6.13-dev,
          libdart-core+collisions+odelcpsolver6.13 (= ${binary:Version}),
          libbullet-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - Bullet Collision Dev
  ${source:Extended-Description}
 
-Package: libdart-collision-ode-dev
+Package: libdart6.13-collision-ode-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev,
+         libdart6.13-dev,
          libdart-core+collisions+odelcpsolver6.13 (= ${binary:Version}),
          libode-dev
 Pre-Depends: ${misc:Pre-Depends}
@@ -117,11 +117,11 @@ Description: ${source:Synopsis} - ODE Collision Dev
  This package contains the collision ode headers and other tools for
  development.
 
-Package: libdart-utils-dev
+Package: libdart6.13-utils-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev,
+         libdart6.13-dev,
          libdart-utils6.13 (= ${binary:Version}),
          libtinyxml-dev,
          libtinyxml2-dev,
@@ -144,11 +144,11 @@ Description: ${source:Synopsis} - utils library
  .
  This package contains the DART utils library.
 
-Package: libdart-utils-urdf-dev
+Package: libdart6.13-utils-urdf-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev,
+         libdart6.13-dev,
          libdart-utils-dev,
          libdart-utils-urdf6.13 (= ${binary:Version}),
          liburdfdom-dev
@@ -171,11 +171,11 @@ Description: ${source:Synopsis} - Utils URDF Library
  .
  This package contains the Utils URDF library.
 
-Package: libdart-gui-dev
+Package: libdart6.13-gui-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev,
+         libdart6.13-dev,
          libdart-utils-dev,
          libdart-gui6.13 (= ${binary:Version}),
          freeglut3-dev,
@@ -199,7 +199,7 @@ Description: ${source:Synopsis} - gui library
  .
  This package contains the GUI library.
 
-Package: libdart-gui-osg-dev
+Package: libdart6.13-gui-osg-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
@@ -226,11 +226,11 @@ Description: ${source:Synopsis} - gui-osg library
  .
  This package contains the GUI OpenSceneGraph optimizer library.
 
-Package: libdart-optimizer-nlopt-dev
+Package: libdart6.13-optimizer-nlopt-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev,
+         libdart6.13-dev,
          libdart-optimizer-nlopt6.13 (= ${binary:Version}),
          libnlopt-cxx-dev
 Pre-Depends: ${misc:Pre-Depends}
@@ -252,11 +252,11 @@ Description: ${source:Synopsis} - nlopt optimizer lib
  .
  This package contains the NLOPT optimizer library.
 
-Package: libdart-optimizer-ipopt-dev
+Package: libdart6.13-optimizer-ipopt-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev,
+         libdart6.13-dev,
          libdart-optimizer-ipopt6.13 (= ${binary:Version}),
          coinor-libipopt-dev
 Pre-Depends: ${misc:Pre-Depends}
@@ -278,7 +278,7 @@ Description: ${source:Synopsis} - ipopt optimizer lib
  .
  This package contains the ipopt optimizer library.
 
-Package: libdart-external-convhull-3d-dev
+Package: libdart6.13-external-convhull-3d-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
@@ -289,11 +289,11 @@ Description: ${source:Synopsis} - convhull-3d dev
  .
  A header only C implementation of the 3-D quickhull algorithm.
 
-Package: libdart-external-ikfast-dev
+Package: libdart6.13-external-ikfast-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev
+         libdart6.13-dev
 Pre-Depends: ${misc:Pre-Depends}
 Multi-Arch: same
 Description: ${source:Synopsis} - ikfast dev
@@ -302,11 +302,11 @@ Description: ${source:Synopsis} - ikfast dev
  This package contains ikfast headers and other useful tools for
  development.
 
-Package: libdart-external-imgui-dev
+Package: libdart6.13-external-imgui-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev,
+         libdart6.13-dev,
          libdart-external-imgui6.13 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - imgui dev
@@ -327,11 +327,11 @@ Description: ${source:Synopsis} - imgui lib
  .
  This package contains the imgui library.
 
-Package: libdart-external-lodepng-dev
+Package: libdart6.13-external-lodepng-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev,
+         libdart6.13-dev,
          libdart-external-lodepng6.13 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - lodepng dev
@@ -352,7 +352,7 @@ Description: ${source:Synopsis} - lodepng lib
  .
  This package contains the lodepng library.
 
-Package: libdart-external-odelcpsolver-dev
+Package: libdart6.13-external-odelcpsolver-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
@@ -379,11 +379,11 @@ Description: ${source:Synopsis} - DART Python bindings
  .
  DART Python bindings.
 
-Package: libdart-all-dev
+Package: libdart6.13-all-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-dev,
+         libdart6.13-dev,
          libdart-utils-dev,
          libdart-utils-urdf-dev,
          libdart-gui-dev,

@@ -24,6 +24,7 @@ Build-Depends: debhelper-compat (= 13),
                libopenthreads-dev,
                libopenscenegraph-dev,
                libspdlog-dev,
+               freeglut3-dev,
                googletest,
                pybind11-dev,
                python3-all-dev,
@@ -63,7 +64,7 @@ Package: libdart-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart6.13 (= ${binary:Version}),
+         libdart-core+collisions+odelcpsolver6.13 (= ${binary:Version}),
          libeigen3-dev,
          libassimp-dev,
          libfcl-dev,
@@ -77,7 +78,7 @@ Description: ${source:Synopsis} - development files
  .
  This package contains main headers and other tools for development.
 
-Package: libdart6.13
+Package: libdart-core+collisions+odelcpsolver6.13
 Architecture: any
 Multi-Arch: same
 Section: libs
@@ -87,49 +88,27 @@ Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - main library
  ${source:Extended-Description}
  .
- This package contains the main library of DART.
-
-Package: libdart-collision-bullet6.13
-Architecture: any
-Section: libs
-Depends: ${shlibs:Depends},
-         ${misc:Depends}
-Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
-Description: ${source:Synopsis} - Bullet Collision Library
- ${source:Extended-Description}
- .
- This package contains the collision library with Bullet backend.
+ This package contains the main library of DART, the collisions libraries
+ for ode and bullet and the external odelcpsolver library. See
+ https://github.com/gazebosim/gz-physics/issues/541 for more information.
 
 Package: libdart-collision-bullet-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-collision-bullet6.13 (= ${binary:Version}),
+         libdart-core+collisions+odelcpsolver6.13 (= ${binary:Version}),
          libbullet-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - Bullet Collision Dev
  ${source:Extended-Description}
-
-Package: libdart-collision-ode6.13
-Architecture: any
-Section: libs
-Depends: ${shlibs:Depends},
-         ${misc:Depends}
-Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
-Description: ${source:Synopsis} - ODE Collision Library
- ${source:Extended-Description}
- .
- This package contains the collision library with ODE backend.
 
 Package: libdart-collision-ode-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-dev,
-         libdart-collision-ode6.13 (= ${binary:Version}),
+         libdart-core+collisions+odelcpsolver6.13 (= ${binary:Version}),
          libode-dev
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - ODE Collision Dev
@@ -377,25 +356,13 @@ Package: libdart-external-odelcpsolver-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-external-odelcpsolver6.13 (= ${binary:Version})
+         libdart-core+collisions+odelcpsolver6.13 (= ${binary:Version})
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - odelcpsolver dev
  ${source:Extended-Description}
  .
  This package contains odelcpsolver headers and other useful tools for
  development.
-
-Package: libdart-external-odelcpsolver6.13
-Architecture: any
-Section: libs
-Depends: ${misc:Depends},
-         ${shlibs:Depends}
-Pre-Depends: ${misc:Pre-Depends}
-Multi-Arch: same
-Description: ${source:Synopsis} - odelcpsolver lib
- ${source:Extended-Description}
- .
- This package contains the odelcpsolver library.
 
 Package: python3-dartpy
 Architecture: any

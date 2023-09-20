@@ -1,3 +1,22 @@
+dart (6.13.0+ds-1~osrf7) jammy; urgency=medium
+
+  * Include file in utils
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Tue, 19 Sep 2023 14:56:00 +0200
+
+dart (6.13.0+ds-1~osrf6) jammy; urgency=medium
+
+  * Need freeglut as b-dep
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Tue, 19 Sep 2023 13:29:31 +0200
+
+dart (6.13.0+ds-1~osrf5) jammy; urgency=medium
+
+  * Package core + collisions + odelcpsolver together
+  * Disable testing
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Tue, 19 Sep 2023 12:26:40 +0200
+
 dart (6.13.0+ds-1) unstable; urgency=medium
 
   * New upstream version 6.13.0+ds

@@ -1,0 +1,4 @@
+usr/lib/*/libdart-collision-bullet.so.*
+usr/lib/*/libdart-collision-ode.so.*
+usr/lib/*/libdart-external-odelcpsolver.so.*
+usr/lib/*/libdart.so.*

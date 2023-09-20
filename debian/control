@@ -72,6 +72,8 @@ Depends: ${misc:Depends},
          libspdlog-dev,
          libdart-external-odelcpsolver-dev,
          libdart-external-convhull-3d-dev
+Breaks: libdart-dev (<< 6.14.0)
+Replaces: libdart-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - development files
  ${source:Extended-Description}
@@ -99,6 +101,8 @@ Depends: ${misc:Depends},
          libdart6.13-dev,
          libdart-core+collisions+odelcpsolver6.13 (= ${binary:Version}),
          libbullet-dev
+Breaks: libdart-collision-bullet-dev (<< 6.14.0)
+Replaces: libdart-collision-bullet-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - Bullet Collision Dev
  ${source:Extended-Description}
@@ -110,6 +114,8 @@ Depends: ${misc:Depends},
          libdart6.13-dev,
          libdart-core+collisions+odelcpsolver6.13 (= ${binary:Version}),
          libode-dev
+Breaks: libdart-collision-ode-dev (<< 6.14.0)
+Replaces: libdart-collision-ode-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - ODE Collision Dev
  ${source:Extended-Description}
@@ -126,6 +132,8 @@ Depends: ${misc:Depends},
          libtinyxml-dev,
          libtinyxml2-dev,
          liburdfdom-dev
+Breaks: libdart-utils-dev (<< 6.14.0)
+Replaces:  libdart-utils-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - utils dev files
  ${source:Extended-Description}
@@ -152,6 +160,8 @@ Depends: ${misc:Depends},
          libdart-utils-dev,
          libdart-utils-urdf6.13 (= ${binary:Version}),
          liburdfdom-dev
+Breaks: libdart-utils-urdf-dev (<< 6.14.0)
+Replaces: libdart-utils-urdf-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - URDF Component Development Files
  ${source:Extended-Description}
@@ -181,6 +191,8 @@ Depends: ${misc:Depends},
          freeglut3-dev,
          libxi-dev,
          libxmu-dev
+Breaks: libdart-gui-dev (<< 6.14.0)
+Replaces: libdart-gui-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - gui dev files
  ${source:Extended-Description}
@@ -207,6 +219,8 @@ Depends: ${misc:Depends},
          libdart-gui-osg6.13 (= ${binary:Version}),
          libopenthreads-dev,
          libopenscenegraph-dev
+Breaks: libdart-gui-osg-dev (<< 6.14.0)
+Replaces: libdart-gui-osg-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - gui-osg dev files
  ${source:Extended-Description}
@@ -233,6 +247,8 @@ Depends: ${misc:Depends},
          libdart6.13-dev,
          libdart-optimizer-nlopt6.13 (= ${binary:Version}),
          libnlopt-cxx-dev
+Breaks: libdart-optimizer-nlopt-dev (<< 6.14.0)
+Replaces: libdart-optimizer-nlopt-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - nlopt optimizer dev
  ${source:Extended-Description}
@@ -259,6 +275,8 @@ Depends: ${misc:Depends},
          libdart6.13-dev,
          libdart-optimizer-ipopt6.13 (= ${binary:Version}),
          coinor-libipopt-dev
+Breaks: libdart-optimizer-ipopt-dev (<< 6.14.0)
+Replaces: libdart-optimizer-ipopt-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - ipopt optimizer dev
  ${source:Extended-Description}
@@ -281,6 +299,8 @@ Description: ${source:Synopsis} - ipopt optimizer lib
 Package: libdart6.13-external-convhull-3d-dev
 Architecture: any
 Section: libdevel
+Breaks: libdart-external-convhull-3d-dev (<< 6.14.0)
+Replaces: libdart-external-convhull-3d-dev (<< 6.14.0)
 Depends: ${misc:Depends},
 Pre-Depends: ${misc:Pre-Depends}
 Multi-Arch: same
@@ -294,6 +314,8 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart6.13-dev
+Breaks: libdart-external-ikfast-dev (<< 6.14.0)
+Replaces: libdart-external-ikfast-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Multi-Arch: same
 Description: ${source:Synopsis} - ikfast dev
@@ -308,6 +330,8 @@ Section: libdevel
 Depends: ${misc:Depends},
          libdart6.13-dev,
          libdart-external-imgui6.13 (= ${binary:Version})
+Breaks: libdart-external-imgui-dev (<< 6.14.0)
+Replaces: libdart-external-imgui-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - imgui dev
  ${source:Extended-Description}
@@ -333,6 +357,8 @@ Section: libdevel
 Depends: ${misc:Depends},
          libdart6.13-dev,
          libdart-external-lodepng6.13 (= ${binary:Version})
+Breaks: libdart-external-lodepng-dev (<< 6.14.0)
+Replaces: libdart-external-lodepng-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - lodepng dev
  ${source:Extended-Description}
@@ -357,6 +383,8 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart-core+collisions+odelcpsolver6.13 (= ${binary:Version})
+Breaks: libdart-external-odelcpsolver-dev (<< 6.14.0)
+Replaces: libdart-external-odelcpsolver-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Description: ${source:Synopsis} - odelcpsolver dev
  ${source:Extended-Description}
@@ -364,9 +392,11 @@ Description: ${source:Synopsis} - odelcpsolver dev
  This package contains odelcpsolver headers and other useful tools for
  development.
 
-Package: python3-dartpy
+Package: python3-dartpy6.13
 Architecture: any
 Section: python
+Breaks: python3-dartpy (<< 6.14.0)
+Replaces: python3-dartpy (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends},
          ${python3:Depends},
@@ -392,7 +422,9 @@ Depends: ${misc:Depends},
          libdart-optimizer-ipopt-dev,
          libdart-collision-bullet-dev,
          libdart-collision-ode-dev,
-         python3-dartpy
+         python3-dartpy6.13
+Breaks: libdart-all-dev (<< 6.14.0)
+Replaces: libdart-all-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
 Multi-Arch: same
 Description: ${source:Synopsis} - All Development Files

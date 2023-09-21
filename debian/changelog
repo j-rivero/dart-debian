@@ -1,3 +1,9 @@
+dart (6.13.0+ds-1~osrf9) jammy; urgency=medium
+
+  * Missing 6.13 -dev dependencies
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Thu, 21 Sep 2023 16:48:55 +0200
+
 dart (6.13.0+ds-1~osrf8) jammy; urgency=medium
 
   * Rename all -dev files to 6.13

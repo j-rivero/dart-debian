@@ -70,8 +70,8 @@ Depends: ${misc:Depends},
          libfcl-dev,
          libbullet-dev,
          libspdlog-dev,
-         libdart-external-odelcpsolver-dev,
-         libdart-external-convhull-3d-dev
+         libdart6.13-external-odelcpsolver-dev,
+         libdart6.13-external-convhull-3d-dev
 Breaks: libdart-dev (<< 6.14.0)
 Replaces: libdart-dev (<< 6.14.0)
 Pre-Depends: ${misc:Pre-Depends}
@@ -157,7 +157,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart6.13-dev,
-         libdart-utils-dev,
+         libdart6.13-utils-dev,
          libdart-utils-urdf6.13 (= ${binary:Version}),
          liburdfdom-dev
 Breaks: libdart-utils-urdf-dev (<< 6.14.0)
@@ -186,7 +186,7 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart6.13-dev,
-         libdart-utils-dev,
+         libdart6.13-utils-dev,
          libdart-gui6.13 (= ${binary:Version}),
          freeglut3-dev,
          libxi-dev,
@@ -215,7 +215,7 @@ Package: libdart6.13-gui-osg-dev
 Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
-         libdart-gui-dev,
+         libdart6.13-gui-dev,
          libdart-gui-osg6.13 (= ${binary:Version}),
          libopenthreads-dev,
          libopenscenegraph-dev
@@ -414,14 +414,14 @@ Architecture: any
 Section: libdevel
 Depends: ${misc:Depends},
          libdart6.13-dev,
-         libdart-utils-dev,
-         libdart-utils-urdf-dev,
-         libdart-gui-dev,
-         libdart-gui-osg-dev,
-         libdart-optimizer-nlopt-dev,
-         libdart-optimizer-ipopt-dev,
-         libdart-collision-bullet-dev,
-         libdart-collision-ode-dev,
+         libdart6.13-utils-dev,
+         libdart6.13-utils-urdf-dev,
+         libdart6.13-gui-dev,
+         libdart6.13-gui-osg-dev,
+         libdart6.13-optimizer-nlopt-dev,
+         libdart6.13-optimizer-ipopt-dev,
+         libdart6.13-collision-bullet-dev,
+         libdart6.13-collision-ode-dev,
          python3-dartpy6.13
 Breaks: libdart-all-dev (<< 6.14.0)
 Replaces: libdart-all-dev (<< 6.14.0)

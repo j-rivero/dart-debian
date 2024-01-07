@@ -1,11 +1,11 @@
-ddart (6.13.1+ds-2~osrf1) jammy; urgency=medium
+dart (6.13.1+ds-2~osrf1) jammy; urgency=medium
 
   * Need to add the ~osrf1 postfix. To keep versioning correctly ordered
     also need to bump to ds-2.
 
  -- Jose Luis Rivero <jrivero@osrfoundation.org>  Fri, 05 Jan 2024 15:13:40 +0100
 
-art (6.13.1+ds-1) jammy; urgency=medium
+dart (6.13.1+ds-1) jammy; urgency=medium
 
   * New upstream version 6.13.1+ds
 

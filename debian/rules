@@ -9,7 +9,8 @@ export PYBUILD_CONFIGURE_ARGS=-DPYVER={version} \
 		-DDART_SKIP_FLANN=ON \
 		-DDART_SKIP_PAGMO=ON \
 		-DDART_VERBOSE=ON \
-		-DDARTPY_PYTHON_VERSION={version}
+		-DDARTPY_PYTHON_VERSION={version} \
+		-DDART_TREAT_WARNINGS_AS_ERRORS=OFF  # See https://github.com/dartsim/dart/issues/1781
 
 ifneq (,$(filter $(DEB_HOST_ARCH),mips mipsel))
   export DEB_CXXFLAGS_MAINT_APPEND += -g1

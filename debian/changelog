@@ -1,3 +1,10 @@
+dart (6.13.1+ds-2~osrf3) noble; urgency=medium
+
+  * Noble release
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Fri, 05 Jan 2024 15:13:40 +0100
+
+
 dart (6.13.1+ds-2~osrf1) jammy; urgency=medium
 
   * Need to add the ~osrf1 postfix. To keep versioning correctly ordered

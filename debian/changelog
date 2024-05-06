@@ -1,3 +1,11 @@
+dart (6.13.2+ds-1-osrf1) noble; urgency=medium
+
+  * Sync d/rules to ubuntu
+  * New upstream version 6.13.2+ds
+  * Set version to operate on top of Ubuntu's
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Mon, 06 May 2024 18:43:11 +0200
+
 dart (6.13.1+ds-2~osrf3) noble; urgency=medium
 
   * Noble release

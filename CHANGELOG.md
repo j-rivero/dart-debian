@@ -1,4 +1,20 @@
+# DART Changelog
+
 ## DART 6
+
+### [DART 6.13.2 (2024-03-17)](https://github.com/dartsim/dart/milestone/75?closed=1)
+
+* Tested Platforms
+
+  * Linux
+    * Ubuntu 22.04 LTS on amd64 / GCC 11.2 / amd64
+    * Ubuntu 24.04 LTS on amd64 / GCC 13.2 / amd64
+  * macOS 12 (Monterey) / AppleClang 14 / amd64
+  * Windows / MSVC 19.38 / amd64
+
+* Build
+
+  * Fixed build with GCC >= 13: [#1793](https://github.com/dartsim/dart/pull/1793)
 
 ### [DART 6.13.1 (2024-01-04)](https://github.com/dartsim/dart/milestone/74?closed=1)
 
@@ -9,18 +25,12 @@
   * macOS 12 (Monterey) / Clang 14 / amd64
   * Windows / MSVC 19.37 / amd64
 
-* Dependency
-
-  * Added required dependencies: fmt
-  * Added optional dependencies: spdlog
-  * Removed required dependencies: Boost
-
 * Build
 
   * Fixed build with urdfdom 4.0.0: [#1779](https://github.com/dartsim/dart/pull/1779)
   * Fixed invalid array access in moving skeleton subtree: [#1778](https://github.com/dartsim/dart/pull/1778)
 
-* Dynamic
+* Dynamics
 
   * Fixed joint not recovering after reaching position limits in servo mode: [#1774](https://github.com/dartsim/dart/pull/1774)
 

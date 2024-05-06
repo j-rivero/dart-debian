@@ -1,4 +1,4 @@
-dart (6.13.2+ds-1osrf1) noble; urgency=medium
+dart (6.13.1+ds-1osrf1) noble; urgency=medium
 
   * Sync d/rules to ubuntu
   * New upstream version 6.13.2+ds

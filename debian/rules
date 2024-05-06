@@ -9,8 +9,7 @@ export PYBUILD_CONFIGURE_ARGS=-DPYVER={version} \
 		-DDART_SKIP_FLANN=ON \
 		-DDART_SKIP_PAGMO=ON \
 		-DDART_VERBOSE=ON \
-		-DDARTPY_PYTHON_VERSION={version} \
-		-DDART_TREAT_WARNINGS_AS_ERRORS=OFF  # See https://github.com/dartsim/dart/issues/1781
+		-DDARTPY_PYTHON_VERSION={version}
 
 ifneq (,$(filter $(DEB_HOST_ARCH),mips mipsel))
   export DEB_CXXFLAGS_MAINT_APPEND += -g1
@@ -25,8 +24,12 @@ execute_after_dh_auto_install:
 execute_before_dh_auto_test:
 	PYBUILD_BUILD_ARGS="tests" dh_auto_build
 
+# s390 assimp support is broken for STL https://github.com/assimp/assimp/issues/5509
+ifeq ($(DEB_HOST_ARCH),s390x)
 override_dh_auto_test:
-	 true
+	PYBUILD_TEST_ARGS="ARGS\+='-E test_MjcfParser\|test_SdfParser\|test_DartLoader\|test_IkFast\|test_ForwardKinematics'" \
+		dh_auto_test
+endif
 
 override_dh_compress:
 	dh_compress \

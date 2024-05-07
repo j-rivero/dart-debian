@@ -1,3 +1,10 @@
+dart (6.13.2+ds1-1~osrf1) jammy; urgency=medium
+
+  * New upstream version 6.13.2+ds1
+    (really the same but used on master_noble branch)
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Tue, 07 May 2024 18:29:57 +0200
+
 dart (6.13.1+ds-2~osrf1) jammy; urgency=medium
 
   * Need to add the ~osrf1 postfix. To keep versioning correctly ordered

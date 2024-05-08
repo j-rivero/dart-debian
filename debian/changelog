@@ -1,10 +1,17 @@
+dart (6.13.2+ds1-1~osrf2~noble) noble; urgency=medium
+
+  * Use postfixes for distributions to have same version on the PPA for more
+    than on distribution.
+
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Wed, 08 May 2024 17:22:49 +0200
+
 dart (6.13.2+ds1-1~osrf1) noble; urgency=medium
 
   * New upstream version 6.13.2+ds1
   * Sync d/rules to ubuntu
   * Set version to operate on top of Ubuntu's
 
- -- Jose Luis Rivero <jrivero@osrfoundation.org>  Mon, 06 May 2024 18:43:11 +0200
+ -- Jose Luis Rivero <jrivero@osrfoundation.org>  Wed, 08 May 2024 17:22:42 +0200
 
 dart (6.13.1+ds-2~osrf3) noble; urgency=medium
 
